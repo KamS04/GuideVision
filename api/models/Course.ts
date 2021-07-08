@@ -18,4 +18,5 @@ class Course {
     domestic_notes: String = '';
     international_tuition: Number = 0;
     international_notes: String = '';
+    notes: String[] = [];
 }
