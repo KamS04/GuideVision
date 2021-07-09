@@ -1,4 +1,4 @@
-class University {
+module.exports = class University {
     constructor(
         id,
         name,
@@ -20,4 +20,4 @@ class University {
         this.country = country;
         this.url = url;
     }
-}
+};

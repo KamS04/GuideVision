@@ -1,4 +1,4 @@
-class Category {
+module.exports = class Category {
     constructor(id, title, attachedCourses, futureJobOpporunities) {
         this.id = id;
         this.title = title;

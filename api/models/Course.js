@@ -41,3 +41,8 @@ class Course {
         this.notes = notes;
     }
 }
+
+module.exports = {
+    Prerequisites,
+    Course
+};
