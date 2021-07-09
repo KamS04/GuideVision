@@ -119,8 +119,8 @@ const getAllCourses = (limit, offset) => {
 
 const getMinifiedCourseDetails = (...ids) => {
     return new Promise((resolve, reject) => {
-        ids_selector = ids.map((val) => '?').join(', ')
-        db.all(queries.selectMinifiedCourseDetails(ids_selector), ids, (err, row) => {
+        idsSelector = ids.map((val) => '?').join(', ')
+        db.all(queries.selectMinifiedCourseDetails(idsSelector), ids, (err, row) => {
             if (err) {
                 reject(err);
                 return;
@@ -134,5 +134,8 @@ module.exports = {
     getUniversity,
     getAllUniversities,
     getAllCategories,
-    getCategoryDetails
+    getCategoryDetails,
+    getCourseById,
+    getAllCourses,
+    getMinifiedCourseDetails
 }
