@@ -50,12 +50,13 @@ module.exports = {
 
     selectUniversityById: `SELECT * FROM ${sqlNames.UNIVERSITIES} WHERE ${sqlNames.UNI_ID} = ?;`,
     selectAllUniversities: `SELECT * FROM ${sqlNames.UNIVERSITIES} LIMIT ? OFFSET ?;`,
-    selectMinifiedCategories: `SELECT ${sqlNames.CATEGORY_ID, sqlNames.CATEGORY_TITLE} FROM ${sqlNames.CATEGORIES} LIMIT ? OFFSET ?;`,
+    selectMinifiedCategories: `SELECT * FROM ${sqlNames.CATEGORIES} LIMIT ? OFFSET ?;`,
     selectCategoryById: `SELECT * FROM ${sqlNames.CATEGORIES} WHERE ${sqlNames.CATEGORY_ID} = ?;`,
     selectCourseById: `SELECT * FROM ${sqlNames.COURSES} WHERE ${sqlNames.COURSE_ID} = ?;`,
     selectAllCourses: `SELECT * FROM ${sqlNames.COURSES} LIMIT ? OFFSET ?;`,
     selectMinifiedCourseDetails: (idsSelector) => {
         return `SELECT
+            course.${sqlNames.COURSE_ID},
             course.${sqlNames.COURSE_TITLE},
             university.${sqlNames.UNI_NAME},
             university.${sqlNames.UNI_ICON_URL} 
@@ -64,6 +65,22 @@ module.exports = {
         INNER JOIN ${sqlNames.UNIVERSITIES} university 
         ON
             course.${sqlNames.COURSE_UNI} = university.${sqlNames.UNI_ID}
-        WHERE course.${sqlNames.COURSE_ID} in ${idsSelector};`;
-    }
+        WHERE course.${sqlNames.COURSE_ID} in (${idsSelector});`;
+    },
+    selectMinifiedCourseByCategory: 
+    `SELECT
+        course.${sqlNames.COURSE_ID},
+        course.${sqlNames.COURSE_TITLE},
+        university.${sqlNames.UNI_NAME},
+        university.${sqlNames.UNI_ICON_URL}
+    FROM
+        ${sqlNames.CAT_COU_JUNC} ccj
+    INNER JOIN ${sqlNames.COURSES} course
+    ON
+        ccj.${sqlNames.CCJ_COURSE} = course.${sqlNames.COURSE_ID}
+    INNER JOIN ${sqlNames.UNIVERSITIES} university
+    ON
+        course.${sqlNames.COURSE_UNI} = university.${sqlNames.UNI_ID}
+    WHERE
+        ccj.${sqlNames.CCJ_CATEGORY} = ?;`
 }

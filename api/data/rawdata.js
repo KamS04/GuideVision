@@ -107,7 +107,7 @@ const getCourseById = (id) => {
 
 const getAllCourses = (limit, offset) => {
     return new Promise((resolve, reject) => {
-        db.get(queries.selectAllCourses, [limit, offset], (err, row) => {
+        db.all(queries.selectAllCourses, [limit, offset], (err, row) => {
             if (err) {
                 reject(err);
                 return;
@@ -120,7 +120,19 @@ const getAllCourses = (limit, offset) => {
 const getMinifiedCourseDetails = (...ids) => {
     return new Promise((resolve, reject) => {
         idsSelector = ids.map((val) => '?').join(', ')
-        db.all(queries.selectMinifiedCourseDetails(idsSelector), ids, (err, row) => {
+        db.all(queries.selectMinifiedCourseDetails(idsSelector), ids, (err, rows) => {
+            if (err) {
+                reject(err);
+                return;
+            }
+            resolve(rows);
+        })
+    })
+}
+
+const getMinifiedCoursesByCategory = (categoryId) => {
+    return new Promise((resolve, reject) => {
+        db.all(queries.selectMinifiedCourseByCategory, categoryId, (err, rows) => {
             if (err) {
                 reject(err);
                 return;
@@ -137,5 +149,6 @@ module.exports = {
     getCategoryDetails,
     getCourseById,
     getAllCourses,
-    getMinifiedCourseDetails
+    getMinifiedCourseDetails,
+    getMinifiedCoursesByCategory
 }

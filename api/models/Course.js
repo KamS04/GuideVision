@@ -1,7 +1,21 @@
-class Prerequisites {
+class Prerequisite {
     constructor(title, prerequisites) {
         this.title = title;
         this.prerequisites = prerequisites;
+    }
+}
+
+class MiniCourse {
+    constructor(
+        courseId,
+        courseTitle,
+        universityName,
+        universityIconUrl
+    ) {
+        this.courseId = courseId;
+        this.courseTitle = courseTitle;
+        this.universityName = universityName;
+        this.universityIconUrl = universityIconUrl;
     }
 }
 
@@ -12,9 +26,7 @@ class Course {
         title,
         faculty,
         prerequisites,
-        recommendedPrequesites,
         requiredAverage,
-        additionalDetails,
         domesticTution,
         domesticBooks,
         domesticNotes,
@@ -29,9 +41,7 @@ class Course {
         this.title = title;
         this.faculty = faculty;
         this.prerequisites = prerequisites;
-        this.recommendedPrequesites = recommendedPrequesites;
         this.requiredAverage = requiredAverage;
-        this.additionalDetails = additionalDetails;
         this.domesticTution = domesticTution;
         this.domesticBooks = domesticBooks;
         this.domesticNotes = domesticNotes;
@@ -43,6 +53,7 @@ class Course {
 }
 
 module.exports = {
-    Prerequisites,
-    Course
+    Prerequisite,
+    Course,
+    MiniCourse
 };

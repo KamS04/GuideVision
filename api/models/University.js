@@ -8,7 +8,9 @@ module.exports = class University {
         city,
         provinceState,
         country,
+        postalCode,
         url,
+        iconUrl
     ) {
         this.id = id;
         this.name = name;
@@ -18,6 +20,8 @@ module.exports = class University {
         this.city = city;
         this.provinceState = provinceState;
         this.country = country;
+        this.postalCode = postalCode;
         this.url = url;
+        this.iconUrl = iconUrl;
     }
 };
