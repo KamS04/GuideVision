@@ -5,29 +5,11 @@ const queries = require('./queries');
 const { json } = require('express');
 
 const db = new sqlite.Database(config.DB_FILE, () => {
-    sqlNames.CATEGORIES_TABLE
+    console.log(`Connected to ${config.DB_FILE}...`)
 })
 
 // Initial Table Creations
-db.exec(sqlNames.CATEGORIES_TABLE, (err) => {
-    if (err) {
-        console.error('Categories table');
-        throw err;
-    }
-
-    console.log('Categories table created/exists...');
-});
-
-db.exec(sqlNames.COURSES_TABLE, (err) => {
-    if (err) {
-        console.error('Courses table');
-        throw err;
-    }
-
-    console.log('Courses table created/exists...');
-});
-
-db.exec(sqlNames.UNIVERSITIES_TABLE, (err) => {
+db.exec(queries.universityTableQuery, (err) => {
     if (err) {
         console.error('Universities table');
         throw err;
@@ -36,7 +18,25 @@ db.exec(sqlNames.UNIVERSITIES_TABLE, (err) => {
     console.log('Universities table created/exists...');
 });
 
-db.exec(sqlNames.CATEGORY_COURSE_TABLE, (err) => {
+db.exec(queries.courseTableQuery, (err) => {
+    if (err) {
+        console.error('Courses table');
+        throw err;
+    }
+
+    console.log('Courses table created/exists...');
+});
+
+db.exec(queries.categoryTableQuery, (err) => {
+    if (err) {
+        console.error('Categories table');
+        throw err;
+    }
+
+    console.log('Categories table created/exists...');
+});
+
+db.exec(queries.categoryCourseJunctionTableQuery, (err) => {
     if (err) {
         console.error('Category-Course-Junction table');
         throw err;
