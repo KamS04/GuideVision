@@ -8,6 +8,7 @@ module.exports.UNI_STREET_ADDRESS = 'Street';
 module.exports.UNI_CITY = 'City';
 module.exports.UNI_PROVINCE = 'Province';
 module.exports.UNI_COUNTRY = 'Country';
+module.exports.UNI_POSTAL = 'PostalCode';
 module.exports.UNI_URL = 'Url';
 module.exports.UNI_ICON_URL = 'IconUrl';
 

@@ -9,6 +9,7 @@ const universityTableQuery = `CREATE TABLE IF NOT EXISTS ${sqlNames.UNIVERSITIES
     ${sqlNames.UNI_CITY} TEXT,
     ${sqlNames.UNI_PROVINCE} TEXT,
     ${sqlNames.UNI_COUNTRY} TEXT,
+    ${sqlNames.UNI_POSTAL} TEXT,
     ${sqlNames.UNI_URL} TEXT,
     ${sqlNames.UNI_ICON_URL} TEXT
 );`;
