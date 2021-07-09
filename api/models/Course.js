@@ -16,8 +16,10 @@ class Course {
         requiredAverage,
         additionalDetails,
         domesticTution,
+        domesticBooks,
         domesticNotes,
         internationalTuition,
+        internationalBooks,
         internationalNotes,
         notes,
     ) {
@@ -31,8 +33,10 @@ class Course {
         this.requiredAverage = requiredAverage;
         this.additionalDetails = additionalDetails;
         this.domesticTution = domesticTution;
+        this.domesticBooks = domesticBooks;
         this.domesticNotes = domesticNotes;
         this.internationalTuition = internationalTuition;
+        this.internationalBooks = internationalBooks;
         this.internationalNotes = internationalNotes;
         this.notes = notes;
     }
