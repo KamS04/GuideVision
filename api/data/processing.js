@@ -1,3 +1,4 @@
+const sqlNames = require('./sqlnames');
 const rawData = require('./rawdata');
 const University = require('../models/University');
 const Category = require('../models/Category');
@@ -7,16 +8,17 @@ NOT_FOUND = 'Not Found';
 
 const mapUniversity = (rawUniversity) => {
     return new University(
-        rawUniversity.ID,
-        rawUniversity.Name,
-        JSON.parse(rawUniversity.Faculties),
-        rawUniversity.Phone,
-        rawUniversity.Street,
-        rawUniversity.City,
-        rawUniversity.Province,
-        rawUniversity.Country,
-        rawUniversity.Url,
-        rawUniversity.IconUrl
+        rawUniversity[sqlNames.UNI_ID],
+        rawUniversity[sqlNames.UNI_NAME],
+        JSON.parse(rawUniversity[sqlNames.UNI_FACULTIES]),
+        rawUniversity[sqlNames.UNI_PHONE],
+        rawUniversity[sqlNames.UNI_STREET_ADDRESS],
+        rawUniversity[sqlNames.UNI_CITY],
+        rawUniversity[sqlNames.UNI_PROVINCE],
+        rawUniversity[sqlNames.UNI_COUNTRY],
+        rawUniversity[sqlNames.UNI_POSTAL],
+        rawUniversity[sqlNames.UNI_URL],
+        rawUniversity[sqlNames.UNI_ICON_URL],
     );
 };
 
@@ -35,9 +37,9 @@ const getAllUniversities = async (limit, offset) => {
 
 const mapCategory = (rawCategory) => {
     return new Category(
-        rawCategory.ID,
-        rawCategory.CatTitle,
-        JSON.parse(rawCategory.Future)
+        rawCategory[sqlNames.CATEGORY_ID],
+        rawCategory[sqlNames.CATEGORY_TITLE],
+        JSON.parse(rawCategory[sqlNames.CATEGORY_FUTURE_JOB_OPPS])
     );
 };
 
@@ -65,19 +67,19 @@ const mapPrerequisites = (prerequisitesString) => {
 
 const mapCourse = (rawCourse) => {
     return new Course(
-        rawCourse.ID,
-        rawCourse.CUniversity,
-        rawCourse.Title,
-        rawCourse.CFaculty,
-        mapPrerequisites(rawCourse.Prerequisite),
-        rawCourse.RequiredAverage,
-        rawCourse.DomesticTuition,
-        rawCourse.DomesticBooks,
-        rawCourse.DomesticNotes,
-        rawCourse.InternationalTuition,
-        rawCourse.InternationalBooks,
-        rawCourse.InternationalNotes,
-        JSON.parse(rawCourse.Notes)
+        rawCourse[sqlNames.COURSE_ID],
+        rawCourse[sqlNames.COURSE_UNI],
+        rawCourse[sqlNames.COURSE_TITLE],
+        mapPrerequisites(rawCourse[sqlNames.COURSE_FACULTY]),
+        rawCourse[sqlNames.COURSE_PREQ],
+        rawCourse[sqlNames.COURSE_AVE],
+        rawCourse[sqlNames.COURSE_DOM_TUI],
+        rawCourse[sqlNames.COURSE_DOM_BOOKS],
+        rawCourse[sqlNames.COURSE_DOM_NOTES],
+        rawCourse[sqlNames.COURSE_INT_TUI],
+        rawCourse[sqlNames.COURSE_INT_BOOKS],
+        rawCourse[sqlNames.COURSE_INT_NOTES],
+        JSON.parse(rawCourse[sqlNames.COURSE_NOTES]),
     );
 };
 
@@ -96,10 +98,10 @@ const getAllCourses = async (limit, offset) => {
 
 const mapMinifiedCourses = (rawMinifiedCourse) => {
     return new MiniCourse(
-        rawMinifiedCourse.ID,
-        rawMinifiedCourse.Title,
-        rawMinifiedCourse.Name,
-        rawMinifiedCourse.IconUrl
+        rawMinifiedCourse[sqlNames.COURSE_ID],
+        rawMinifiedCourse[sqlNames.COURSE_TITLE],
+        rawMinifiedCourse[sqlNames.UNI_NAME],
+        rawMinifiedCourse[sqlNames.UNI_ICON_URL]
     );
 };
 
