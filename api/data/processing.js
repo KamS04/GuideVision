@@ -114,6 +114,8 @@ const getMinifiedCoursesByCategory = async (categoryId) => {
 };
 
 module.exports = {
+    NOT_FOUND,
+    
     getUniversity,
     getAllUniversities,
     getCategoryDetails,
