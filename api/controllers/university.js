@@ -1,33 +1,22 @@
 const database = require('../data/processing');
+const { resWriteSuccess, resWriteFail } = require('./response.js');
 
 const getUniversity = async (req, res) => {
     const { id } = req.params;
 
     if (id == null || typeof(id) !== Number) {
-        res.status(400).json({
-            success: false,
-            msg: 'Missing url paramter id of type integer'
-        });
+        resWriteFail(res, 'Missing url parameter id of type integer');
         return;
     }
 
     try {
         const university = await database.getUniversity(id);
-        res.status(200).json({
-            success: true,
-            data: university
-        });
+        resWriteSuccess(res, university);
     } catch (err) {
         if (err == database.NOT_FOUND) {
-            res.status(404).json({
-                success: false,
-                msg: `No University with id ${id}`
-            });
+            resWriteFail(res, `No University with id ${id}`, 404);
         } else {
-            res.status(500).json({
-                success: false,
-                msg: `Internal server error`
-            });
+            resWriteFail(res, `Internal server error`, 500);
             console.error(err);
         }
     }
@@ -37,37 +26,54 @@ const getUniversities = async (req, res) => {
     const { limit, offset } = req.query;
 
     if (limit == null || offset == null) {
-        res.status(400).json({
-            success: false,
-            msg: 'Missing query parameters limit and offset'
-        });
+        resWriteFail(res, 'Missing query parameters limit and offset');
         return;
     };
 
     if (typeof(limit) !== Number || typeof(offset) !== Number) {
-        res.status(400).json({
-            success: false,
-            msg: 'Query parameters limit and offset must be of type integer'
-        });
+        resWriteFail(res, 'Query parameters limit and offset must be of type integer');
         return;
     }
 
     try {
         const universities = await database.getAllUniversities(limit, offset);
-        res.status(200).json({
-            success: true,
-            data: universities
-        });
+        resWriteSuccess(res, universities);
     } catch (err) {
-        res.status(500).json({
-            success: false,
-            msg: 'Internal server error'
-        });
+        res.resWriteFail(res, 'Internal server error', 500);
         console.error(err);
     }
 };
 
+const searchUniversities = async (req, res) => {
+    const { name, limit, offset } = req.query;
+
+    if (name == limit || limit == null || offset == null) {
+        resWriteFail(res, 'Missing query parameters name, limit, and offset');
+        return;
+    };
+
+    if (typeof(limit) !== Number || typeof(offset) !== Number) {
+        resWriteFail(res, 'Query parameters limit and offset must be of type integer');
+        return;
+    }
+
+    if (typeof(name) !== String) {
+        resWriteFail(res, 'Query parameter name must be of type string');
+        return;        
+    }
+
+    try {
+        const universities = await database.searchUniversities(name, limit, offset);
+        resWriteSuccess(res, universities);
+    } catch (err) {
+        res.resWriteFail(res, 'Internal server error', 500);
+        console.error(err);
+    }
+};
+
+
 module.exports = {
     getUniversity,
-    getUniversities
+    getUniversities,
+    searchUniversities
 }

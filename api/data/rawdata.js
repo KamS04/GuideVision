@@ -45,6 +45,7 @@ db.exec(queries.categoryCourseJunctionTableQuery, (err) => {
     console.log('Category-Course-Junction table created/exists...');
 });
 
+// Universities
 const getAllUniversities = (limit, offset) => {
     return new Promise((resolve, reject) => {
         db.all(queries.selectAllUniversities, [limit, offset], (err, rows) => {
@@ -69,6 +70,19 @@ const getUniversity = (id) => {
     });
 };
 
+const searchUniversity = (universityQuery, limit, offset) => {
+    return new Promise((resolve, reject) => {
+        db.all(queries.searchUniversity(universityQuery), [limit, offset], (err, rows) => {
+            if (err) {
+                reject(err);
+            }
+            resolve(rows);
+            return;
+        })
+    });
+};
+
+// Categories
 const getAllCategories = (limit, offset) => {
     return new Promise((resolve, reject) => {
         db.all(queries.selectMinifiedCategories, [limit, offset], (err, rows) => {
@@ -93,6 +107,19 @@ const getCategoryDetails = (id) => {
     });
 };
 
+const searchCategory = (categoryQuery, limit, offset) => {
+    return new Promise((resolve, reject) => {
+        db.all(queries.searchCategory(categoryQuery), [limit, offset], (err, rows) => {
+            if (err) {
+                reject(err);
+            }
+            resolve(rows);
+            return;
+        })
+    })
+};
+
+// Courses
 const getCourseById = (id) => {
     return new Promise((resolve, reject) => {
         db.get(queries.selectCourseById, id, (err, row) => {
@@ -128,7 +155,7 @@ const getMinifiedCourseDetails = (...ids) => {
             resolve(rows);
         })
     })
-}
+};
 
 const getMinifiedCoursesByCategory = (categoryId) => {
     return new Promise((resolve, reject) => {
@@ -140,7 +167,31 @@ const getMinifiedCoursesByCategory = (categoryId) => {
             resolve(rows);
         })
     })
-}
+};
+
+const searchCourse = (courseQuery, limit, offset) => {
+    return new Promise((resolve, reject) => {
+        db.all(queries.searchCourse(courseQuery), [limit, offset], (err, rows) => {
+            if (err) {
+                reject(err);
+            }
+            resolve(rows);
+            return;
+        })
+    })
+};
+
+const searchMinifiedCourse = (courseQuery, limit, offset) => {
+    return new Promise((resolve, reject) => {
+        db.all(queries.searchMinifiedCourse(courseQuery), [limit, offset], (err, rows) => {
+            if (err) {
+                reject(err);
+            }
+            resolve(rows);
+            return;
+        })
+    })
+};
 
 module.exports = {
     getUniversity,
@@ -150,5 +201,9 @@ module.exports = {
     getCourseById,
     getAllCourses,
     getMinifiedCourseDetails,
-    getMinifiedCoursesByCategory
+    getMinifiedCoursesByCategory,
+    searchUniversity,
+    searchCategory,
+    searchCourse,
+    searchMinifiedCourse
 }

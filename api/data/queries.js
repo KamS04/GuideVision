@@ -42,6 +42,9 @@ const categoryCourseJunctionTableQuery = `CREATE TABLE IF NOT EXISTS ${sqlNames.
     ${sqlNames.CCJ_CATEGORY} INTEGER
 );`;
 
+// Searches
+const searchUniversity = `SELECT * FROM ${sqlNames.UNIVERSITIES} WHERE ${sqlNames.UNI_NAME} LIKE "%%"`
+
 module.exports = {
     universityTableQuery,
     courseTableQuery,
@@ -82,5 +85,32 @@ module.exports = {
     ON
         course.${sqlNames.COURSE_UNI} = university.${sqlNames.UNI_ID}
     WHERE
-        ccj.${sqlNames.CCJ_CATEGORY} = ?;`
+        ccj.${sqlNames.CCJ_CATEGORY} = ?;`,
+
+    searchUniversity: (uniQuery) => {
+        `SELECT * FROM ${sqlNames.UNIVERSITIES} WHERE ${sqlNames.UNI_NAME} LIKE "%${uniQuery}%" LIMIT ? OFFSET ?;`
+    },
+
+    searchCourse: (courseQuery) => {
+        `SELECT * FROM ${sqlNames.COURSES} WHERE ${sqlNames.COURSE_TITLE} LIKE "%${courseQuery}%" LIMIT ? OFFSET ?;`
+    },
+
+    searchMinifiedCourse: (courseQuery) => {
+        return `SELECT
+            course.${sqlNames.COURSE_ID},
+            course.${sqlNames.COURSE_TITLE},
+            university.${sqlNames.UNI_NAME},
+            university.${sqlNames.UNI_ICON_URL} 
+        FROM
+            ${sqlNames.COURSES} course 
+        INNER JOIN ${sqlNames.UNIVERSITIES} university
+        ON
+            course.${sqlNames.COURSE_UNI} = university.${sqlNames.UNI_ID}
+        WHERE course.${sqlNames.COURSE_TITLE} LIKE "%${courseQuery}%" LIMIT ? OFFSET ?;`;
+    },
+
+    searchCategory: (categoryCourse) => {
+        `SELECT * FROM ${sqlNames.CATEGORIES} WHERE ${sqlNames.CATEGORY_TITLE} LIKE "%${courseQuery}%" LIMIT ? OFFSET ?;`
+    }
+
 }

@@ -6,6 +6,7 @@ const { Prerequisite, Course, MiniCourse } = require('../models/Course');
 
 NOT_FOUND = 'Not Found';
 
+// Universities
 const mapUniversity = (rawUniversity) => {
     return new University(
         rawUniversity[sqlNames.UNI_ID],
@@ -35,6 +36,12 @@ const getAllUniversities = async (limit, offset) => {
     return rawUniversities.map(mapUniversity);
 };
 
+const searchUniversities = async (uniQuery, limit, offset) => {
+    const rawUniversities = await rawData.searchUniversity(uniQuery, limit, offset);
+    return rawUniversities.map(mapUniversity);
+}
+
+// Categories
 const mapCategory = (rawCategory) => {
     return new Category(
         rawCategory[sqlNames.CATEGORY_ID],
@@ -56,6 +63,12 @@ const getAllCategories = async (limit, offset) => {
     return rawCategories.map(mapCategory);
 };
 
+const searchCategories = async (categoryQuery, limit, offset) => {
+    const rawCategories = await rawData.searchCategory(categoryQuery, limit, offset);
+    return rawCategories.map(mapCategory);
+}
+
+// Courses
 const mapPrerequisites = (prerequisitesString) => {  
     return JSON.parse(prerequisitesString).map((rawPrerequisite) => {
         return new Prerequisite(
@@ -115,6 +128,17 @@ const getMinifiedCoursesByCategory = async (categoryId) => {
     return rawCourses.map(mapMinifiedCourses);
 };
 
+const searchCourses = async (courseQuery, limit, offset) => {
+    const rawCourses = await rawData.searchCourse(courseQuery, limit, offset);
+    return rawCourses.map(mapCourse);
+};
+
+const searchMinifiedCourses = async (courseQuery, limit, offset) => {
+    const rawCourses = await rawData.searchMinifiedCourse(courseQuery, limit, offset);
+    return rawCourses.map(mapMinifiedCourses);
+};
+
+
 module.exports = {
     NOT_FOUND,
     
@@ -125,5 +149,10 @@ module.exports = {
     getCourseById,
     getAllCourses,
     getMinifiedCourseDetails,
-    getMinifiedCoursesByCategory
+    getMinifiedCoursesByCategory,
+
+    searchUniversities,
+    searchCategories,
+    searchCourses,
+    searchMinifiedCourses
 }
