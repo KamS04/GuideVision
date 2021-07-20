@@ -22,7 +22,7 @@ class MiniCourse {
 class Course {
     constructor(
         id,
-        university_id,
+        universityId,
         title,
         faculty,
         prerequisites,
@@ -36,7 +36,7 @@ class Course {
         notes,
     ) {
         this.id = id;
-        this.universityId = university_id;
+        this.universityId = universityId;
     
         this.title = title;
         this.faculty = faculty;
