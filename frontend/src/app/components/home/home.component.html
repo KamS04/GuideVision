@@ -1,0 +1,9 @@
+<ngb-carousel *ngIf="universitiesPreview" showNavigationArrows="true" showNavigationIndicators="true">
+  <ng-template ngbSlide *ngFor="let university of universitiesPreview">
+    <img [src]="randomImage" alt="{{ university.name }} Slide" class="d-block w-100">
+    <div class="carousel-caption">
+      <h3>{{ university.name }}</h3>
+      <p>{{ university.streetAddress }}</p>
+    </div>
+  </ng-template>
+</ngb-carousel>
