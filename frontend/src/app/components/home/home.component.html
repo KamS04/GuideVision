@@ -12,10 +12,21 @@
   </ng-template>
 </ngb-carousel> -->
 
-<ngb-carousel #carousel interval="3000" [pauseOnHover]="true">
+<!-- <ngb-carousel #carousel interval="3000" [pauseOnHover]="true">
   <ng-template ngbSlide *ngFor="let img of images; index as i">
       <div class="picsum-img-wrapper">
         <img [src]="img" alt="My image {{i + 1}} description">
       </div>
   </ng-template>
-</ngb-carousel>
+</ngb-carousel> -->
+
+<div class="row justify-content-evenly">
+  <div class="col-sm-3 text-center form-group" *ngFor="let category of categoryPreviews; index as i">
+    <button [routerLink]="'/pathways/' + category.id" type="button" class="btn btn-outline-primary">{{ category.title }}</button>
+  </div>
+  <div class="col-sm-3 text-center form-group">
+    <button [routerLink]="'/pathways'" type="button" class="btn btn-dark" style="height: 100%">See More
+      <span class="k-next-icon"></span>
+    </button>
+  </div>
+</div>

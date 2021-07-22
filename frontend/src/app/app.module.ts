@@ -14,12 +14,14 @@ import { HomeComponent } from './components/home/home.component';
 import { CoursesComponent } from './components/courses/courses.component';
 import { UniversitiesComponent } from './components/universities/universities.component';
 import { NgbdCarouselPause } from './components/ngbd-carousel-pause/ngbd-carousel-pause.component';
+import { PathwaySingleComponent } from './components/pathway-single/pathway-single.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'pathways', component: PathwaysComponent },
   { path: 'courses', component: CoursesComponent },
   { path: 'universities', component: UniversitiesComponent },
+  { path: 'pathways/:id', component: PathwaySingleComponent }
 ]
 
 @NgModule({
@@ -31,6 +33,7 @@ const appRoutes: Routes = [
     CoursesComponent,
     UniversitiesComponent,
     NgbdCarouselPause,
+    PathwaySingleComponent,
   ],
   imports: [
     BrowserModule,
