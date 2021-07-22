@@ -1,9 +1,21 @@
-<ngb-carousel *ngIf="universitiesPreview" showNavigationArrows="true" showNavigationIndicators="true">
-  <ng-template ngbSlide *ngFor="let university of universitiesPreview">
-    <img [src]="randomImage" alt="{{ university.name }} Slide" class="d-block w-100">
-    <div class="carousel-caption">
-      <h3>{{ university.name }}</h3>
-      <p>{{ university.streetAddress }}</p>
+<!-- <ngb-carousel *ngIf="universitiesPreview" showNavigationArrows="true" showNavigationIndicators="true">
+  <ng-template ngbSlide *ngFor="let university of universitiesPreview; let i = index">
+    <div [style.background-color]="randomColor(i)">
+      <div class="picsum-img-wrapper">
+        <img [src]="randomImage" alt="{{ university.name }} Slide" class="picsum-img-wrapper">
+      </div>
+      <div class="carousel-caption">
+        <h3>{{ university.name }}</h3>
+        <p>{{ university.streetAddress }}</p>
+      </div>  
     </div>
+  </ng-template>
+</ngb-carousel> -->
+
+<ngb-carousel #carousel interval="3000" [pauseOnHover]="true">
+  <ng-template ngbSlide *ngFor="let img of images; index as i">
+      <div class="picsum-img-wrapper">
+        <img [src]="img" alt="My image {{i + 1}} description">
+      </div>
   </ng-template>
 </ngb-carousel>

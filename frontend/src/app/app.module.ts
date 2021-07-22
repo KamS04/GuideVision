@@ -1,7 +1,9 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
@@ -11,6 +13,7 @@ import { PathwaysComponent } from './components/pathways/pathways.component';
 import { HomeComponent } from './components/home/home.component';
 import { CoursesComponent } from './components/courses/courses.component';
 import { UniversitiesComponent } from './components/universities/universities.component';
+import { NgbdCarouselPause } from './components/ngbd-carousel-pause/ngbd-carousel-pause.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -27,10 +30,13 @@ const appRoutes: Routes = [
     PathwaysComponent,
     CoursesComponent,
     UniversitiesComponent,
+    NgbdCarouselPause,
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     HttpClientModule,
+    FormsModule,
     RouterModule.forRoot(appRoutes),
     NgbModule,
   ],
