@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { NgbdCarouselPauseComponent } from './ngbd-carousel-pause.component';
+import { UniversitySingleComponent } from './university-single.component';
 
-describe('NgbdCarouselPauseComponent', () => {
-  let component: NgbdCarouselPauseComponent;
-  let fixture: ComponentFixture<NgbdCarouselPauseComponent>;
+describe('UniversitySingleComponent', () => {
+  let component: UniversitySingleComponent;
+  let fixture: ComponentFixture<UniversitySingleComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ NgbdCarouselPauseComponent ]
+      declarations: [ UniversitySingleComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(NgbdCarouselPauseComponent);
+    fixture = TestBed.createComponent(UniversitySingleComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
