@@ -1,25 +1,54 @@
-<ngb-carousel *ngIf="universitiesPreview" showNavigationArrows="true" showNavigationIndicators="true">
-  <ng-template ngbSlide *ngFor="let university of universitiesPreview; let i = index">
-    <a style="width: 100%; height: 100%" [routerLink]="'/universities/' + university.id">
-      <div class="card text-white bg-dark mb-3">
-        <div style="height: 0; padding-top: 35%">
-          <img [src]="university.iconUrl" alt="{{ university.name }} Slide" style="width: 50%; margin: auto; position: absolute; top: 0; left: 0; right: 0; bottom: 30%;">
+<div class="container">
+  <ngb-carousel *ngIf="universitiesPreview" showNavigationArrows="true" showNavigationIndicators="true">
+    <ng-template ngbSlide *ngFor="let university of universitiesPreview; let i = index">
+        <div class="card text-white bg-dark mb-3">
+          <div style="height: 0; padding-top: 35%">
+            <a style="width: 100%; height: 100%" [routerLink]="'/universities/' + university.id">
+              <img [src]="university.iconUrl" alt="{{ university.name }} Slide" style="width: 50%; margin: auto; position: absolute; top: 0; left: 0; right: 0; bottom: 30%;">
+            </a>
+            </div>
+          <div class="k-caption d-none d-sm-flex">
+            <h3 style="color: white; margin-top: 3px; margin-bottom: 3px;">{{ university.name }}</h3>
+          </div>  
         </div>
-        <div class="k-caption d-none d-md-flex">
-          <h3 style="color: white; margin-top: 3px; margin-bottom: 3px;">{{ university.name }}</h3>
-        </div>  
-      </div>
-    </a>
-  </ng-template>
-</ngb-carousel>
+    </ng-template>
+  </ngb-carousel>
+  <button type="button" class="btn btn-block btn-primary" [routerLink]="'/universities'">More Universities</button>
+</div>
+
+<hr>
 
 <div class="row justify-content-evenly mt-5">
-  <div class="col-sm-3 text-center form-group" *ngFor="let category of categoryPreviews; index as i">
+  <div class="col-sm-3 text-center form-group" *ngFor="let category of categoryPreview; index as i">
     <button [routerLink]="'/pathways/' + category.id" type="button" class="btn btn-outline-primary">{{ category.title }}</button>
   </div>
   <div class="col-sm-3 text-center form-group">
-    <button [routerLink]="'/pathways'" type="button" class="btn btn-dark" style="height: 100%">See More
+    <button [routerLink]="'/pathways'" type="button" class="btn btn-primary" style="height: 100%">See More
       <span class="k-next-icon"></span>
     </button>
   </div>
+</div>
+
+<div *ngIf="coursesPreview" class="container">
+  <hr>
+
+  <div *ngFor="let course of coursesPreview">
+
+    <div class="row">
+      <div class="col-md-7">
+        <a [routerLink]="courseLink(course.id)"><h2>{{ course.courseTitle }}</h2></a>
+        <p class="lead">{{ course.universityName }}</p>
+      </div>
+      <a class="col-md-5 card bg-dark" style="width: 100%; height: 100%" [routerLink]="courseLink(course.id)">
+      <div class="col-md-12 card bg-transparent border-0">
+        <img class="img-fluid m-auto px-3 py-3" [src]="course.universityIconUrl" alt="Generic placeholder image">
+      </div>
+    </a>
+    </div>
+
+    <hr class="featurette-divider">
+
+    <button type="button" class="btn btn-block btn-primary" [routerLink]="'/courses'">More Courses</button>
+  </div>
+
 </div>

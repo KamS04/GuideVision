@@ -1,16 +1,16 @@
-class Prerequisite {
+export class Prerequisite {
     title: String
     prerequisites: Array<String>
 }
 
-class MiniCourse {
+export class MiniCourse {
     courseId: Number
     courseTitle: String
     universityName: String
     universityIconUrl: String
 }
 
-class Course {
+export class Course {
     id: Number
     universityId: Number
     title: String

@@ -15,6 +15,8 @@ import { CoursesComponent } from './components/courses/courses.component';
 import { UniversitiesComponent } from './components/universities/universities.component';
 import { PathwaySingleComponent } from './components/pathway-single/pathway-single.component';
 import { UniversitySingleComponent } from './components/university-single/university-single.component';
+import { AboutFooterComponent } from './components/about-footer/about-footer.component';
+import { CourseSingleComponent } from './components/course-single/course-single.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -22,7 +24,8 @@ const appRoutes: Routes = [
   { path: 'courses', component: CoursesComponent },
   { path: 'universities', component: UniversitiesComponent },
   { path: 'pathways/:id', component: PathwaySingleComponent },
-  { path: 'universities/:id', component: UniversitySingleComponent }
+  { path: 'universities/:id', component: UniversitySingleComponent },
+  { path: 'courses/:id', component: CourseSingleComponent },
 ]
 
 @NgModule({
@@ -35,6 +38,8 @@ const appRoutes: Routes = [
     UniversitiesComponent,
     PathwaySingleComponent,
     UniversitySingleComponent,
+    AboutFooterComponent,
+    CourseSingleComponent,
   ],
   imports: [
     BrowserModule,

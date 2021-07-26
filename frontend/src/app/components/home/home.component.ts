@@ -1,7 +1,7 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { University } from 'src/app/models/university';
-import { NgbCarouselConfig } from '@ng-bootstrap/ng-bootstrap';
-import { Category } from 'src/app/models/category';
+import { Component, OnInit } from '@angular/core';
+import { University } from '../../models/university';
+import { Category } from '../../models/category';
+import { MiniCourse } from 'src/app/models/course';
 
 
 @Component({
@@ -11,7 +11,7 @@ import { Category } from 'src/app/models/category';
 })
 export class HomeComponent implements OnInit {
   images = [944, 1011, 984].map((n) => `https://picsum.photos/id/${n}/900/500`);
-
+  
   universitiesPreview: Array<University>;
 
   logos = [
@@ -20,9 +20,9 @@ export class HomeComponent implements OnInit {
     'https://www.utoronto.ca/sites/all/themes/uoft_stark/img/U-of-T-logo.png',
   ]
 
-  categoryPreviews: Array<Category>;
+  categoryPreview: Array<Category>;
 
-  colorMaps: { [id: number] : String; } = {};
+  coursesPreview: Array<MiniCourse>;
 
   constructor() { }
 
@@ -43,23 +43,25 @@ export class HomeComponent implements OnInit {
       return x;
     });
 
-    this.categoryPreviews = [...Array(3)].map((_, i) => {
+    this.categoryPreview = [...Array(3)].map((_, i) => {
       let x = new Category();
       x.id = i;
       x.title = `Category #${i}`;
       return x;
     })
-  
+    
+    this.coursesPreview = [...Array(3)].map((_, i) => {
+      let x = new MiniCourse();
+      x.courseId = i;
+      x.courseTitle = `Course #${i}`;
+      x.universityIconUrl = this.universitiesPreview[i].iconUrl;
+      x.universityName = this.universitiesPreview[i].name;
+      return x;
+    })
   }
 
-  randomColor(id: number): String {
-    if (this.colorMaps[id] !== undefined) {
-      return this.colorMaps[id];
-    }
-    let random = `#${Math.floor(Math.random()*16777215).toString(16)}`;
-    console.log(random);
-    this.colorMaps[id] = random;
-    return random;
+  courseLink(id: Number): String {
+    return `/courses/${id}`;
   }
 
 }

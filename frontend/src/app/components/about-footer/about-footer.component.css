@@ -1,0 +1,26 @@
+h5 {
+    font-size: 1rem;
+    line-height: 1.375;
+    font-family: Rubik, Arial, sans-serif;
+    font-weight: 500;
+    color: #030929;
+}
+
+p {
+    color: hsl(0, 0%, 80%);
+}
+
+li {
+    color: hsl(0, 0%, 80%);
+}
+
+i {
+    --hue: 0;
+    --saturation: 0%;
+    --lightness: 80%;
+    color: hsl( var(--hue), var(--saturation), var(--lightness));
+}
+i:hover {
+    --hue: 40;
+    --saturation: 60%;
+}
