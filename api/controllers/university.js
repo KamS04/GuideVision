@@ -4,17 +4,21 @@ const { resWriteSuccess, resWriteFail } = require('./response.js');
 const getUniversity = async (req, res) => {
     const { id } = req.params;
 
-    if (id == null || typeof(id) !== Number) {
+    const pId = parseInt(id);
+
+    if (id == null || isNaN(pId)) {
         resWriteFail(res, 'Missing url parameter id of type integer');
         return;
     }
 
+    
+
     try {
-        const university = await database.getUniversity(id);
+        const university = await database.getUniversity(pId);
         resWriteSuccess(res, university);
     } catch (err) {
         if (err == database.NOT_FOUND) {
-            resWriteFail(res, `No University with id ${id}`, 404);
+            resWriteFail(res, `No University with id ${pId}`, 404);
         } else {
             resWriteFail(res, `Internal server error`, 500);
             console.error(err);
@@ -30,13 +34,15 @@ const getUniversities = async (req, res) => {
         return;
     };
 
-    if (typeof(limit) !== Number || typeof(offset) !== Number) {
+    const [ pLimit, pOffset ] = [ parseInt(limit), parseInt(offset) ];
+
+    if ( isNaN(pLimit) || isNaN(pOffset) ) {
         resWriteFail(res, 'Query parameters limit and offset must be of type integer');
         return;
     }
 
     try {
-        const universities = await database.getAllUniversities(limit, offset);
+        const universities = await database.getAllUniversities(pLimit, pOffset);
         resWriteSuccess(res, universities);
     } catch (err) {
         res.resWriteFail(res, 'Internal server error', 500);
@@ -52,18 +58,20 @@ const searchUniversities = async (req, res) => {
         return;
     };
 
-    if (typeof(limit) !== Number || typeof(offset) !== Number) {
+    const [ pLimit, pOffset ] = [ parseInt(limit), parseInt(offset) ];
+
+    if ( isNaN(pLimit) || isNaN(pOffset) ) {
         resWriteFail(res, 'Query parameters limit and offset must be of type integer');
         return;
     }
 
-    if (typeof(name) !== String) {
+    if (typeof(name) !== 'string') {
         resWriteFail(res, 'Query parameter name must be of type string');
         return;        
     }
 
     try {
-        const universities = await database.searchUniversities(name, limit, offset);
+        const universities = await database.searchUniversities(name, pLimit, pOffset);
         resWriteSuccess(res, universities);
     } catch (err) {
         res.resWriteFail(res, 'Internal server error', 500);

@@ -8,7 +8,7 @@ const {
 } = require('../controllers/university');
 
 router.route('/').get(getUniversities);
-router.route('/:id').get(getUniversity);
 router.route('/search').get(searchUniversities);
+router.route('/:id').get(getUniversity);
 
 module.exports = router;

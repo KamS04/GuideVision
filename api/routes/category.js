@@ -8,7 +8,7 @@ const {
 } = require('../controllers/categories');
 
 router.route('/').get(getCategories);
-router.route('/:id').get(getCategory);
 router.route('/search').get(searchCategories);
+router.route('/:id').get(getCategory);
 
 module.exports = router;
