@@ -40,8 +40,6 @@ const getCourses = async (req, res) => {
     }
 
     try {
-        console.log('passedChecks');
-
         const courses = await database.getAllCourses(pLimit, pOffset);
         resWriteSuccess(res, courses);
     } catch (err) {

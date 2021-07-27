@@ -15,10 +15,12 @@ app.get('/', (req, res) => {
 
 // const apiRouter = express.Router();
 
-app.use('/api', (req, res, next) => {
-    console.log(req.url, req.query)
-    next()
-})
+if (config.DEBUG) {
+    app.use((req, res, next) => {
+        console.log(req.url, req.query);
+        next();
+    });
+}
 
 // apiRouter.use('/course', courseRoute);
 // apiRouter.use('/university', universityRoute);
