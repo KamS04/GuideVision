@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { University } from '../../models/university';
 import { Category } from '../../models/category';
 import { MiniCourse } from 'src/app/models/course';
+import { RawDataService } from 'src/app/services/raw-data.service';
+import { contract } from 'src/app/utils/observable';
 
 
 @Component({
@@ -10,54 +12,46 @@ import { MiniCourse } from 'src/app/models/course';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  images = [944, 1011, 984].map((n) => `https://picsum.photos/id/${n}/900/500`);
   
   universitiesPreview: Array<University>;
-
-  logos = [
-    'https://uwaterloo.ca/sites/uwaterloo.ca/themes/uw_home_theme/images/rwd-home/uwaterloo-logo.svg',
-    'https://www.queensu.ca/sites/all/themes/queensbase_omega/images/wordmark_489x62.png',
-    'https://www.utoronto.ca/sites/all/themes/uoft_stark/img/U-of-T-logo.png',
-  ]
 
   categoryPreview: Array<Category>;
 
   coursesPreview: Array<MiniCourse>;
 
-  constructor() { }
+  constructor( private _Database: RawDataService ) { }
 
   ngOnInit(): void {
-    this.universitiesPreview = [...Array(3)].map((_, i) => {
-      let x = new University();
-      x.id = i;
-      x.name = `University ${i}`;
-      x.faculties = ['None'];
-      x.phone= '1111111';
-      x.streetAddress = '111 Some Street';
-      x.city = 'Some City'
-      x.provinceState = 'Some Province'
-      x.country = 'Some Country';
-      x.postalCode = 'S0M 3P2';
-      x.url = 'magicman.org';
-      x.iconUrl = this.logos[i];
-      return x;
-    });
+    this.getUniversitiesPreview();
+    this.getCoursesPreview();
+    this.getCategoriesPreview();
+  }
 
-    this.categoryPreview = [...Array(3)].map((_, i) => {
-      let x = new Category();
-      x.id = i;
-      x.title = `Category #${i}`;
-      return x;
-    })
-    
-    this.coursesPreview = [...Array(3)].map((_, i) => {
-      let x = new MiniCourse();
-      x.courseId = i;
-      x.courseTitle = `Course #${i}`;
-      x.universityIconUrl = this.universitiesPreview[i].iconUrl;
-      x.universityName = this.universitiesPreview[i].name;
-      return x;
-    })
+  async getUniversitiesPreview() {
+    try {
+      let universitiesData = await contract( this._Database.getRandomUniversities(3, 0) );
+      this.universitiesPreview = universitiesData.data;
+    } catch(err) {
+      console.error(err); // Temporary
+    }
+  }
+
+  async getCoursesPreview() {
+    try {
+      let coursesData = await contract( this._Database.getRandomMinifiedCourses(3, 0) );
+      this.coursesPreview = coursesData.data;
+    } catch(err) {
+      console.error(err); // Temporary
+    }
+  }
+
+  async getCategoriesPreview() {
+    try {
+      let categoriesData = await contract( this._Database.getRandomCategories(3, 0) );
+      this.categoryPreview = categoriesData.data;
+    } catch(err) {
+      console.error(err); // Temporary
+    }
   }
 
   courseLink(id: Number): String {
