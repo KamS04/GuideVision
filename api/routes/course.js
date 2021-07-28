@@ -6,13 +6,17 @@ const {
     getCourses,
     getMiniCourse,
     getCategoryCourses,
-    searchMiniCourses
+    searchMiniCourses,
+    getRandomCourses,
+    getRandomMinifiedCourses
 } = require('../controllers/course');
 
 router.route('/').get(getCourses);
-router.route('/minified').get(getMiniCourse);
-router.route('/minified/:categoryId').get(getCategoryCourses);
 router.route('/search').get(searchMiniCourses);
+router.route('/random').get(getRandomCourses);
+router.route('/minified').get(getMiniCourse);
+router.route('/minified/random').get(getRandomMinifiedCourses);
+router.route('/minified/:categoryId').get(getCategoryCourses);
 router.route('/:id').get(getCourse);
 
 module.exports = router;

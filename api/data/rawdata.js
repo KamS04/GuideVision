@@ -51,6 +51,7 @@ const getAllUniversities = (limit, offset) => {
         db.all(queries.selectAllUniversities, [limit, offset], (err, rows) => {
             if (err) {
                 reject(err);
+                return
             }
             resolve(rows);
             return;
@@ -75,10 +76,23 @@ const searchUniversity = (universityQuery, limit, offset) => {
         db.all(queries.searchUniversity(universityQuery), [limit, offset], (err, rows) => {
             if (err) {
                 reject(err);
+                return;
             }
             resolve(rows);
             return;
         })
+    });
+};
+
+const randomUniversities = (limit, offset) => {
+    return new Promise((resolve, reject) => {
+        db.all(queries.selectRandomUniversities, [limit, offset], (err, rows) => {
+            if (err) {
+                reject(err);
+                return;
+            }
+            resolve(rows);
+        });
     });
 };
 
@@ -112,12 +126,26 @@ const searchCategory = (categoryQuery, limit, offset) => {
         db.all(queries.searchCategory(categoryQuery), [limit, offset], (err, rows) => {
             if (err) {
                 reject(err);
+                return;
             }
             resolve(rows);
             return;
         })
     })
 };
+
+const randomCategories = (limit, offset) => {
+    return new Promise((resolve, reject) => {
+        db.all(queries.selectRandomCategories, [limit, offset], (err, rows) => {
+            if (err) {
+                reject(err);
+                return;
+            }
+            resolve(rows);
+        });
+    });
+};
+
 
 // Courses
 const getCourseById = (id) => {
@@ -140,6 +168,18 @@ const getAllCourses = (limit, offset) => {
                 return;
             }
             resolve(row);
+        });
+    });
+};
+
+const randomCourses = (limit, offset) => {
+    return new Promise((resolve, reject) => {
+        db.all(queries.selectRandomCourses, [limit, offset], (err, rows) => {
+            if (err) {
+                reject(err);
+                return;
+            }
+            resolve(rows);
         });
     });
 };
@@ -174,6 +214,7 @@ const searchCourse = (courseQuery, limit, offset) => {
         db.all(queries.searchCourse(courseQuery), [limit, offset], (err, rows) => {
             if (err) {
                 reject(err);
+                return;
             }
             resolve(rows);
             return;
@@ -186,6 +227,7 @@ const searchMinifiedCourse = (courseQuery, limit, offset) => {
         db.all(queries.searchMinifiedCourse(courseQuery), [limit, offset], (err, rows) => {
             if (err) {
                 reject(err);
+                return;
             }
             resolve(rows);
             return;
@@ -193,15 +235,35 @@ const searchMinifiedCourse = (courseQuery, limit, offset) => {
     })
 };
 
+const randomMinifiedCourses = (limit, offset) => {
+    return new Promise((resolve, reject) => {
+        db.all(queries.selectRandomMinifiedCourses, [limit, offset], (err, rows) => {
+            if (err) {
+                reject(err);
+                return;
+            }
+            resolve(rows);
+        });
+    });
+};
+
 module.exports = {
     getUniversity,
     getAllUniversities,
+    randomUniversities,
+
     getAllCategories,
     getCategoryDetails,
+    randomCategories,
+
     getCourseById,
     getAllCourses,
+    randomCourses,
+
     getMinifiedCourseDetails,
     getMinifiedCoursesByCategory,
+    randomMinifiedCourses,
+    
     searchUniversity,
     searchCategory,
     searchCourse,

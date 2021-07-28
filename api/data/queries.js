@@ -53,10 +53,26 @@ module.exports = {
 
     selectUniversityById: `SELECT * FROM ${sqlNames.UNIVERSITIES} WHERE ${sqlNames.UNI_ID} = ?;`,
     selectAllUniversities: `SELECT * FROM ${sqlNames.UNIVERSITIES} LIMIT ? OFFSET ?;`,
+    selectRandomUniversities: `SELECT * FROM ${sqlNames.UNIVERSITIES} LIMIT ? OFFSET ?;`, //
     selectMinifiedCategories: `SELECT * FROM ${sqlNames.CATEGORIES} LIMIT ? OFFSET ?;`,
     selectCategoryById: `SELECT * FROM ${sqlNames.CATEGORIES} WHERE ${sqlNames.CATEGORY_ID} = ?;`,
+    selectRandomCategories: `SELECT * FROM ${sqlNames.CATEGORIES} LIMIT ? OFFSET ?`, //
     selectCourseById: `SELECT * FROM ${sqlNames.COURSES} WHERE ${sqlNames.COURSE_ID} = ?;`,
     selectAllCourses: `SELECT * FROM ${sqlNames.COURSES} LIMIT ? OFFSET ?;`,
+    selectRandomCourses: `SELECT * FROM ${sqlNames.COURSE} LIMIT ? OFFSET ?;`, //
+    selectRandomMinifiedCourses: //
+        `SELECT
+            course.${sqlNames.COURSE_ID},
+            course.${sqlNames.COURSE_TITLE},
+            university.${sqlNames.UNI_NAME},
+            university.${sqlNames.UNI_ICON_URL}
+        FROM
+            ${sqlNames.COURSE} course
+        INNER JOIN ${sqlNames.UNIVERSITIES} university
+        ON
+            course.${sqlNames.COURSE_UNI} = university.${sqlNames.UNI_ID}
+        LIMIT ? OFFSET ?;`,
+    
     selectMinifiedCourseDetails: (idsSelector) => {
         return `SELECT
             course.${sqlNames.COURSE_ID},

@@ -79,9 +79,35 @@ const searchUniversities = async (req, res) => {
     }
 };
 
+const getRandomUniversities = async (req, res) => {
+    const { limit, offset } = req.query;
+
+    if (limit == null || offset == null) {
+        resWriteFail(res, 'Missing query parameters limit and offset');
+        return;
+    };
+
+    const [ pLimit, pOffset ] = [ parseInt(limit), parseInt(offset) ];
+
+    if ( isNaN(pLimit) || isNaN(pOffset) ) {
+        resWriteFail(res, 'Query parameters limit and offset must be of type integer');
+        return;
+    }
+
+    try {
+        const universities = await database.getRandomUniversities(pLimit, pOffset);
+        resWriteSuccess(res, universities);
+    } catch (err) {
+        res.resWriteFail(res, 'Internal server error', 500);
+        console.error(err);
+    }
+};
+
 
 module.exports = {
     getUniversity,
     getUniversities,
-    searchUniversities
+    searchUniversities,
+
+    getRandomUniversities,
 }

@@ -36,6 +36,11 @@ const getAllUniversities = async (limit, offset) => {
     return rawUniversities.map(mapUniversity);
 };
 
+const getRandomUniversities = async (limit, offset) => {
+    const rawUniversities = await rawData.randomUniversities(limit, offset);
+    return rawUniversities.map(mapUniversity);
+}
+
 const searchUniversities = async (uniQuery, limit, offset) => {
     const rawUniversities = await rawData.searchUniversity(uniQuery, limit, offset);
     return rawUniversities.map(mapUniversity);
@@ -65,6 +70,11 @@ const getAllCategories = async (limit, offset) => {
 
 const searchCategories = async (categoryQuery, limit, offset) => {
     const rawCategories = await rawData.searchCategory(categoryQuery, limit, offset);
+    return rawCategories.map(mapCategory);
+}
+
+const getRandomCategories = async (limit, offset) => {
+    const rawCategories = await rawData.randomCategories(limit, offset);
     return rawCategories.map(mapCategory);
 }
 
@@ -109,6 +119,11 @@ const getAllCourses = async (limit, offset) => {
     return rawCourses.map(mapCourse);
 };
 
+const getRandomCourses = async (limit, offset) => {
+    const rawCourses = await rawData.randomCourses(limit, offset);
+    return rawCourses.map(mapCourse);
+}
+
 const mapMinifiedCourses = (rawMinifiedCourse) => {
     return new MiniCourse(
         rawMinifiedCourse[sqlNames.COURSE_ID],
@@ -138,18 +153,30 @@ const searchMinifiedCourses = async (courseQuery, limit, offset) => {
     return rawCourses.map(mapMinifiedCourses);
 };
 
+const getRandomMinifiedCourses = async (limit, offset) => {
+    const rawMinifiedCourses = await rawData.randomMinifiedCourses(limit, offset);
+    return rawMinifiedCourses.map(mapMinifiedCourses);
+}
+
 
 module.exports = {
     NOT_FOUND,
     
     getUniversity,
     getAllUniversities,
+    getRandomUniversities,
+
     getCategoryDetails,
     getAllCategories,
+    getRandomCourses,
+
     getCourseById,
     getAllCourses,
+    getRandomCourses,
+
     getMinifiedCourseDetails,
     getMinifiedCoursesByCategory,
+    getRandomMinifiedCourses,
 
     searchUniversities,
     searchCategories,

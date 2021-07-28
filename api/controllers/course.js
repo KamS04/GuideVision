@@ -6,7 +6,7 @@ const getCourse = async (req, res) => {
 
     const pId = parseInt(id);
 
-    if (id == null || isNaN(pId) ) {
+    if (id === null || isNaN(pId) ) {
         resWriteFail(res, 'Missing url parameter id of type integer');
         return;
     };
@@ -27,7 +27,7 @@ const getCourse = async (req, res) => {
 const getCourses = async (req, res) => {
     const { limit, offset } = req.query;
 
-    if (limit == null || offset == null) {
+    if (limit === null || offset === null) {
         resWriteFail(res, 'Missing query parameters limit and offset');
         return;
     };
@@ -41,6 +41,30 @@ const getCourses = async (req, res) => {
 
     try {
         const courses = await database.getAllCourses(pLimit, pOffset);
+        resWriteSuccess(res, courses);
+    } catch (err) {
+        resWriteFail(res, 'Internal server error', 500);
+        console.error(err);
+    }
+};
+
+const getRandomCourses = async (req, res) => {
+    const { limit, offset } = req.query;
+
+    if (limit === null || offset === null) {
+        resWriteFail(res, 'Missing query parameters limit and offset');
+        return;
+    };
+
+    const [ pLimit, pOffset ] = [ parseInt(limit), parseInt(offset) ];
+
+    if ( isNaN(pLimit) || isNaN(pOffset) ) {
+        resWriteFail(res, 'Query parameters limit and offset must be of type integer');
+        return;
+    }
+
+    try {
+        const courses = await database.getRandomCourses(pLimit, pOffset);
         resWriteSuccess(res, courses);
     } catch (err) {
         resWriteFail(res, 'Internal server error', 500);
@@ -94,7 +118,7 @@ const getCategoryCourses = async (req, res) => {
 const searchCourses = async (req, res) => {
     const { title, limit, offset } = req.query;
 
-    if (title == null || limit == null || offset == null) {
+    if (title === null || limit === null || offset === null) {
         resWriteFail(res, 'Missing query parameters title, limit, and offset');
         return;
     };
@@ -123,7 +147,7 @@ const searchCourses = async (req, res) => {
 const searchMiniCourses = async (req, res) => {
     const { title, limit, offset } = req.query;
 
-    if (title == null || limit == null || offset == null) {
+    if (title === null || limit === null || offset === null) {
         resWriteFail(res, 'Missing query parameters title, limit, and offset');
         return;
     };
@@ -148,6 +172,30 @@ const searchMiniCourses = async (req, res) => {
     }
 };
 
+const getRandomMinifiedCourses = async (req, res) => {
+    const { limit, offset } = req.query;
+
+    if (limit === null || offset === null) {
+        resWriteFail(res, 'Missing query parameters limit and offset');
+        return;
+    };
+
+    const [ pLimit, pOffset ] = [ parseInt(limit), parseInt(offset) ];
+
+    if ( isNaN(pLimit) || isNaN(pOffset) ) {
+        resWriteFail(res, 'Query parameters limit and offset must be of type integer');
+        return;
+    }
+
+    try {
+        const courses = await database.getRandomMinifiedCourses(pLimit, pOffset);
+        resWriteSuccess(res, courses);
+    } catch (err) {
+        resWriteFail(res, 'Internal server error', 500);
+        console.error(err);
+    }
+};
+
 module.exports = {
     getCourse,
     getCourses,
@@ -155,5 +203,8 @@ module.exports = {
     getCategoryCourses,
 
     searchCourses,
-    searchMiniCourses
+    searchMiniCourses,
+
+    getRandomCourses,
+    getRandomMinifiedCourses,
 }

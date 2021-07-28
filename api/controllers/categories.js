@@ -77,8 +77,33 @@ const searchCategories = async (req, res) => {
     }
 };
 
+const getRandomCategories = async (limit, offset) => {
+    const { limit, offset } = req.query;
+
+    if (limit == null || offset == null) {
+        resWriteFail(res, 'Missing query parameters limit and offset');
+        return;
+    };
+
+    const [ pLimit, pOffset ] = [ parseInt(limit), parseInt(offset) ];
+
+    if ( isNaN(pLimit) || isNaN(pOffset) ) {
+        resWriteFail(res, 'Query parameters limit and offset must be of type integer');
+        return;
+    }
+    
+    try {
+        const categories = await database.getRandomCategories(pLimit, pOffset);
+        resWriteSuccess(res, categories);
+    } catch (err) {
+        resWriteFail(res, 'Internal server error', 500);
+        console.error(err);
+    }
+}
+
 module.exports = {
     getCategory,
     getCategories,
-    searchCategories
+    searchCategories,
+    getRandomCategories
 }
