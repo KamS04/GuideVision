@@ -21,6 +21,7 @@ frontend/bazel-out
 # dependencies
 frontend/node_modules
 api/node_modules
+mock-db/node_modules
 
 # profiling files
 frontend/chrome-profiler-events*.json
