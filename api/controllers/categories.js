@@ -77,7 +77,7 @@ const searchCategories = async (req, res) => {
     }
 };
 
-const getRandomCategories = async (limit, offset) => {
+const getRandomCategories = async (req, res) => {
     const { limit, offset } = req.query;
 
     if (limit == null || offset == null) {
