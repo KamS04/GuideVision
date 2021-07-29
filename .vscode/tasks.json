@@ -7,21 +7,25 @@
             "label": "Build Production Server",
             "type": "shell",
             "command": "./scripts/build.ps1",
-            "presentation": {                
+            "presentation": {
                 "echo": true,
                 "reveal": "always",
                 "focus": false,
                 "panel": "shared",
                 "showReuseMessage": true,
                 "clear": false
-            }            
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
         },
         {
             "label": "Open Dev Server",
             "dependsOn": [
                 "Node Dev",
                 "Angular Dev Open",
-            ]
+            ],
         },
         {
             "label": "Dev Server",
