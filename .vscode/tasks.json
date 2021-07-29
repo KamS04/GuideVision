@@ -1,0 +1,96 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build Production Server",
+            "type": "shell",
+            "command": "./scripts/build.ps1",
+            "presentation": {                
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": true,
+                "clear": false
+            }            
+        },
+        {
+            "label": "Open Dev Server",
+            "dependsOn": [
+                "Angular Dev Open",
+                "Node Dev"
+            ]
+        },
+        {
+            "label": "Dev Server",
+            "dependsOn": [
+                "Angular Dev",
+                "Node Dev"
+            ]
+        },
+        {
+            "label": "Mock Server",
+            "dependsOn": [
+                "Angular Dev",
+                "Mock DB Dev"
+            ]
+        },
+        {
+            "label": "Mock Open Server",
+            "dependsOn": [
+                "Angular Dev Open",
+                "Mock DB Dev"
+            ]
+        },
+        {
+            "label": "Angular Dev",
+            "type": "shell",
+            "options": {
+                "cwd": "${workspaceFolder}/frontend"
+            },
+            "command": "ng serve --port 8080 --proxy-config proxy.conf.json"
+        },
+        {
+            "label": "Angular Dev Open",
+            "type": "shell",
+            "options": {
+                "cwd": "${workspaceFolder}/frontend"
+            },
+            "command": "ng serve --port 8080 --host 0.0.0.0 --disable-host-check --proxy-config proxy.conf.json"
+        },
+        {
+            "label": "Angular Build",
+            "type": "shell",
+            "options": {
+                "cwd": "${workspaceFolder}/frontend"
+            },
+            "command": "ng build"
+        },
+        {
+            "label": "Node Dev",
+            "type": "shell",
+            "options": {
+                "cwd": "${workspaceFolder}/api"
+            },
+            "command": "npm run dev"
+        },
+        {
+            "label": "Node Prod",
+            "type": "shell",
+            "options": {
+                "cwd": "${workspaceFolder}/api"
+            },
+            "command": "npm start"
+        },
+        {
+            "label": "Mock DB Dev",
+            "type": "shell",
+            "options": {
+                "cwd": "${workspaceFolder}/mock-db"
+            },
+            "command": "npm run dev"
+        }
+    ]
+}
