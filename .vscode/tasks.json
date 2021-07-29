@@ -19,29 +19,29 @@
         {
             "label": "Open Dev Server",
             "dependsOn": [
+                "Node Dev",
                 "Angular Dev Open",
-                "Node Dev"
             ]
         },
         {
             "label": "Dev Server",
             "dependsOn": [
+                "Node Dev",
                 "Angular Dev",
-                "Node Dev"
-            ]
+            ],
         },
         {
             "label": "Mock Server",
             "dependsOn": [
+                "Mock DB Dev",
                 "Angular Dev",
-                "Mock DB Dev"
             ]
         },
         {
             "label": "Mock Open Server",
             "dependsOn": [
+                "Mock DB Dev",
                 "Angular Dev Open",
-                "Mock DB Dev"
             ]
         },
         {
@@ -50,7 +50,10 @@
             "options": {
                 "cwd": "${workspaceFolder}/frontend"
             },
-            "command": "ng serve --port 8080 --proxy-config proxy.conf.json"
+            "command": "ng serve --port 8080 --proxy-config proxy.conf.json",
+            "presentation": {
+                "focus": true,
+            }
         },
         {
             "label": "Angular Dev Open",
@@ -58,7 +61,10 @@
             "options": {
                 "cwd": "${workspaceFolder}/frontend"
             },
-            "command": "ng serve --port 8080 --host 0.0.0.0 --disable-host-check --proxy-config proxy.conf.json"
+            "command": "ng serve --port 8080 --host 0.0.0.0 --disable-host-check --proxy-config proxy.conf.json",
+            "presentation": {
+                "focus": true,
+            }
         },
         {
             "label": "Angular Build",
@@ -74,7 +80,10 @@
             "options": {
                 "cwd": "${workspaceFolder}/api"
             },
-            "command": "npm run dev"
+            "command": "npm run dev",
+            "presentation": {
+                "focus": false,
+            }
         },
         {
             "label": "Node Prod",
@@ -90,7 +99,10 @@
             "options": {
                 "cwd": "${workspaceFolder}/mock-db"
             },
-            "command": "npm run dev"
+            "command": "npm run dev",
+            "presentation": {
+                "focus": false,
+            }
         }
     ]
 }
