@@ -1,1 +1,24 @@
-<p>courses works!</p>
+<app-lazy-presenter (scrolled)="onScroll()">
+    <div class="container-fluid">
+        <div class="row">
+            <div *ngFor="let course of courses" class="col-12 col-sm-5 col-lg-3 mb-4">
+                <div class="card w-100 h-100">
+                    <div class="card-img-top bg-dark" style="height: 35%">
+                        <img [src]="course.universityIconUrl" [alt]="course.universityName + 'Icon Image'" class="m-auto d-block mw-100 mh-75">
+                    </div>
+                    <div class="card-body flex-fill">
+                        <h5 class="card-title">{{ course.courseTitle }}</h5>
+                        <p class="card-text">
+                            @{{ course.universityName }}
+                        </p>
+                    </div>
+                    <div class="container mb-2">
+                        <button type="button" class="btn btn-block btn-primary mt-auto mb-0" [routerLink]="'/courses/' + course.courseId">Details</button>
+                    </div>                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <app-loading-bar [isLoading]="isLoading"></app-loading-bar>
+</app-lazy-presenter>

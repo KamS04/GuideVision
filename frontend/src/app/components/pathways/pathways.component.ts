@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Category } from 'src/app/models/category';
+import { RawDataService } from 'src/app/services/raw-data.service';
+import { debugMode } from 'src/app/utils/config';
+import { contract } from 'src/app/utils/observable';
 
 @Component({
   selector: 'app-pathways',
@@ -6,10 +10,43 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./pathways.component.css']
 })
 export class PathwaysComponent implements OnInit {
+  categories: Category[] = [];
+  isLoading: boolean = false;
+  completedResultSet: boolean = false;
+  limit = 16;
+  offset = 0;
 
-  constructor() { }
+  constructor(private _Database: RawDataService) { }
 
   ngOnInit(): void {
   }
 
+  onScroll() {
+    if (!this.completedResultSet) {
+      this.loadMore()
+    }
+  }
+
+  async loadMore() {
+    this.isLoading = true;
+    try {
+      let data = await contract(this._Database.getCategories(this.limit, this.offset));
+      let newCategories = data.data;
+      if (!debugMode) {
+        this.offset += this.limit;
+        if (newCategories.length < this.limit) {
+          this.completedResultSet = true;
+        }
+      } else {
+        while (newCategories.length < this.limit) {
+          newCategories.push(...newCategories);
+        }        
+      }
+      this.categories.push(...newCategories);
+      this.isLoading = false;
+    } catch (err) {
+      // TODO Error Handling
+      console.error(err);
+    }
+  }
 }
