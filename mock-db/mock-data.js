@@ -6,7 +6,7 @@ const {
 } = require('./utils');
 
 const randomAddress = () => {
-    let streetNumber = range(3).reduce( (p) => p + randomInt(0, 9));
+    let streetNumber = range(3).reduce( (p) => p + randomInt(0, 9), '');
     let streetName = randomInt(0, 9);
     return `${streetNumber} ${streetName}${suffix(streetName)} Street`;
 }
@@ -16,8 +16,9 @@ const randomPostalCode = () => {
 }
 
 const logos = [
-    'https://uwaterloo.ca/sites/uwaterloo.ca/themes/uw_home_theme/images/rwd-home/uwaterloo-logo.svg',
-    'https://www.queensu.ca/sites/all/themes/queensbase_omega/images/wordmark_489x62.png',
+    'https://uwaterloo.ca/brand/sites/ca.brand/files/universityofwaterloo_logo_horiz_rev_rgb.png',
+    'https://www.queensu.ca/sites/all/themes/queensbase_omega/images/queens_logo_white_108x74.png',
+    //'https://www.queensu.ca/sites/all/themes/queensbase_omega/images/wordmark_489x62.png',
     'https://www.utoronto.ca/sites/all/themes/uoft_stark/img/U-of-T-logo.png',
 ]
 
