@@ -18,6 +18,7 @@ import { UniversitySingleComponent } from './components/university-single/univer
 import { AboutFooterComponent } from './components/about-footer/about-footer.component';
 import { CourseSingleComponent } from './components/course-single/course-single.component';
 import { LazyPresenterComponent } from './components/views/lazy-presenter/lazy-presenter.component';
+import { LoadingBarComponent } from './components/views/loading-bar/loading-bar.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -42,6 +43,7 @@ const appRoutes: Routes = [
     AboutFooterComponent,
     CourseSingleComponent,
     LazyPresenterComponent,
+    LoadingBarComponent,
   ],
   imports: [
     BrowserModule,
