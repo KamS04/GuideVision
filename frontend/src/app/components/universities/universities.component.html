@@ -1,1 +1,31 @@
-<p>universities works!</p>
+<app-lazy-presenter (scrolled)="onScroll()">
+    <div class="container-fluid">
+        <div class="row">
+            <div *ngFor="let university of universities" class="col-12 col-sm-5 col-lg-3 col-xl-3 mb-4">
+                <div class="card w-100 h-100">
+                    <div class="card-img-top bg-dark">
+                        <img [src]="university.iconUrl" [alt]="university.name + ' Icon Image'" class="m-auto d-block mw-100 mh-75">
+                    </div>
+                    <div class="card-body flex-fill">
+                        <h5 class="card-title">{{ university.name }}</h5>
+                        <p class="card-text">
+                            {{ university.streetAddress }},<br>
+                            {{ university.city }}, {{ university.provinceState }}, {{ university.postalCode}},<br>
+                            {{ university.country }}
+                        </p>
+                    </div>
+                    <div class="container mb-2">
+                        <button type="button" class="btn btn-block btn-primary mt-auto mb-0" [routerLink]="'/universities/' + university.id">Details</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="isLoading" class="d-block my-1 bg-success p-3">
+        <div class="d-inline mx-auto">
+            <div class="spinner-border align-middle text-primary" role="status"></div>
+            <span class="ml-3 align-middle">Loading...</span>
+        </div>        
+    </div>
+</app-lazy-presenter>
