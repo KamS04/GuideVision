@@ -9,22 +9,6 @@
     background-size: 100% 100%;
 }
 
-ngb-carousel .picsum-img-wrapper {
-    /* position: relative; */
-    height: 0;
-    padding-top: 55%; /* Keep ratio for 900x500 images */
-}
-
-ngb-carousel .picsum-img-wrapper>img {
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    height: 60%;
-    width: 60%;
-}
-
 .k-caption {
     position: absolute;
     right: 15%;
@@ -62,7 +46,8 @@ ngb-carousel .picsum-img-wrapper>img {
 }
 
 #cardtextwhite #uni #uniimg {
-    width: 50%; 
+    width: 50%;
+    max-height: 60%;
     margin: auto; 
     position: absolute; 
     top: 0; 
