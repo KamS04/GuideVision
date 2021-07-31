@@ -50,3 +50,39 @@ ngb-carousel .picsum-img-wrapper>img {
     bottom: 0px;
     right: 0px;    
 }
+
+#cardtextwhite {
+    height: 0; 
+    padding-top: 35%
+}
+
+#imgwrapper #uni {
+    width: 100%;
+    height: 100%;
+}
+
+#cardtextwhite #uni #uniimg {
+    width: 50%; 
+    margin: auto; 
+    position: absolute; 
+    top: 0; 
+    left: 0; 
+    right: 0; 
+    bottom: 30%;
+}
+
+.k-caption h3 {
+    color: white; 
+    margin-top: 3px; 
+    margin-bottom: 3px;
+}
+
+#rowjustifycontent #colsm3testcenter {
+    height: 100%;
+    
+}
+
+#containerpb4 #coursepeview #row .a {
+    width: 100%;
+    height: 100%;
+}
