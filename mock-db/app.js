@@ -1,6 +1,11 @@
 const data = require('./mock-data');
 const express = require('express');
 
+console.log(data.categories.length, 'Categories');
+console.log(data.courses.length, 'Courses');
+console.log(data.miniCourses.length, 'MiniCourses');
+console.log(data.universities.length, 'Unis');
+
 const {
     randomInt,
 } = require('./utils');
@@ -37,7 +42,7 @@ const getLimitOffset = (req, res) => {
         return undefined;
     }
     
-    return { limit, offset };
+    return { limit: pLimit, offset: pOffset };
 }
 
 function shuffle(array) {
@@ -55,7 +60,7 @@ const courseRouter = express.Router();
 courseRouter.route('/').get( (req, res) => {
     const { limit, offset } = getLimitOffset(req, res);
     if (limit !== undefined) {
-        let courses = data.courses.slice(offset, limit);
+        let courses = data.courses.slice(offset, limit + offset);
         resWriteSuccess(res, courses);
     }
 });
@@ -83,27 +88,45 @@ courseRouter.route('/search').get( (req, res) => {
                 isDone = true;
             }
         }
-        resWriteSuccess(res, courses.slice(offset, limit));
+        resWriteSuccess(res, courses.slice(offset, limit + offset));
     }    
 });
 courseRouter.route('/random').get( (req, res) => {
     const { limit, offset } = getLimitOffset(req, res);
     if (limit !== undefined) {
-        let courses = shuffle(data.courses).slice(offset, limit);
+        let courses = shuffle(data.courses).slice(offset, limit + offset);
         resWriteSuccess(res, courses);
     }    
 });
 courseRouter.route('/minified').get( (req, res) => {
     const { limit, offset } = getLimitOffset(req, res);
     if (limit !== undefined) {
-        let courses = data.miniCourses.slice(offset, limit);
+        let courses = data.miniCourses.slice(offset, limit + offset);
         resWriteSuccess(res, courses);
     }
+});
+courseRouter.route('/minified/specific').get( (req, res) => {
+    const { ids } = req.query;        
+
+    if (ids === null || !Array.isArray(ids) ) {
+        resWriteFail(res, 'Missing query parameter ids of type array');
+        return;
+    }
+
+    const mappedIds = ids.map( (id) => parseInt(id) );
+
+    if ( mappedIds.some( (id) => isNaN(id) ) ) {
+        resWriteFail(res, 'All ids in query parameter ids must be of type Number');
+        return
+    }
+
+    let miniCourses = data.miniCourses.filter( (course) => mappedIds.includes(course.courseId) );
+    resWriteSuccess(res, miniCourses);
 });
 courseRouter.route('/minified/random').get( (req, res) => {
     const { limit, offset } = getLimitOffset(req, res);
     if (limit !== undefined) {
-        let courses = shuffle(data.miniCourses).slice(offset, limit);
+        let courses = shuffle(data.miniCourses).slice(offset, limit + offset);
         resWriteSuccess(res, courses);
     } 
 });
@@ -138,7 +161,7 @@ const uniRouter = express.Router();
 uniRouter.route('/').get( (req, res) => {
     const { limit, offset } = getLimitOffset(req, res);
     if (limit !== undefined) {
-        let universities = data.universities.slice(offset, limit);
+        let universities = data.universities.slice(offset, limit + offset);
         resWriteSuccess(res, universities);
     }    
 });
@@ -166,13 +189,13 @@ uniRouter.route('/search').get( (req, res) => {
                 isDone = true;
             }
         }
-        resWriteSuccess(res, universities.slice(offset, limit));
+        resWriteSuccess(res, universities.slice(offset, limit + offset));
     }        
 });
 uniRouter.route('/random').get( (req, res) => {
     const { limit, offset } = getLimitOffset(req, res);
     if (limit !== undefined) {
-        let universities = shuffle(data.universities).slice(offset, limit);
+        let universities = shuffle(data.universities).slice(offset, limit + offset);
         resWriteSuccess(res, universities);
     }
 });
@@ -201,7 +224,7 @@ const categoryRouter = express.Router();
 categoryRouter.route('/').get( (req, res) => {
     const { limit, offset } = getLimitOffset(req, res);
     if (limit !== undefined) {
-        let categories = data.categories.slice(offset, limit);
+        let categories = data.categories.slice(offset, limit + offset);
         resWriteSuccess(res, categories);
     }
 });
@@ -229,13 +252,13 @@ categoryRouter.route('/search').get( (req, res) => {
                 isDone = true;
             }
         }
-        resWriteSuccess(res, categories.slice(offset, limit));
+        resWriteSuccess(res, categories.slice(offset, limit + offset));
     }        
 });
 categoryRouter.route('/random').get( (req, res) => {
     const { limit, offset } = getLimitOffset(req, res);
     if (limit !== undefined) {
-        let categories = shuffle(data.categories).slice(offset, limit);
+        let categories = shuffle(data.categories).slice(offset, limit + offset);
         resWriteSuccess(res, categories);
     }
 });

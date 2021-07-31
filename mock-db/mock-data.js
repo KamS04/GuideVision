@@ -38,7 +38,7 @@ const universities = range(3).map( (_, id) => {
     };
 });
 
-const courses = range(3).map( (_, id) => {
+const courses = range(80).map( (_, id) => {
     let uni = universities[ randomInt(0, universities.length) ];
     return {
         id: id,
