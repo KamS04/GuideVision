@@ -17,6 +17,7 @@ import { PathwaySingleComponent } from './components/pathway-single/pathway-sing
 import { UniversitySingleComponent } from './components/university-single/university-single.component';
 import { AboutFooterComponent } from './components/about-footer/about-footer.component';
 import { CourseSingleComponent } from './components/course-single/course-single.component';
+import { LazyPresenterComponent } from './components/views/lazy-presenter/lazy-presenter.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -40,6 +41,7 @@ const appRoutes: Routes = [
     UniversitySingleComponent,
     AboutFooterComponent,
     CourseSingleComponent,
+    LazyPresenterComponent,
   ],
   imports: [
     BrowserModule,
