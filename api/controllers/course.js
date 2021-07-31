@@ -72,7 +72,31 @@ const getRandomCourses = async (req, res) => {
     }
 };
 
-const getMiniCourse = async (req, res) => {
+const getMiniCourses = async (req, res) => {
+    const { limit, offset } = req.query;
+
+    if (limit === null || offset === null) {
+        resWriteFail(res, 'Missing query parameters limit and offset');
+        return;
+    };
+
+    const [ pLimit, pOffset ] = [ parseInt(limit), parseInt(offset) ];
+
+    if ( isNaN(pLimit) || isNaN(pOffset) ) {
+        resWriteFail(res, 'Query parameters limit and offset must be of type integer');
+        return;
+    }
+
+    try {
+        const miniCourses = await database.getMinifiedCourses(...mappedIds);
+        resWriteSuccess(res, miniCourses);        
+    } catch (err) {
+        resWriteFail(res, 'Internal server error', 500);
+        console.error(err);
+    }
+};
+
+const getMiniCoursesByIds = async (req, res) => {
     const { ids } = req.query;        
 
     if (ids === null || !Array.isArray(ids) ) {
@@ -199,7 +223,9 @@ const getRandomMinifiedCourses = async (req, res) => {
 module.exports = {
     getCourse,
     getCourses,
-    getMiniCourse,
+
+    getMiniCourses,
+    getMiniCoursesByIds,
     getCategoryCourses,
 
     searchCourses,

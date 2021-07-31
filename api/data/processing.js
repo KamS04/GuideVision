@@ -133,6 +133,11 @@ const mapMinifiedCourses = (rawMinifiedCourse) => {
     );
 };
 
+const getMinifiedCourses = async (limit, offset) => {
+    const rawCourses = await rawData.getMinifiedCourses(limit, offset);
+    return rawCourses.map(mapMinifiedCourses);
+}
+
 const getMinifiedCourseDetails = async (...ids) => {
     const rawCourses = await rawData.getMinifiedCourseDetails(...ids);
     return rawCourses.map(mapMinifiedCourses);
@@ -174,6 +179,7 @@ module.exports = {
     getAllCourses,
     getRandomCourses,
 
+    getMinifiedCourses,
     getMinifiedCourseDetails,
     getMinifiedCoursesByCategory,
     getRandomMinifiedCourses,

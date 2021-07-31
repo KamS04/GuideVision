@@ -184,6 +184,18 @@ const randomCourses = (limit, offset) => {
     });
 };
 
+const getMinifiedCourses = (limit, offset) => {
+    return new Promise((resolve, reject) => {
+        db.all(queries.selectMinifiedCourses, [limit, offset], (err, rows) => {
+            if (err) {
+                reject(err);
+                return;
+            }
+            resolve(rows);
+        })
+    })
+};
+
 const getMinifiedCourseDetails = (...ids) => {
     return new Promise((resolve, reject) => {
         idsSelector = ids.map((val) => '?').join(', ')
@@ -260,6 +272,7 @@ module.exports = {
     getAllCourses,
     randomCourses,
 
+    getMinifiedCourses,
     getMinifiedCourseDetails,
     getMinifiedCoursesByCategory,
     randomMinifiedCourses,

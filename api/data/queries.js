@@ -73,6 +73,18 @@ module.exports = {
             course.${sqlNames.COURSE_UNI} = university.${sqlNames.UNI_ID}
         LIMIT ? OFFSET ?;`,
     
+    selectMinifiedCourses:
+        `SELECT
+            course.${sqlNames.COURSE_ID},
+            course.${sqlNames.COURSE_TITLE},
+            university.${sqlNames.UNI_NAME},
+            university.${sqlNames.UNI_ICON_URL} 
+        FROM
+            ${sqlNames.COURSES} course 
+        INNER JOIN ${sqlNames.UNIVERSITIES} university 
+        ON
+            course.${sqlNames.COURSE_UNI} = university.${sqlNames.UNI_ID}
+        LIMIT ? OFFSET ?;`,
     selectMinifiedCourseDetails: (idsSelector) => {
         return `SELECT
             course.${sqlNames.COURSE_ID},
