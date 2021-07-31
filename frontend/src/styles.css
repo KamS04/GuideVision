@@ -2,3 +2,14 @@
 /* .body {
     background-color: #5a5a5a
 } */
+:root {
+    --gold: #eccf7e;
+}
+
+.bg-gold {
+    background-color: var(--gold);
+}
+
+.text-gold {
+    color: var(--gold);
+}

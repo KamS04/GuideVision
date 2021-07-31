@@ -3,7 +3,6 @@ h5 {
     line-height: 1.375;
     font-family: Rubik, Arial, sans-serif;
     font-weight: 500;
-    color: #030929;
 }
 
 p {
@@ -18,9 +17,11 @@ i {
     --hue: 0;
     --saturation: 0%;
     --lightness: 80%;
-    color: hsl( var(--hue), var(--saturation), var(--lightness));
+    /* color: hsl( var(--hue), var(--saturation), var(--lightness)); */
+    color: hsl(0, 0%, 80%);
 }
 i:hover {
     --hue: 40;
     --saturation: 60%;
+    color: var(--gold);
 }
