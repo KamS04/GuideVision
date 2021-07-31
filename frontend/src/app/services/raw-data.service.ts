@@ -77,9 +77,13 @@ export class RawDataService {
   }
 
   // Minified Courses
-  getMinifiedCourses(...ids: number[]): Observable<ResultSuccess<MiniCourse[]>> {
+  getMinifiedCourses(limit: number, offset: number): Observable<ResultSuccess<MiniCourse[]>> {
+    return this.getObservable<ResultSuccess<MiniCourse[]>>(this.coursesMinifiedUrl, this.limitOffsetParams(limit, offset));
+  }
+  
+  getSpecificMinifiedCourses(...ids: number[]): Observable<ResultSuccess<MiniCourse[]>> {
     let params = ids.reduce( (params, id) => params.append('ids', id), new HttpParams() );
-    return this.getObservable<ResultSuccess<MiniCourse[]>>(this.coursesMinifiedUrl, params);
+    return this.getObservable<ResultSuccess<MiniCourse[]>>(this.coursesMinifiedUrl + 'specific', params);
   }
 
   getMinifiedCourseForCategory(categoryId: number): Observable<ResultSuccess<MiniCourse[]>> {
