@@ -130,6 +130,25 @@ courseRouter.route('/minified/random').get( (req, res) => {
         resWriteSuccess(res, courses);
     } 
 });
+courseRouter.route('/minified/university/:universityId').get( (req, res) => {
+    const { universityId } = req.params;
+    
+    const pId = parseInt(universityId);
+
+    if (universityId === null || isNaN(pId) ) {
+        resWriteFail(res, 'Missing url parameter id of type integer');
+        return;
+    };
+
+    let university = data.universities.filter( (university) => university.id == pId )[0];
+
+    if (university === undefined) {
+        resWriteFail(res, `No University with id ${pId}`, 404);        
+    } else {
+        let courses = data.miniCourses.filter( (course) => course.universityId == university.id );
+        resWriteSuccess(res, courses);        
+    }
+})
 courseRouter.route('/minified/:categoryId').get( (req, res) => {
     resWriteSuccess(
         res,

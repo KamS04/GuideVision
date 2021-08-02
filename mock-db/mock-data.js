@@ -63,7 +63,8 @@ const miniCourses = courses.map( (course) => {
         courseId: course.id,
         courseTitle: course.title,
         universityName: uni.name,
-        universityIconUrl: uni.iconUrl
+        universityIconUrl: uni.iconUrl,
+        universityId: uni.id
     };
 });
 
