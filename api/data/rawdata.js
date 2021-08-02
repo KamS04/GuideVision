@@ -221,6 +221,18 @@ const getMinifiedCoursesByCategory = (categoryId) => {
     })
 };
 
+const getMinifiedCoursesByUniversity = (universityId) => {
+    return new Promise((resolve, reject) => {
+        db.all(queries.selectMinifiedCourseByUniversity, universityId, (err, rows) => {
+            if (err) {
+                reject(err);
+                return;
+            }
+            resolve(rows);
+        })
+    })
+}
+
 const searchCourse = (courseQuery, limit, offset) => {
     return new Promise((resolve, reject) => {
         db.all(queries.searchCourse(courseQuery), [limit, offset], (err, rows) => {
@@ -275,6 +287,7 @@ module.exports = {
     getMinifiedCourses,
     getMinifiedCourseDetails,
     getMinifiedCoursesByCategory,
+    getMinifiedCoursesByUniversity,
     randomMinifiedCourses,
     
     searchUniversity,

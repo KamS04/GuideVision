@@ -114,6 +114,20 @@ module.exports = {
         course.${sqlNames.COURSE_UNI} = university.${sqlNames.UNI_ID}
     WHERE
         ccj.${sqlNames.CCJ_CATEGORY} = ?;`,
+    
+    selectMinifiedCourseByUniversity:
+    `SELECT
+        course.${sqlNames.COURSE_ID},
+        course.${sqlNames.COURSE_TITLE},
+        university.${sqlNames.UNI_NAME},
+        university.${sqlNames.UNI_ICON_URL}
+    FROM
+        ${sqlNames.UNIVERSITIES} university
+    INNER JOIN ${sqlNames.COURSES} course
+    ON
+        university.${sqlNames.UNI_ID} = course.${sqlNames.COURSE_UNI}
+    WHERE
+        university.${sqlNames.UNI_ID} = ?;`,
 
     searchUniversity: (uniQuery) => {
         `SELECT * FROM ${sqlNames.UNIVERSITIES} WHERE ${sqlNames.UNI_NAME} LIKE "%${uniQuery}%" LIMIT ? OFFSET ?;`

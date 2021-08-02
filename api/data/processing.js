@@ -148,6 +148,11 @@ const getMinifiedCoursesByCategory = async (categoryId) => {
     return rawCourses.map(mapMinifiedCourses);
 };
 
+const getMinifiedCoursesByUniversity = async (universityId) => {
+    const rawCourses = await rawData.getMinifiedCoursesByUniversity(universityId);
+    return rawCourses.map(mapMinifiedCourses);
+}
+
 const searchCourses = async (courseQuery, limit, offset) => {
     const rawCourses = await rawData.searchCourse(courseQuery, limit, offset);
     return rawCourses.map(mapCourse);
@@ -182,6 +187,7 @@ module.exports = {
     getMinifiedCourses,
     getMinifiedCourseDetails,
     getMinifiedCoursesByCategory,
+    getMinifiedCoursesByUniversity,
     getRandomMinifiedCourses,
 
     searchUniversities,

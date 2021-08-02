@@ -7,6 +7,7 @@ const {
     getMiniCourses,
     getMiniCoursesByIds,
     getCategoryCourses,
+    getUniversityCourses,
     searchMiniCourses,
     getRandomCourses,
     getRandomMinifiedCourses
@@ -18,6 +19,7 @@ router.route('/random').get(getRandomCourses);
 router.route('/minified').get(getMiniCourses);
 router.route('/minified/specific').get(getMiniCoursesByIds);
 router.route('/minified/random').get(getRandomMinifiedCourses);
+router.route('/minified/university/:universityId').get(getUniversityCourses);
 router.route('/minified/:categoryId').get(getCategoryCourses);
 router.route('/:id').get(getCourse);
 

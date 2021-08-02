@@ -139,6 +139,25 @@ const getCategoryCourses = async (req, res) => {
     }
 };
 
+const getUniversityCourses = async (req, res) => {
+    const { universityId } = req.params;
+
+    const pUniversityId = parseInt(universityId);
+
+    if (universityId == null || isNaN(pUniversityId)) {
+        resWriteFail(res, 'Missing url parameter university of type integer');
+        return;
+    }
+
+    try {
+        const miniCourses = await database.getMinifiedCoursesByUniversity(pUniversityId);
+        resWriteSuccess(res, miniCourses);
+    } catch (err) {
+        resWriteFail(res, 'Internal server error', 500);
+        console.error(err);
+    }
+}
+
 const searchCourses = async (req, res) => {
     const { title, limit, offset } = req.query;
 
@@ -227,6 +246,7 @@ module.exports = {
     getMiniCourses,
     getMiniCoursesByIds,
     getCategoryCourses,
+    getUniversityCourses,
 
     searchCourses,
     searchMiniCourses,
