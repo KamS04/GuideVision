@@ -3,11 +3,12 @@ export class Result {
 }
 
 export class ResultSuccess<T extends any> extends Result {
-    data: T;
+    data: T;    
 }
 
 export class ResultError extends Result {
     msg: string;
+    statusCode: number = 404;
 }
 
 // function checkSame(obj, typeToCheck) {

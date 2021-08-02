@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { ResultError } from '../models/result';
@@ -11,8 +12,11 @@ export function contract<T>(observable: Observable<T>): Promise<T> {
                 return;
             }, (error) => {
                 let tryResult = error.error as ResultError; // Try to cast to error type
-                if (tryResult !== undefined) {
-                    reject( Error(tryResult.msg) ); // Error occurred/created on the api server -> throw error with the msg
+                if (tryResult !== undefined) {                    
+                    if (error instanceof HttpErrorResponse) {
+                        tryResult.statusCode = error.status;
+                    }
+                    reject( tryResult ); // Error occurred/created on the api server -> throw error with the msg
                 } else {
                     reject( error ); // Error occurred elsewhere and is real javascript error
                 }

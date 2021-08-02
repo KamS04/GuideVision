@@ -90,6 +90,10 @@ export class RawDataService {
     return this.getObservable<ResultSuccess<MiniCourse[]>>(this.coursesMinifiedUrl + categoryId);
   }
 
+  getMinifiedCourseForUniversity(universityId: number): Observable<ResultSuccess<MiniCourse[]>> {
+    return this.getObservable<ResultSuccess<MiniCourse[]>>(this.coursesMinifiedUrl + 'university/' + universityId);
+  }  
+
   getRandomMinifiedCourses(limit: number, offset: number): Observable<ResultSuccess<MiniCourse[]>> {
     return this.getObservable<ResultSuccess<MiniCourse[]>>(this.coursesMinifiedUrl + 'random', this.limitOffsetParams(limit, offset));
   }
