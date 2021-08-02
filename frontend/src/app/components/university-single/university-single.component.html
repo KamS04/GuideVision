@@ -1,1 +1,66 @@
-<p>university-single works!</p>
+<app-display-four-o-four [showError]='errorOccurred' [statusCode]="errorCode">
+    <app-loading-bar [isLoading]="!selectedUniversity && !errorOccurred"></app-loading-bar>
+
+    <div *ngIf="selectedUniversity">
+        <h1>
+            <a [href]="selectedUniversity.url" target="_blank">{{ selectedUniversity.name }}</a>
+            <span class="d-none d-sm-inline h-100 ml-1 k-center"><span class="k-open-icon"></span></span>
+        </h1>
+        <hr>
+
+        <div class="bg-dark">
+            <img [src]="selectedUniversity.iconUrl" class="d-block mx-auto" style="max-height: 10%">
+        </div>
+        <hr>
+
+        <div *ngIf="selectedUniversity.faculties.length > 0">
+            <h4>Faculties</h4>
+            <ul>
+                <li *ngFor="let faculty of selectedUniversity.faculties">{{ faculty }}</li>
+            </ul>
+            <hr>
+        </div>
+
+        <table class="w-75">
+            <tr>
+                <td>Phone Number</td>
+                <td>{{ selectedUniversity.phone }}</td>
+            </tr>
+            <tr>
+                <td>Address</td>
+                <td>
+                    {{ selectedUniversity.streetAddress }},<br>
+                    {{ selectedUniversity.city }}, {{ selectedUniversity.provinceState }},<br>
+                    {{ selectedUniversity.country }}, {{ selectedUniversity.postalCode }}
+                </td>
+            </tr>
+        </table>
+
+        <hr>
+
+        <div>
+            <app-loading-bar [isLoading]="isLoadingCourses"></app-loading-bar>
+
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 mx-auto mt-3 w-100 px-2">
+                <div *ngFor="let course of attachedCourses" class="mb-3 px-3">
+                    <div class="card w-100 h-100">
+                        <div class="card-img-top bg-dark" style="height: 35%">
+                            <img [src]="course.universityIconUrl" [alt]="course.univeristyName + 'Icon Image'" class="m-auto d-block mw-100 mg-75">
+                        </div>
+                        <div class="card-body flex-fill">
+                            <h5 class="card-title">{{ course.courseTitle }}</h5>
+                            <p class="card-text">
+                                @{{ course.universityName }}
+                            </p>
+                        </div>
+                        <div class="container mb-2">
+                            <button type="button" class="btn btn-block btn-primary mt-auto mb-0" [routerLink]="'/courses/' + course.courseId">Details</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+    </div>
+
+</app-display-four-o-four>
