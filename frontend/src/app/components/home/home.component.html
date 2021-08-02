@@ -1,59 +1,61 @@
-<div *ngIf="universitiesPreview">
-  <div class="container">
-    <ngb-carousel  showNavigationArrows="true" showNavigationIndicators="true">
-      <ng-template ngbSlide *ngFor="let university of universitiesPreview; let i = index">
-          <div class="card text-white bg-dark mb-3" id="cardtextwhite">
-            <div id="imgwrapper">
-              <a id="uni" [routerLink]="'/universities/' + university.id">
-                <img id="uniimg"[src]="university.iconUrl" alt="{{ university.name }} Slide">
-              </a>
-              </div>
-            <div class="k-caption d-none d-sm-flex">
-              <h3>{{ university.name }}</h3>
-            </div>  
-          </div>
-      </ng-template>
-    </ngb-carousel>
-    <button type="button" class="btn btn-block btn-primary" [routerLink]="'/universities'">More Universities</button>
-  </div>
-  
-  <hr>
-</div>
-
-<div *ngIf="categoryPreview">
-  <div class="row justify-content-evenly mt-5" id="rowjustifycontent">
-    <div class="col-sm-3 text-center form-group" id="colsm3textcenter" *ngFor="let category of categoryPreview; index as i">
-      <button [routerLink]="'/pathways/' + category.id" type="button" class="btn btn-outline-primary">{{ category.title }}</button>
+<div class="container">
+  <div *ngIf="universitiesPreview">
+    <div class="container">
+      <ngb-carousel  showNavigationArrows="true" showNavigationIndicators="true">
+        <ng-template ngbSlide *ngFor="let university of universitiesPreview; let i = index">
+            <div class="card text-white bg-dark mb-3" id="cardtextwhite">
+              <div id="imgwrapper">
+                <a id="uni" [routerLink]="'/universities/' + university.id">
+                  <img id="uniimg"[src]="university.iconUrl" alt="{{ university.name }} Slide">
+                </a>
+                </div>
+              <div class="k-caption d-none d-sm-flex">
+                <h3>{{ university.name }}</h3>
+              </div>  
+            </div>
+        </ng-template>
+      </ngb-carousel>
+      <button type="button" class="btn btn-block btn-primary" [routerLink]="'/universities'">More Universities</button>
     </div>
-    <div class="col-sm-3 text-center form-group" id="colsm3textcenter">
-      <button [routerLink]="'/pathways'" type="button" class="btn btn-primary">See More
-        <span class="k-next-icon"></span>
-      </button>
-    </div>
-  </div>
-</div>
-
-
-<div *ngIf="coursesPreview">
-  <div class="container pb-4" id="containerpb4">
+    
     <hr>
+  </div>
   
-    <div *ngFor="let course of coursesPreview" id="coursepreview">
-  
-      <div class="row" id="row">
-        <div class="col-md-7">
-          <a [routerLink]="courseLink(course.id)"><h2>{{ course.courseTitle }}</h2></a>
-          <p class="lead">{{ course.universityName }}</p>
-        </div>
-        <a class="col-md-5 card bg-dark" [routerLink]="courseLink(course.id)">
-        <div class="col-md-12 card bg-transparent border-0">
-          <img class="img-fluid m-auto px-3 py-3" [src]="course.universityIconUrl" alt="Generic placeholder image">
-        </div>
-      </a>
+  <div *ngIf="categoryPreview">
+    <div class="row justify-content-evenly mt-5" id="rowjustifycontent">
+      <div class="col-sm-3 text-center form-group" id="colsm3textcenter" *ngFor="let category of categoryPreview; index as i">
+        <button [routerLink]="'/pathways/' + category.id" type="button" class="btn btn-outline-primary">{{ category.title }}</button>
       </div>
-  
-      <hr>  
+      <div class="col-sm-3 text-center form-group" id="colsm3textcenter">
+        <button [routerLink]="'/pathways'" type="button" class="btn btn-primary">See More
+          <span class="k-next-icon"></span>
+        </button>
+      </div>
     </div>
-    <button type="button" class="btn btn-block btn-primary" [routerLink]="'/courses'">More Courses</button>
+  </div>
+  
+  
+  <div *ngIf="coursesPreview">
+    <div class="container pb-4" id="containerpb4">
+      <hr>
+    
+      <div *ngFor="let course of coursesPreview" id="coursepreview">
+    
+        <div class="row" id="row">
+          <div class="col-md-7">
+            <a [routerLink]="courseLink(course.id)"><h2>{{ course.courseTitle }}</h2></a>
+            <p class="lead">{{ course.universityName }}</p>
+          </div>
+          <a class="col-md-5 card bg-dark" [routerLink]="courseLink(course.id)">
+          <div class="col-md-12 card bg-transparent border-0">
+            <img class="img-fluid m-auto px-3 py-3" [src]="course.universityIconUrl" alt="Generic placeholder image">
+          </div>
+        </a>
+        </div>
+    
+        <hr>  
+      </div>
+      <button type="button" class="btn btn-block btn-primary" [routerLink]="'/courses'">More Courses</button>
+    </div>  
   </div>  
 </div>
