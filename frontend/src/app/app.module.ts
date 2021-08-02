@@ -19,6 +19,7 @@ import { AboutFooterComponent } from './components/about-footer/about-footer.com
 import { CourseSingleComponent } from './components/course-single/course-single.component';
 import { LazyPresenterComponent } from './components/views/lazy-presenter/lazy-presenter.component';
 import { LoadingBarComponent } from './components/views/loading-bar/loading-bar.component';
+import { DisplayFourOFourComponent } from './components/views/display-four-o-four/display-four-o-four.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -44,6 +45,7 @@ const appRoutes: Routes = [
     CourseSingleComponent,
     LazyPresenterComponent,
     LoadingBarComponent,
+    DisplayFourOFourComponent,
   ],
   imports: [
     BrowserModule,

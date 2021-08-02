@@ -1,0 +1,13 @@
+<div *ngIf="!showError">
+    <ng-content></ng-content>
+</div>
+<div *ngIf="showError" class="container">
+    <div class="number">
+        {{ statusCode }}
+    </div>
+    <div class="text">
+        <span>Ooops..</span>
+        <br>
+        {{ message }}
+    </div>
+</div>
