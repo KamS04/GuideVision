@@ -4,25 +4,25 @@ export class Prerequisite {
 }
 
 export class MiniCourse {
-    courseId: Number
+    courseId: number
     courseTitle: String
     universityName: String
     universityIconUrl: String
 }
 
 export class Course {
-    id: Number
-    universityId: Number
+    id: number
+    universityId: number
     courseUrl: String
     title: String
     faculty: Array<String>
     prerequisites: Array<Prerequisite>
-    requiredAverage: Number
-    domesticTuition: Number
-    domesticBooks: Number
+    requiredAverage: number
+    domesticTuition: number
+    domesticBooks: number
     domesticNotes: String
-    internationalTuition: Number
-    internationalBooks: Number
+    internationalTuition: number
+    internationalBooks: number
     internationalNotes: String
-    notes: Array<String>
+    notes: String
 }
