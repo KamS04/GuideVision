@@ -28,7 +28,7 @@ const courseTableQuery = `CREATE TABLE IF NOT EXISTS ${sqlNames.COURSES} (
     ${sqlNames.COURSE_INT_TUI} INTEGER,
     ${sqlNames.COURSE_INT_BOOKS} INTEGER,
     ${sqlNames.COURSE_INT_NOTES} TEXT,
-    ${sqlNames.COURSE_NOTES} BLOB
+    ${sqlNames.COURSE_NOTES} TEXT
 );`;
 
 const categoryTableQuery = `CREATE TABLE IF NOT EXISTS ${sqlNames.CATEGORIES} (

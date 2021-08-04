@@ -103,7 +103,7 @@ const mapCourse = (rawCourse) => {
         rawCourse[sqlNames.COURSE_INT_TUI],
         rawCourse[sqlNames.COURSE_INT_BOOKS],
         rawCourse[sqlNames.COURSE_INT_NOTES],
-        JSON.parse(rawCourse[sqlNames.COURSE_NOTES]),
+        rawCourse[sqlNames.COURSE_NOTES],
     );
 };
 
