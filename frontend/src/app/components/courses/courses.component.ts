@@ -22,7 +22,6 @@ export class CoursesComponent implements OnInit {
   }
 
   onScroll() {
-    console.log('Ask');
     if (!this.completedResultSet) {
       this.loadData();
     }
@@ -33,7 +32,6 @@ export class CoursesComponent implements OnInit {
     try {
       let data = await contract(this._Database.getMinifiedCourses(this.limit, this.offset));
       let newCourses = data.data;
-      console.log(newCourses.length, 'Here we go');
       if (!debugMode) {
         this.offset += this.limit;
         if (newCourses.length < this.limit) {
