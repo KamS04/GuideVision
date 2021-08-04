@@ -1,1 +1,94 @@
-<p>course-single works!</p>
+<app-display-four-o-four [showError]='errorOccurred' [statusCode]="errorCode">
+    <app-loading-bar [isLoading]="!selectedCourse && !errorOccurred"></app-loading-bar>
+
+    <div class="row mb-4">
+        <div *ngIf="selectedCourse" class="col col-12" [ngClass]="{ 'col-xl-8': attachedUniversity !== undefined }">
+            <h1>
+                <a [href]="selectedCourse.courseUrl" target="_blank">{{ selectedCourse.title }}</a>
+                <span class="d-none d-sm-inline h-100 ml-1 k-center"><span class="k-open-icon"></span></span>
+            </h1>
+            <hr>
+    
+            <div *ngIf="selectedCourse.prerequisites.length > 0">
+                <div *ngFor="let prerequisite of selectedCourse.prerequisites">
+                    <h4>Prerequisite for {{ prerequisite.title }}</h4>
+                    <ul>
+                        <li *ngFor="let course of prerequisite.prerequisites">{{ course }}</li>
+                    </ul>
+                    <hr>
+                </div>
+            </div>
+    
+            <table class="w-100 table">
+                <tr class="table-active">
+                    <td>Faculty</td>
+                    <td>{{ selectedCourse.faculty }}</td>
+                </tr>
+    
+                <tr class="table-primary">
+                    <td>Minimum average preferred</td>
+                    <td>{{ selectedCourse.requiredAverage }}%</td>
+                </tr>
+            </table>
+    
+            <table class="w-100 table">
+                <tr class="thead-dark">
+                    <th></th>
+                    <th>Tuition</th>
+                    <th>Books</th>
+                </tr>
+    
+                <tr class="table-active">
+                    <td>Domestic</td>
+                    <td>${{ selectedCourse.domesticTuition }}</td>
+                    <td>${{ selectedCourse.domesticBooks }}</td>
+                </tr>
+                <tr class="table-active" *ngIf="selectedCourse.domesticNotes">
+                    <td colspan="3">
+                        <p class="notes float-right">{{ selectedCourse.domesticNotes }}</p>
+                    </td>
+                </tr>
+    
+                <tr class="table-primary">
+                    <td>International</td>
+                    <td>${{ selectedCourse.internationalTuition }}</td>
+                    <td>${{ selectedCourse.internationalBooks }}</td>
+                </tr>
+                <tr class="table-primary" *ngIf="selectedCourse.internationalNotes">
+                    <td colspan="3">
+                        <p class="notes float-right">{{ selectedCourse.internationalNotes }}</p>
+                    </td>
+                </tr>
+            </table>
+    
+            <div *ngIf="selectedCourse.notes.length > 0">
+                <hr>
+                <div [innerHTML]="selectedCourse.notes | markdown"></div>
+            </div>
+    
+        </div>
+        
+        <div [ngClass]="attachedUniversity !== undefined ? '' : 'd-none'" class="col col-12 col-xl-4 mt-3 mt-xl-0">
+            
+            <div class="card w-100">
+                <div class="card-img-top bg-dark py-4" style="height: 35%">
+                    <img [src]="attachedUniversity.iconUrl" [alt]="attachedUniversity.name + ' Icon Image'" class="d-block mx-auto mt-auto mw-100 mh-75 mb-2">
+                </div>
+                
+                <div class="card-body flex-fill">
+                    <h1 class="card-title">
+                        <a [href]="'/universities/' + attachedUniversity.id">{{ attachedUniversity.name }}</a>
+                    </h1>
+                    <p class="card-text">
+                        {{ attachedUniversity.streetAddress }},<br>
+                        {{ attachedUniversity.city }}, {{ attachedUniversity.provinceState }}, {{ attachedUniversity.postalCode}},<br>
+                        {{ attachedUniversity.country }}
+                    </p>
+                </div>
+            
+            </div>
+        </div>
+    
+    </div>
+
+</app-display-four-o-four>
