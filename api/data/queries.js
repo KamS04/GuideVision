@@ -122,12 +122,12 @@ module.exports = {
         university.${sqlNames.UNI_NAME},
         university.${sqlNames.UNI_ICON_URL}
     FROM
-        ${sqlNames.UNIVERSITIES} university
-    INNER JOIN ${sqlNames.COURSES} course
+        ${sqlNames.COURSES} course
+    INNER JOIN ${sqlNames.UNIVERSITIES} university
     ON
         university.${sqlNames.UNI_ID} = course.${sqlNames.COURSE_UNI}
     WHERE
-        university.${sqlNames.UNI_ID} = ?;`,
+        university.${sqlNames.COURSE_UNI} = ?;`,
 
     searchUniversity: (uniQuery) => {
         `SELECT * FROM ${sqlNames.UNIVERSITIES} WHERE ${sqlNames.UNI_NAME} LIKE "%${uniQuery}%" LIMIT ? OFFSET ?;`
