@@ -43,17 +43,18 @@ const courses = range(80).map( (_, id) => {
     return {
         id: id,
         universityId: uni.id,
+        courseUrl: `https://www.google.com/search?q=${id}`,
         title: `Course #${id}`,
         faculty: uni.faculties[ randomInt(0, uni.faculties.length) ],
         prerequisites: range(randomInt(0, 5)).map( (_, idx) => { return { title: `Prerequisite ${idx}`, prerequisites: range(3).map( (_, pIdx) => `PreReq ${pIdx}`)} }),
         requiredAverage: 44,
         domesticTuition: randomInt(10000, 40000),
         domesticBooks: randomInt(1000, 4000),
-        domesticNotes: 'No Notes yet',
+        domesticNotes: '*No Notes yet',
         internationalTuition: randomInt(10000, 40000),
         internationalBooks: randomInt(1000, 4000),
-        internationalNotes: 'No Notes yet',
-        notes: 'No Notes yet'
+        internationalNotes: '*No Notes yet',
+        notes: 'No\n**Notes**\n yet'
     }
 });
 
