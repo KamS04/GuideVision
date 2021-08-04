@@ -13,6 +13,7 @@ export class MiniCourse {
 export class Course {
     id: Number
     universityId: Number
+    courseUrl: String
     title: String
     faculty: Array<String>
     prerequisites: Array<Prerequisite>
