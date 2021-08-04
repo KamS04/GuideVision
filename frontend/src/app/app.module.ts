@@ -25,11 +25,11 @@ import { DisplayFourOFourComponent } from './components/views/display-four-o-fou
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'pathways', component: PathwaysComponent },
-  { path: 'courses', component: CoursesComponent },
+  { path: 'programs', component: CoursesComponent },
   { path: 'universities', component: UniversitiesComponent },
   { path: 'pathways/:id', component: PathwaySingleComponent },
   { path: 'universities/:id', component: UniversitySingleComponent },
-  { path: 'courses/:id', component: CourseSingleComponent },
+  { path: 'programs/:id', component: CourseSingleComponent },
 ]
 
 @NgModule({

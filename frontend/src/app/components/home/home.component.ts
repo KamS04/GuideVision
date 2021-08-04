@@ -55,7 +55,7 @@ export class HomeComponent implements OnInit {
   }
 
   courseLink(id: number): String {
-    return `/courses/${id}`;
+    return `/programs/${id}`;
   }
 
 }
