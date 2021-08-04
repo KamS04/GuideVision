@@ -43,7 +43,7 @@
     
         <div class="row" id="row">
           <div class="col-md-7">
-            <a [routerLink]="courseLink(course.id)"><h2>{{ course.courseTitle }}</h2></a>
+            <a [routerLink]="courseLink(course.courseId)"><h2>{{ course.courseTitle }}</h2></a>
             <p class="lead">{{ course.universityName }}</p>
           </div>
           <a class="col-md-5 card bg-dark" [routerLink]="courseLink(course.id)">
@@ -55,7 +55,7 @@
     
         <hr>  
       </div>
-      <button type="button" class="btn btn-block btn-primary" [routerLink]="'/courses'">More Courses</button>
+      <button type="button" class="btn btn-block btn-primary" [routerLink]="'/courses'">More Programs</button>
     </div>  
   </div>  
 </div>
