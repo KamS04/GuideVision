@@ -92,6 +92,7 @@ const mapCourse = (rawCourse) => {
     return new Course(
         rawCourse[sqlNames.COURSE_ID],
         rawCourse[sqlNames.COURSE_UNI],
+        rawCourse[sqlNames.COURSE_URL],
         rawCourse[sqlNames.COURSE_TITLE],
         JSON.parse(rawCourse[sqlNames.COURSE_FACULTY]),
         mapPrerequisites(rawCourse[sqlNames.COURSE_PREQ]),

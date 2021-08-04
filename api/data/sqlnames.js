@@ -16,6 +16,7 @@ module.exports.UNI_ICON_URL = 'IconUrl';
 module.exports.COURSES = 'Courses';
 module.exports.COURSE_ID = 'ID';
 module.exports.COURSE_UNI = 'CUniversity';
+module.exports.COURSE_URL = 'CUrl';
 module.exports.COURSE_TITLE = 'Title';
 module.exports.COURSE_FACULTY = 'CFaculty';
 module.exports.COURSE_PREQ = 'Prerequisite';

@@ -23,6 +23,7 @@ class Course {
     constructor(
         id,
         universityId,
+        courseUrl,
         title,
         faculty,
         prerequisites,
@@ -37,7 +38,9 @@ class Course {
     ) {
         this.id = id;
         this.universityId = universityId;
-    
+        
+        this.courseUrl = courseUrl;
+
         this.title = title;
         this.faculty = faculty;
         this.prerequisites = prerequisites;

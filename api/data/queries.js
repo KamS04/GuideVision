@@ -17,6 +17,7 @@ const universityTableQuery = `CREATE TABLE IF NOT EXISTS ${sqlNames.UNIVERSITIES
 const courseTableQuery = `CREATE TABLE IF NOT EXISTS ${sqlNames.COURSES} (
     ${sqlNames.COURSE_ID} INTEGER PRIMARY KEY,
     ${sqlNames.COURSE_UNI} INTEGER,
+    ${sqlNames.COURSE_URL} TEXT,
     ${sqlNames.COURSE_TITLE} TEXT,
     ${sqlNames.COURSE_FACULTY} TEXT,
     ${sqlNames.COURSE_PREQ} BLOB,
