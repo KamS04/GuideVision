@@ -178,7 +178,7 @@ module.exports = {
 
     getCategoryDetails,
     getAllCategories,
-    getRandomCourses,
+    getRandomCategories,
 
     getCourseById,
     getAllCourses,
