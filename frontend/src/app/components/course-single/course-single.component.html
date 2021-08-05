@@ -68,7 +68,7 @@
     
         </div>
         
-        <div [ngClass]="attachedUniversity !== undefined ? '' : 'd-none'" class="col col-12 col-xl-4 mt-3 mt-xl-0">
+        <div *ngIf="attachedUniversity" class="col col-12 col-xl-4 mt-3 mt-xl-0">
             
             <div class="card w-100">
                 <div class="card-img-top bg-dark py-4" style="height: 35%">
