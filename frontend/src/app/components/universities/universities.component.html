@@ -2,22 +2,7 @@
     <div>
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 mx-auto mt-3 w-100 px-md-2">
             <div *ngFor="let university of universities" class="mb-3 px-md-3">
-                <div class="card w-100 h-100">
-                    <div class="card-img-top bg-dark" style="height: 35%">
-                        <img [src]="university.iconUrl" [alt]="university.name + ' Icon Image'" class="mx-auto mt-auto d-block mw-100 mh-75 mb-2">
-                    </div>
-                    <div class="card-body flex-fill">
-                        <h5 class="card-title">{{ university.name }}</h5>
-                        <p class="card-text">
-                            {{ university.streetAddress }},<br>
-                            {{ university.city }}, {{ university.provinceState }}, {{ university.postalCode}},<br>
-                            {{ university.country }}
-                        </p>
-                    </div>
-                    <div class="container mb-2">
-                        <button type="button" class="btn btn-block btn-primary mt-auto mb-0" [routerLink]="'/universities/' + university.id">Details</button>
-                    </div>
-                </div>
+                <app-university-card-view [university]="university"></app-university-card-view>
             </div>
         </div>
     </div>
