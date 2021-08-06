@@ -1,0 +1,17 @@
+<div class="card w-100 h-100">
+    <div class="card-body flex-fill">
+        <h4 class="card-title">{{ category.title }}</h4>
+        <hr>
+        <div *ngIf="category.futureJobOpportunities.length > 0">
+            <p class="card-text mt-2"><strong>Future Opportunities</strong></p>
+            <ul class="card-text">
+                <li *ngFor="let opp of category.futureJobOpportunities.slice(0, 3)">
+                    {{ opp }}
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="container mb-2">
+        <button type="button" class="btn btn-block btn-primary mt-auto mb-0" [routerLink]="'/pathways/' + category.id">Details</button>
+    </div>                    
+</div>
