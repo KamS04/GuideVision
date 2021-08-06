@@ -68,23 +68,25 @@ courseRouter.route('/search').get( (req, res) => {
     const { limit, offset } = getLimitOffset(req, res);
     if (limit !== undefined) {
 
-        const { title } = req.query;
+        let { title } = req.query;
 
-        if (typeof(title) !== String) {
+        if (typeof(title) !== 'string') {
             resWriteFail(res, 'Query parameter title must be of type string');
             return;        
         }
 
+        title = title.toLowerCase();
+
         const courses = [];
         let isDone = false;
         let idx = 0;
-        while (!isDone && courses.length < limit) {
+        while (!isDone && courses.length < limit + offset) {
             let course = data.miniCourses[idx];
-            if (course.courseTitle.includes(title)) {
+            if (course.courseTitle.toLowerCase().includes(title)) {
                 courses.push(course);
             }
             idx += 1;
-            if (idx > data.miniCourses.length) {
+            if (idx >= data.miniCourses.length) {
                 isDone = true;
             }
         }
@@ -188,23 +190,25 @@ uniRouter.route('/search').get( (req, res) => {
     const { limit, offset } = getLimitOffset(req, res);
     if (limit !== undefined) {
 
-        const { name } = req.query;
+        let { name } = req.query;
 
-        if (typeof(name) !== String) {
+        if (typeof(name) !== 'string') {
             resWriteFail(res, 'Query parameter name must be of type string');
             return;        
         }
 
+        name = name.toLowerCase();
+
         const universities = [];
         let isDone = false;
         let idx = 0;
-        while (!isDone && universities.length < limit) {
+        while (!isDone && universities.length < limit + offset) {
             let university = data.universities[idx];
-            if (university.name.includes(name)) {
-                universities.push(course);
+            if (university.name.toLowerCase().includes(name)) {
+                universities.push(university);
             }
             idx += 1;
-            if (idx > data.universities.length) {
+            if (idx >= data.universities.length) {
                 isDone = true;
             }
         }
@@ -251,23 +255,25 @@ categoryRouter.route('/search').get( (req, res) => {
     const { limit, offset } = getLimitOffset(req, res);
     if (limit !== undefined) {
 
-        const { title } = req.query;
+        let { title } = req.query;
 
-        if (typeof(title) !== String) {
+        if (typeof(title) !== 'string') {
             resWriteFail(res, 'Query parameter title must be of type string');
             return;        
         }
 
+        title = title.toLowerCase();
+
         const categories = [];
         let isDone = false;
         let idx = 0;
-        while (!isDone && categories.length < limit) {
+        while (!isDone && categories.length < limit + offset) {
             let category = data.categories[idx];
-            if (category.title.includes(title)) {
-                categories.push(course);
+            if (category.title.toLowerCase().includes(title)) {
+                categories.push(category);
             }
             idx += 1;
-            if (idx > data.categories.length) {
+            if (idx >= data.categories.length) {
                 isDone = true;
             }
         }
