@@ -36,3 +36,11 @@ strong {
     font-weight: bold;
     color: #000000;
 }
+
+.k-icon {
+    color: var(--gold);
+}
+
+.k-icon:hover {
+    color: #92804d;
+}
