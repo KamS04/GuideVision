@@ -6,7 +6,7 @@
     </button>
 
     <div [ngbCollapse]="isMenuCollapsed" class="collapse navbar-collapse">
-        <ul class="navbar-nav">
+        <ul class="navbar-nav mr-auto">
             <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
                 <a class="nav-link" [routerLink]="['/pathways']" (click)="isMenuCollapsed = true">Pathways</a>
             </li>
@@ -17,5 +17,15 @@
                 <a class="nav-link" [routerLink]="['/programs']" (click)="isMenuCollapsed = true">Programs</a>
             </li>                                
         </ul>
+
+        <!-- <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form> -->
+        <form class="d-flex navbar-right" (ngSubmit)="search()">
+            <input class="form-control mr-2 py-0" type="text" placeholder="Search" [(ngModel)]="searchQuery" name="searchQuery">
+            <!-- id="name" [(ngModel)]="hero.name" placeholder="name" -->
+            <button #searchButton class="btn btn-secondary my-lg-0 py-lg-0 my-0 py-2" type="submit" (click)="isMenuCollapsed = true">Search</button>
+        </form>
     </div>
 </nav>
