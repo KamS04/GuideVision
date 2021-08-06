@@ -69,13 +69,6 @@ export class RawDataService {
     return this.getObservable<ResultSuccess<Course[]>>(this.coursesUrl + 'random', this.limitOffsetParams(limit, offset));
   }
 
-  searchCourse(query: string, limit: number, offset: number): Observable<ResultSuccess<Course[]>> {
-    let params = this.limitOffsetParams(limit, offset)
-      .set('title', query);
-
-      return this.getObservable<ResultSuccess<Course[]>>(this.coursesUrl + 'search', params);
-  }
-
   // Minified Courses
   getMinifiedCourses(limit: number, offset: number): Observable<ResultSuccess<MiniCourse[]>> {
     return this.getObservable<ResultSuccess<MiniCourse[]>>(this.coursesMinifiedUrl, this.limitOffsetParams(limit, offset));
@@ -96,6 +89,13 @@ export class RawDataService {
 
   getRandomMinifiedCourses(limit: number, offset: number): Observable<ResultSuccess<MiniCourse[]>> {
     return this.getObservable<ResultSuccess<MiniCourse[]>>(this.coursesMinifiedUrl + 'random', this.limitOffsetParams(limit, offset));
+  }
+
+  searchCourse(query: string, limit: number, offset: number): Observable<ResultSuccess<MiniCourse[]>> {
+    let params = this.limitOffsetParams(limit, offset)
+      .set('title', query);
+
+      return this.getObservable<ResultSuccess<MiniCourse[]>>(this.coursesUrl + 'search', params);
   }
 
   // Category Calls
