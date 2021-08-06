@@ -1,28 +1,28 @@
 export class Prerequisite {
-    title: String
-    prerequisites: Array<String>
+    title: String = '';
+    prerequisites: Array<String> = [];
 }
 
 export class MiniCourse {
-    courseId: number
-    courseTitle: String
-    universityName: String
-    universityIconUrl: String
+    courseId: number = 0;
+    courseTitle: String = '';
+    universityName: String = '';
+    universityIconUrl: String = '';
 }
 
 export class Course {
-    id: number
-    universityId: number
-    courseUrl: String
-    title: String
-    faculty: Array<String>
-    prerequisites: Array<Prerequisite>
-    requiredAverage: number
-    domesticTuition: number
-    domesticBooks: number
-    domesticNotes: String
-    internationalTuition: number
-    internationalBooks: number
-    internationalNotes: String
-    notes: String
+    id: number = 0;
+    universityId: number = 0;
+    courseUrl: String = '';
+    title: String = '';
+    faculty: Array<String> = [];
+    prerequisites: Array<Prerequisite> = [];
+    requiredAverage: number = 0;
+    domesticTuition: number = 0;
+    domesticBooks: number = 0;
+    domesticNotes: String = '';
+    internationalTuition: number = 0;
+    internationalBooks: number = 0;
+    internationalNotes: String = '';
+    notes: String = '';
 }

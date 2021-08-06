@@ -1,5 +1,5 @@
 export class Category {
-    id: Number
-    title: String
-    futureJobOpportunities: Array<String>
+    id: number = 0;
+    title: String = '';
+    futureJobOpportunities: Array<String> = [];
 }
