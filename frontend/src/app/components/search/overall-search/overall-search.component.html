@@ -1,0 +1,44 @@
+<div class="container mb-4">
+
+    <form (ngSubmit)="search()">
+        <div class="input-group mb-3">
+            <button #searchButton class="btn btn-primary k-icon fa fa-search py-0" type="submit"></button>
+            <input type="text" class="form-control" aria-label="search" placeholder="Search" [(ngModel)]="searchQuery" name="searchQuery">
+            <button *ngIf="searchQuery" class="btn btn-primary k-icon fa fa-times py-0" type="button" (click)="clearSearchText()"></button>
+        </div>
+    </form>
+
+    <div *ngIf="universityResults && universityResults.length > 0" class="mt-3">
+        <hr>
+        <a (click)="moreUniversities()"><h4>Universities<span class="fa fa-arrow-right float-right"></span></h4></a>
+
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4">
+            <div *ngFor="let university of universityResults" class="col mb-3 px-md-3">
+                <app-university-card-view [university]="university"></app-university-card-view>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="categoryResults && categoryResults.length > 0" class="mt-3">
+        <hr>
+        <a (click)="moreCategories()"><h4>Categories<span class="fa fa-arrow-right float-right"></span></h4></a>
+
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4">
+            <div *ngFor="let category of categoryResults" class="col mb-3 px-md-3">
+                <app-pathway-card-view [category]="category"></app-pathway-card-view>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="courseResults && courseResults.length > 0" class="mt-3">
+        <hr>
+        <a (click)="moreCourses()"><h4>Courses<span class="fa fa-arrow-right float-right"></span></h4></a>
+
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4">
+            <div *ngFor="let course of courseResults" class="col mb-3 px-md-3">
+                <app-course-card-view [course]="course"></app-course-card-view>
+            </div>
+        </div>
+    </div>
+
+</div>

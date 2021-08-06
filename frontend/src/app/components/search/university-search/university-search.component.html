@@ -1,0 +1,25 @@
+<button class="btn btn-outline-primary fa fa-arrow-left ml-0 mr-auto my-3" (click)="back()"> Back</button>
+
+<div class="container mb-4">
+    
+    <hr>
+    <h1>Search Universities</h1>
+    <hr>
+
+    <form (ngSubmit)="search()">
+        <div class="input-group mb-3">
+            <button #searchButton class="btn btn-primary k-icon fa fa-search py-0" type="submit"></button>
+            <input type="text" class="form-control" aria-lable="search" placeholder="Search" [(ngModel)]="searchQuery" name="searchQuery">
+            <button class="btn btn-primary k-icon fa fa-times py-0" type="button" (click)="clearSearchText()"></button>
+        </div>
+    </form>
+
+    <app-lazy-presenter (scrolled)="onScroll()">
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 mx-auto mt-3 w-100 px-md-2">
+            <div *ngFor="let university of universityResults" class="mb-3 px-md-3">
+                <app-university-card-view [university]="university"></app-university-card-view>
+            </div>
+        </div>
+    </app-lazy-presenter>
+
+</div>
