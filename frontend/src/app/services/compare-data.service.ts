@@ -9,8 +9,8 @@ import { RawDataService } from './raw-data.service';
 })
 export class CompareDataService {
 
-  private compareList: Course[];
-  public compareListChanged: EventEmitter<number> = new EventEmitter();
+  private compareList: Course[] = [];
+  public compareListChanged = new EventEmitter();
 
   public get canAddMore(): boolean {
     return this.compareList.length < COMPARE_LIMIT;
@@ -28,6 +28,10 @@ export class CompareDataService {
   }
 
   public async addCourse(course: Course | number) {
+    if (this.compareList.length > COMPARE_LIMIT) {
+      return;
+    }
+
     let courseToAdd: Course = null;
     if (typeof(course) == 'number') {
       try {
@@ -64,12 +68,34 @@ export class CompareDataService {
 
   private pushCourse(course: Course) {
     this.compareList.push(course);
-    this.compareListChanged.emit(this.compareList.length);
+    this.compareListChanged.emit();
   }
 
   public clearList() {
-    this.compareList = [];
-    this.compareListChanged.emit(0);
+    this.setList([]);
+  }
+
+  public setList(newList: Course[]) {
+    this.compareList = newList;
+    this.compareListChanged.emit();
+  }
+
+  public removeCourse(course: Course | number) {
+    let courseId = typeof(course) == 'number' ? course : course.id;
+    this.setList(this.compareList.filter( (cCourse) => cCourse.id != courseId ));
+  }
+
+  public isAddedAlready(course: Course | number): boolean {
+    let courseId = typeof(course) == 'number' ? course : course.id;
+    return this.compareList.some( (cCourse) => cCourse.id == courseId)
+  }
+
+  public getCompareList(): Course[] {
+    return [ ...this.compareList ];
+  }
+
+  public get listLength(): number {
+    return this.compareList.length;
   }
 
 }
