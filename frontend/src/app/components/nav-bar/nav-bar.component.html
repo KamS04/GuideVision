@@ -27,5 +27,13 @@
             <!-- id="name" [(ngModel)]="hero.name" placeholder="name" -->
             <button #searchButton class="btn btn-secondary my-lg-0 py-lg-0 my-0 py-2" type="submit" (click)="isMenuCollapsed = true">Search</button>
         </form>
+
+        <ul class="navbar-nav ml-lg-3 mt-2 mt-lg-0">
+            <li class="nav-item mx-lg-auto" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+                <a class="nav-link" [routerLink]="['/compare']" (click)="isMenuCollapsed = true" data-toggle="tooltip" data-placement="bottom" title="Compare Courses List">
+                    <i class="fas fa-balance-scale-right fa-2x"></i>
+                </a>
+            </li>
+        </ul>
     </div>
 </nav>
