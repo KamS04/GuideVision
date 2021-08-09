@@ -1,4 +1,13 @@
 <app-display-four-o-four [showError]='errorOccurred' [statusCode]="errorCode">
+    <div class="mb-2 d-flex justify-content-between">
+        <button class="btn btn-outline-primary fa fa-arrow-left" (click)="back()"> Back</button>
+
+        <div class="d-inline" data-toggle="tooltip" [title]="compareListToolTip">
+            <button #compareBtn class="btn btn-outline-primary fas fa-balance-scale-right" [ngClass]="{ 'disabled': !canAddMore || addedToCompare }" (click)="addToCompare()"> Compare</button>
+        </div>
+    </div>
+    <hr>
+    
     <app-loading-bar [isLoading]="!selectedCourse && !errorOccurred"></app-loading-bar>
 
     <div class="row mb-4">
