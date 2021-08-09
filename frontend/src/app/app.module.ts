@@ -28,6 +28,7 @@ import { OverallSearchComponent } from './components/search/overall-search/overa
 import { UniversitySearchComponent } from './components/search/university-search/university-search.component';
 import { CourseSearchComponent } from './components/search/course-search/course-search.component';
 import { PathwaySearchComponent } from './components/search/pathway-search/pathway-search.component';
+import { CompareComponent } from './components/compare/compare.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -41,6 +42,7 @@ const appRoutes: Routes = [
   { path: 'search/universities', component: UniversitySearchComponent },
   { path: 'search/courses', component: CourseSearchComponent },
   { path: 'search/pathways', component: PathwaySearchComponent },
+  { path: 'compare', component: CompareComponent },
 ]
 
 @NgModule({
@@ -65,6 +67,7 @@ const appRoutes: Routes = [
     UniversitySearchComponent,
     CourseSearchComponent,
     PathwaySearchComponent,
+    CompareComponent,
   ],
   imports: [
     BrowserModule,
