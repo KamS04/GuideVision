@@ -1,1 +1,10 @@
-<p>compare works!</p>
+<div class="container">
+    <h2>Selected Programs ({{ this.numberOfCourses > 0 ? this.numberOfCourses : '' }})</h2>
+    <div class="w-100 m-2 border border-dark rounded p-2" *ngFor="let course of selectedCourses">
+        <div class="d-flex justify-content-between">
+            <h3 class="my-auto"><span class="badge badge-info">{{ course.title }}</span></h3>
+
+            <button class="btn btn-danger rounded fas fa-times" (click)="magic(course, $event)"></button>
+        </div>
+    </div>
+</div>
