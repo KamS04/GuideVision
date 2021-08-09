@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MiniCourse } from 'src/app/models/course';
 import { ResultError } from 'src/app/models/result';
 import { University } from 'src/app/models/university';
@@ -22,7 +22,8 @@ export class UniversitySingleComponent extends AbstractError implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private _Database: RawDataService
+    private _Database: RawDataService,
+    private router: Router,
   ) {
     super();
     
@@ -71,6 +72,10 @@ export class UniversitySingleComponent extends AbstractError implements OnInit {
     }
 
     this.isLoadingCourses = false;
+  }
+
+  back() {
+    this.router.navigate(['/universities']);
   }
 
 }

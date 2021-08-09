@@ -1,7 +1,10 @@
 <app-display-four-o-four [showError]='errorOccurred' [statusCode]="errorCode">
+    <button class="btn btn-outline-primary fa fa-arrow-left" (click)="back()"> Back</button>
+    <hr>
+
     <app-loading-bar [isLoading]="!selectedUniversity && !errorOccurred"></app-loading-bar>
 
-    <div *ngIf="selectedUniversity">
+    <div *ngIf="selectedUniversity" class="mt-2">
         <h1>
             <a [href]="selectedUniversity.url" target="_blank">{{ selectedUniversity.name }}</a>
             <span class="d-none d-sm-inline h-100 ml-1 k-center"><span class="k-open-icon"></span></span>

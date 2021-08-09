@@ -1,8 +1,11 @@
 <app-display-four-o-four [showError]="errorOccurred" [statusCode]="errorCode">
     
+    <button class="btn btn-outline-primary fa fa-arrow-left" (click)="back()"> Back</button>
+    <hr>
+
     <app-loading-bar [isLoading]="!selectedCategory && !errorOccurred"></app-loading-bar>
     
-    <div *ngIf="selectedCategory">
+    <div *ngIf="selectedCategory" class="mt-2">
         <h1>{{ selectedCategory.title }}</h1>
         <hr>
         <div *ngIf="selectedCategory.futureJobOpportunities.length > 0">

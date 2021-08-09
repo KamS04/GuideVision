@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Category } from 'src/app/models/category';
 import { MiniCourse } from 'src/app/models/course';
 import { ResultError } from 'src/app/models/result';
@@ -21,7 +21,8 @@ export class PathwaySingleComponent extends AbstractError implements OnInit {
   
   constructor(
     private route: ActivatedRoute,
-    private _Database: RawDataService
+    private _Database: RawDataService,
+    private router: Router,
   ) {
     super();
   }
@@ -65,5 +66,9 @@ export class PathwaySingleComponent extends AbstractError implements OnInit {
       console.error(err);
     }
     this.isLoadingCourses = false;
+  }
+
+  back() {
+    this.router.navigate(['/pathways']);
   }
 }
