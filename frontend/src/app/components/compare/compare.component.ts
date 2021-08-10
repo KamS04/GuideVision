@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Course } from 'src/app/models/course';
+import { University } from 'src/app/models/university';
 import { CompareDataService } from 'src/app/services/compare-data.service';
 
 @Component({
@@ -8,8 +9,9 @@ import { CompareDataService } from 'src/app/services/compare-data.service';
   styleUrls: ['./compare.component.css']
 })
 export class CompareComponent implements OnInit {
-  selectedCourses: Course[];
+  selectedItems: Map<Course, University>;
   numberOfCourses: number = 0;
+  universitiesMap: Map<number, University>;
 
   constructor(
     private _CompareList: CompareDataService,
@@ -17,21 +19,38 @@ export class CompareComponent implements OnInit {
     this.getCompareList();
   }
 
+  public get selectedCourses(): Course[] {
+    return Array.from(this.selectedItems.keys());
+  }  
+
   ngOnInit(): void {
-    this._CompareList.compareListChanged.subscribe( (length) => {
+    this._CompareList.compareMapChanged.subscribe( (length) => {
       console.log(length);
       this.getCompareList();
     });
   }
 
   getCompareList() {
-    this.selectedCourses = this._CompareList.getCompareList();
-    this.numberOfCourses = this._CompareList.listLength;
+    this.selectedItems = this._CompareList.getCompareMap();
+    this.numberOfCourses = this._CompareList.mapSize;
+    this.universitiesMap = Array.from(this.selectedItems.entries()).reduce( (map, [course, uni]) => {
+      map.set(course.id, uni);
+      return map;
+    }, new Map<number, University>()
+    )
   }
 
-  magic(course, event) {
+  remove(course, event) {
     this._CompareList.removeCourse(course);
     event.target.blur();
+  }
+
+  getIcon(course: Course): String {
+    return this.universitiesMap.get(course.id).iconUrl;
+  }
+
+  getUniMap(course: Course): String {
+    return this.universitiesMap.get(course.id).name;
   }
 
 }

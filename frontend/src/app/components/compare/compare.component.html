@@ -1,10 +1,73 @@
 <div class="container">
-    <h2>Selected Programs ({{ this.numberOfCourses > 0 ? this.numberOfCourses : '' }})</h2>
+    <h2>Selected Programs {{ numberOfCourses > 0 ? '(' + numberOfCourses + ')' : '' }}</h2>
     <div class="w-100 m-2 border border-dark rounded p-2" *ngFor="let course of selectedCourses">
         <div class="d-flex justify-content-between">
             <h3 class="my-auto"><span class="badge badge-info">{{ course.title }}</span></h3>
 
-            <button class="btn btn-danger rounded fas fa-times" (click)="magic(course, $event)"></button>
+            <button class="btn btn-danger rounded fas fa-times" (click)="remove(course, $event)"></button>
         </div>
     </div>
+
+</div>
+
+<div class="mt-5 mx-auto w-100 holder">
+    <h2>Compare</h2>
+    
+    <div *ngIf="numberOfCourses > 0" class="my-5 info-outer">
+        
+        <table  class="mt-2 table table-striped table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th></th>
+                    <th class="mx-auto" *ngFor="let course of selectedCourses">
+                        <div class="bg-dark img-wrapper">
+                            <img class="icon-image" [src]="getIcon(course)" [alt]="getUniMap(course) + ' icon image' " />
+                        </div>
+                        {{ course.title }}
+                    </th>                        
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Faculty</td>
+                    <td *ngFor="let course of selectedCourses">{{ course.faculty }}</td>
+                </tr>
+
+                <tr>
+                    <td>Required Averages</td>
+                    <td *ngFor="let course of selectedCourses">{{ course.requiredAverage }}%</td>
+                </tr>
+
+                <tr class="table-info" style="font-size: 0.95rem">
+                    <td [attr.colspan]="numberOfCourses + 1"><strong>Domestic</strong></td>
+                </tr>
+
+                <tr>
+                    <td>Tuition</td>
+                    <td *ngFor="let course of selectedCourses">${{ course.domesticTuition }}</td>
+                </tr>
+
+                <tr>
+                    <td>Books</td>
+                    <td *ngFor="let course of selectedCourses">${{ course.domesticBooks }}</td>
+                </tr>
+
+                <tr class="table-info" style="font-size: 0.95rem">
+                    <td [attr.colspan]="numberOfCourses + 1"><strong>International</strong></td>
+                </tr>
+
+                <tr>
+                    <td>Tuition</td>
+                    <td *ngFor="let course of selectedCourses">${{ course.internationalTuition }}</td>
+                </tr>
+
+                <tr>
+                    <td>Books</td>
+                    <td *ngFor="let course of selectedCourses">${{ course.internationalBooks }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+
 </div>
