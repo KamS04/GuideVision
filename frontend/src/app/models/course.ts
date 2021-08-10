@@ -15,7 +15,7 @@ export class Course {
     universityId: number = 0;
     courseUrl: String = '';
     title: String = '';
-    faculty: Array<String> = [];
+    faculty: String = '';
     prerequisites: Array<Prerequisite> = [];
     requiredAverage: number = 0;
     domesticTuition: number = 0;

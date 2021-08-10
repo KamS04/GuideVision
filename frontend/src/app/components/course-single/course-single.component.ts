@@ -87,7 +87,7 @@ export class CourseSingleComponent extends AbstractError implements OnInit {
 
   addToCompare() {
     if (this.selectedCourse !== undefined) {
-      this._CompareList.addCourse(this.selectedCourse);
+      this._CompareList.addCourse(this.selectedCourse, this.attachedUniversity);
       this.addedToCompare = true;
       this.compareBtn.nativeElement.blur();
     }

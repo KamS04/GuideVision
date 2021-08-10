@@ -1,7 +1,9 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { Course } from '../models/course';
+import { University } from '../models/university';
 import { COMPARE_LIMIT, COMPARE_LIST_KEY } from '../utils/config';
 import { contract } from '../utils/observable';
+import { isInstanceOf } from '../utils/type';
 import { RawDataService } from './raw-data.service';
 
 @Injectable({
@@ -9,11 +11,11 @@ import { RawDataService } from './raw-data.service';
 })
 export class CompareDataService {
 
-  private compareList: Course[] = [];
-  public compareListChanged = new EventEmitter();
+  private compareMap= new Map<Course, University>();
+  public compareMapChanged = new EventEmitter();
 
   public get canAddMore(): boolean {
-    return this.compareList.length < COMPARE_LIMIT;
+    return this.compareMap.size < COMPARE_LIMIT;
   }
 
   constructor(
@@ -21,14 +23,17 @@ export class CompareDataService {
   ) {
     this.reloadSession();
 
-    this.compareListChanged.subscribe( (_) => {
-      let compareJSON = JSON.stringify(this.compareList);
+    this.compareMapChanged.subscribe( (_) => {
+      let map = Array.from(this.compareMap);
+
+      let data = { time: Date.now(), data: map };
+      let compareJSON = JSON.stringify(data);
       localStorage.setItem(COMPARE_LIST_KEY, compareJSON);
-    } )
+    } );
   }
 
-  public async addCourse(course: Course | number) {
-    if (this.compareList.length > COMPARE_LIMIT) {
+  public async addCourse(course: Course | number, university?: University) {
+    if (this.compareMap.size >= COMPARE_LIMIT) {
       return;
     }
 
@@ -46,7 +51,17 @@ export class CompareDataService {
     }
 
     if (courseToAdd !== null) {
-      this.pushCourse(courseToAdd);
+      this.pushCourse(courseToAdd, university);
+
+      if (university === undefined) {
+        try {
+          let data = await contract( this._Database.getUniversity(courseToAdd.universityId) );
+          this.updateCourse(courseToAdd, data.data);
+        } catch (err) {
+          // TODO Error Handling
+          console.error(err);
+        }
+      }
     }
   }
 
@@ -55,47 +70,71 @@ export class CompareDataService {
     
     if (rawLastSession !== undefined) {
       let lastSession = JSON.parse(rawLastSession);
-      if (!Array.isArray(lastSession)) {
-        // TODO No Idea
+      if (lastSession == undefined) {
         return;
       }
 
-      let promises = lastSession.map( (course: Course | number) => this.addCourse(course) );
+      let { time, data } = lastSession;
+      if (time == undefined || data == undefined || !Array.isArray(data)) {
+        return;
+      }
+
+      if (!data.every( ([c, u]) => isInstanceOf(c, Course) && isInstanceOf(u, University))) {
+        return
+      }
+
+      let promises = data.map ( ([course, university]) => this.addCourse(course, university) );
+
       await Promise.all(promises);
       // TODO Display Reload Success
     }
   }
 
-  private pushCourse(course: Course) {
-    this.compareList.push(course);
-    this.compareListChanged.emit();
+  private pushCourse(course: Course, university?: University) {
+    this.compareMap.set(course, university);
+    this.compareMapChanged.emit();
   }
 
-  public clearList() {
-    this.setList([]);
+  private updateCourse(course: Course, university: University) {
+    if (this.compareMap.has(course)) {
+      this.compareMap.set(course, university)
+      this.compareMapChanged.emit();
+    }
   }
 
-  public setList(newList: Course[]) {
-    this.compareList = newList;
-    this.compareListChanged.emit();
+  public clearMap() {
+    this.setMap(new Map());
+  }
+
+  public setMap(newMap: Map<Course, University>) {
+    this.compareMap = newMap;
+    this.compareMapChanged.emit();
   }
 
   public removeCourse(course: Course | number) {
     let courseId = typeof(course) == 'number' ? course : course.id;
-    this.setList(this.compareList.filter( (cCourse) => cCourse.id != courseId ));
+      
+    let toDelete = Array.from(this.compareMap.keys()).filter( (cCourse) => cCourse.id == courseId )
+    if (toDelete.length > 0) {
+      toDelete.forEach( (it) => this.compareMap.delete(it))
+      this.compareMapChanged.emit();
+    }
   }
 
   public isAddedAlready(course: Course | number): boolean {
-    let courseId = typeof(course) == 'number' ? course : course.id;
-    return this.compareList.some( (cCourse) => cCourse.id == courseId)
+    if (course instanceof Course) {
+      return this.compareMap.has(course);
+    } else {
+      return Array.from(this.compareMap.keys()).some( (it) => it.id == course );
+    }
   }
 
-  public getCompareList(): Course[] {
-    return [ ...this.compareList ];
+  public getCompareMap(): Map<Course, University> {
+    return new Map(this.compareMap);
   }
 
-  public get listLength(): number {
-    return this.compareList.length;
+  public get mapSize(): number {
+    return this.compareMap.size;
   }
 
 }
