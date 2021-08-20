@@ -136,7 +136,7 @@ export class OverallSearchComponent implements OnInit {
     }));
     
     this.router.navigate(
-      ['search', 'courses'],
+      ['search', 'programs'],
       { queryParams: { query: this.currSearch } },
     );
   }
