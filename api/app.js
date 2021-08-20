@@ -22,7 +22,7 @@ app.use('/api/programs', programsRouter);
 app.use('/api/universities', universitiesRouter);
 app.use('/api/pathways', pathwaysRouter);
 
-app.all('/:route', (req, res) => {
+app.all('*', (req, res) => {
     res.sendFile('public/index.html', { root: __dirname });
 });
 
