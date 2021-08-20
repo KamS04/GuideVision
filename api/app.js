@@ -1,3 +1,5 @@
+const path = require('path');
+const fs = require('fs');
 const express = require('express');
 const app = express();
 
@@ -19,6 +21,10 @@ if (config.DEBUG) {
 app.use('/api/programs', programsRouter);
 app.use('/api/universities', universitiesRouter);
 app.use('/api/pathways', pathwaysRouter);
+
+app.all('/:route', (req, res) => {
+    res.sendFile('public/index.html', { root: __dirname });
+});
 
 app.listen(config.PORT, () => {
     console.log(`Server listening on ${config.PORT}...`);
