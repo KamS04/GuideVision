@@ -29,6 +29,7 @@ import { UniversitySearchComponent } from './components/search/university-search
 import { ProgramSearchComponent } from './components/search/program-search/program-search.component';
 import { PathwaySearchComponent } from './components/search/pathway-search/pathway-search.component';
 import { CompareComponent } from './components/compare/compare.component';
+import { DisplayErrorRouteComponent } from './components/display-error-route/display-error-route.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -43,6 +44,7 @@ const appRoutes: Routes = [
   { path: 'search/programs', component: ProgramSearchComponent },
   { path: 'search/pathways', component: PathwaySearchComponent },
   { path: 'compare', component: CompareComponent },
+  { path: '**', component: DisplayErrorRouteComponent },
 ]
 
 @NgModule({
@@ -68,6 +70,7 @@ const appRoutes: Routes = [
     ProgramSearchComponent,
     PathwaySearchComponent,
     CompareComponent,
+    DisplayErrorRouteComponent,
   ],
   imports: [
     BrowserModule,
