@@ -7,7 +7,7 @@ const { NOT_FOUND } = require('../utils');
 
 const mapPrerequisites = (prerequisiteString) => {
     return JSON.parse(prerequisiteString).map( (rawPrerequisite) => {
-        return Prerequisite(
+        return new Prerequisite(
             rawPrerequisite.title,
             rawPrerequisite.prerequisites
         );
