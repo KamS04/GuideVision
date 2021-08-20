@@ -1,0 +1,1 @@
+module.exports.NOT_FOUND = 'Not Found';
