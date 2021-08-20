@@ -1,5 +1,5 @@
 <div class="container">
-  <div *ngIf="universitiesPreview">
+  <div *ngIf="universitiesPreview && universitiesPreview.length > 0">
     <div class="container">
       <ngb-carousel  showNavigationArrows="true" showNavigationIndicators="true">
         <ng-template ngbSlide *ngFor="let university of universitiesPreview; let i = index">
@@ -21,7 +21,7 @@
     <hr>
   </div>
   
-  <div *ngIf="pathwaysPreview">
+  <div *ngIf="pathwaysPreview && pathwaysPreview.length > 0">
     <div class="row justify-content-evenly mt-5" id="rowjustifycontent">
       <div class="col-sm-3 text-center form-group" id="colsm3textcenter" *ngFor="let pathway of pathwaysPreview; index as i">
         <button [routerLink]="'/pathways/' + pathway.id" type="button" class="btn btn-outline-primary">{{ pathway.title }}</button>
@@ -35,7 +35,7 @@
   </div>
   
   
-  <div *ngIf="programsPreview">
+  <div *ngIf="programsPreview && programsPreview.length > 0">
     <div class="container pb-4" id="containerpb4">
       <hr>
     
