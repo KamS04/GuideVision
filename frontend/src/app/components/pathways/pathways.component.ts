@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Category } from 'src/app/models/category';
+import { Pathway } from 'src/app/models/pathway';
 import { RawDataService } from 'src/app/services/raw-data.service';
 import { debugMode } from 'src/app/utils/config';
 import { contract } from 'src/app/utils/observable';
@@ -10,7 +10,7 @@ import { contract } from 'src/app/utils/observable';
   styleUrls: ['./pathways.component.css']
 })
 export class PathwaysComponent implements OnInit {
-  categories: Category[] = [];
+  categories: Pathway[] = [];
   isLoading: boolean = false;
   completedResultSet: boolean = false;
   limit = 16;

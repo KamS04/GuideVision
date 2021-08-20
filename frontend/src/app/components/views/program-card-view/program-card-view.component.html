@@ -1,0 +1,14 @@
+<div class="card w-100 h-100">
+    <div class="card-img-top bg-dark" style="height: 35%">
+        <img [src]="program.universityIconUrl" [alt]="program.universityName + 'Icon Image'" class="m-auto d-block mw-100 mh-75">
+    </div>
+    <div class="card-body flex-fill">
+        <h5 class="card-title">{{ program.courseTitle }}</h5>
+        <p class="card-text">
+            @{{ program.universityName }}
+        </p>
+    </div>
+    <div class="container mb-2">
+        <button type="button" class="btn btn-block btn-primary mt-auto mb-0" [routerLink]="'/programs/' + program.courseId">Details</button>
+    </div>                    
+</div>

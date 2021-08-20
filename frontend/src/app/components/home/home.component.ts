@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { University } from '../../models/university';
-import { Category } from '../../models/category';
-import { MiniCourse } from 'src/app/models/course';
+import { Pathway } from '../../models/pathway';
+import { MiniProgram } from 'src/app/models/program';
 import { RawDataService } from 'src/app/services/raw-data.service';
 import { contract } from 'src/app/utils/observable';
 
@@ -15,15 +15,15 @@ export class HomeComponent implements OnInit {
   
   universitiesPreview: Array<University>;
 
-  categoryPreview: Array<Category>;
+  categoryPreview: Array<Pathway>;
 
-  coursesPreview: Array<MiniCourse>;
+  programsPreview: Array<MiniProgram>;
 
   constructor( private _Database: RawDataService ) { }
 
   ngOnInit(): void {
     this.getUniversitiesPreview();
-    this.getCoursesPreview();
+    this.getProgramsPreview();
     this.getCategoriesPreview();
   }
 
@@ -36,10 +36,10 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  async getCoursesPreview() {
+  async getProgramsPreview() {
     try {
-      let coursesData = await contract( this._Database.getRandomMinifiedCourses(3, 0) );
-      this.coursesPreview = coursesData.data;
+      let programsData = await contract( this._Database.getRandomMinifiedPrograms(3, 0) );
+      this.programsPreview = programsData.data;
     } catch(err) {
       console.error(err); // Temporary
     }
@@ -54,7 +54,7 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  courseLink(id: number): String {
+  programLink(id: number): String {
     return `/programs/${id}`;
   }
 

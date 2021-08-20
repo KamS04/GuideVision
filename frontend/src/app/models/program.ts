@@ -3,14 +3,14 @@ export class Prerequisite {
     prerequisites: Array<String> = [];
 }
 
-export class MiniCourse {
+export class MiniProgram {
     courseId: number = 0;
     courseTitle: String = '';
     universityName: String = '';
     universityIconUrl: String = '';
 }
 
-export class Course {
+export class Program {
     id: number = 0;
     universityId: number = 0;
     courseUrl: String = '';

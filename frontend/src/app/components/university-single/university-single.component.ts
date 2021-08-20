@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MiniCourse } from 'src/app/models/course';
+import { MiniProgram } from 'src/app/models/program';
 import { ResultError } from 'src/app/models/result';
 import { University } from 'src/app/models/university';
 import { RawDataService } from 'src/app/services/raw-data.service';
@@ -16,8 +16,8 @@ export class UniversitySingleComponent extends AbstractError implements OnInit {
   universityId: number;
   selectedUniversity: University;
 
-  attachedCourses: MiniCourse[] = [];
-  isLoadingCourses: boolean = false;
+  attachedPrograms: MiniProgram[] = [];
+  isLoadingPrograms: boolean = false;
 
 
   constructor(
@@ -55,23 +55,23 @@ export class UniversitySingleComponent extends AbstractError implements OnInit {
     }
 
     if (this.selectedUniversity != null) {
-      this.loadCourses();
+      this.loadPrograms();
     }
   }
 
-  async loadCourses() {
-    this.isLoadingCourses = true;
+  async loadPrograms() {
+    this.isLoadingPrograms = true;
 
     try {
-      let data = await contract( this._Database.getMinifiedCourseForUniversity(this.universityId) );
-      this.attachedCourses = data.data;
-      console.log(this.attachedCourses);
+      let data = await contract( this._Database.getMinifiedProgramForUniversity(this.universityId) );
+      this.attachedPrograms = data.data;
+      console.log(this.attachedPrograms);
     } catch (err) {
       // TODO Error Handling
       console.error(err);
     }
 
-    this.isLoadingCourses = false;
+    this.isLoadingPrograms = false;
   }
 
   back() {

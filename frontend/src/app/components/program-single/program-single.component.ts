@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Course } from 'src/app/models/course';
+import { Program } from 'src/app/models/program';
 import { ResultError } from 'src/app/models/result';
 import { University } from 'src/app/models/university';
 import { CompareDataService } from 'src/app/services/compare-data.service';
@@ -9,12 +9,12 @@ import { contract } from 'src/app/utils/observable';
 import { AbstractError } from '../views/display-four-o-four/error.interface';
 
 @Component({
-  selector: 'app-course-single',
-  templateUrl: './course-single.component.html',
-  styleUrls: ['./course-single.component.css']
+  selector: 'app-program-single',
+  templateUrl: './program-single.component.html',
+  styleUrls: ['./program-single.component.css']
 })
-export class CourseSingleComponent extends AbstractError implements OnInit {
-  selectedCourse: Course;
+export class ProgramSingleComponent extends AbstractError implements OnInit {
+  selectedProgram: Program;
   attachedUniversity: University;
   loadingUniversity = false;
   addedToCompare = false;
@@ -32,26 +32,26 @@ export class CourseSingleComponent extends AbstractError implements OnInit {
   }
 
   public get compareListToolTip(): string {
-    return this.canAddMore ? ( this.addedToCompare ? 'Already Added' : 'Add Course to Compare List' ) : 'Compare List is Full';
+    return this.canAddMore ? ( this.addedToCompare ? 'Already Added' : 'Add Program to Compare List' ) : 'Compare List is Full';
   }
 
   ngOnInit(): void {
     let urlId = this.route.snapshot.paramMap.get('id');
-    let courseId = parseInt(urlId);
-    if (isNaN(courseId)) {
+    let programId = parseInt(urlId);
+    if (isNaN(programId)) {
       this.showError();
     } else {
-      this.getCourse(courseId);
-      if (this._CompareList.isAddedAlready(courseId)) {
+      this.getProgram(programId);
+      if (this._CompareList.isAddedAlready(programId)) {
         this.addedToCompare = true;
       }
     }
   }
 
-  async getCourse(courseId: number) {
+  async getProgram(programId: number) {
     try {
-      let data = await contract( this._Database.getCourse(courseId) );
-      this.selectedCourse = data.data;
+      let data = await contract( this._Database.getProgram(programId) );
+      this.selectedProgram = data.data;
     } catch (err) {
       let resultErr = err as ResultError;
       if (resultErr !== undefined) {
@@ -68,9 +68,9 @@ export class CourseSingleComponent extends AbstractError implements OnInit {
   async loadUniversity() {
     this.loadingUniversity = true;
     
-    if (this.selectedCourse !== undefined) {
+    if (this.selectedProgram !== undefined) {
       try {
-        let data = await contract( this._Database.getUniversity(this.selectedCourse.universityId) );
+        let data = await contract( this._Database.getUniversity(this.selectedProgram.universityId) );
         this.attachedUniversity = data.data;
       } catch (err) {
         // TODO Error Handling
@@ -86,8 +86,8 @@ export class CourseSingleComponent extends AbstractError implements OnInit {
   }
 
   addToCompare() {
-    if (this.selectedCourse !== undefined) {
-      this._CompareList.addCourse(this.selectedCourse, this.attachedUniversity);
+    if (this.selectedProgram !== undefined) {
+      this._CompareList.addProgram(this.selectedProgram, this.attachedUniversity);
       this.addedToCompare = true;
       this.compareBtn.nativeElement.blur();
     }

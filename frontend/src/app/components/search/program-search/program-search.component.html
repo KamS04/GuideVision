@@ -16,8 +16,8 @@
 
     <app-lazy-presenter (scrolled)="onScroll()">
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 mx-auto mt-3 w-100 px-md-2">
-            <div *ngFor="let course of courseResults" class="mb-3 px-md-3">
-                <app-course-card-view [course]="course"></app-course-card-view>
+            <div *ngFor="let program of programResults" class="mb-3 px-md-3">
+                <app-program-card-view [program]="program"></app-program-card-view>
             </div>
         </div>
     </app-lazy-presenter>

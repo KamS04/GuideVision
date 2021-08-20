@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CourseSingleComponent } from './course-single.component';
+import { ProgramCardViewComponent } from './program-card-view.component';
 
-describe('CourseSingleComponent', () => {
-  let component: CourseSingleComponent;
-  let fixture: ComponentFixture<CourseSingleComponent>;
+describe('ProgramCardViewComponent', () => {
+  let component: ProgramCardViewComponent;
+  let fixture: ComponentFixture<ProgramCardViewComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CourseSingleComponent ]
+      declarations: [ ProgramCardViewComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CourseSingleComponent);
+    fixture = TestBed.createComponent(ProgramCardViewComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -12,35 +12,35 @@ import { AppComponent } from './app.component';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { PathwaysComponent } from './components/pathways/pathways.component';
 import { HomeComponent } from './components/home/home.component';
-import { CoursesComponent } from './components/courses/courses.component';
+import { ProgramsComponent } from './components/programs/programs.component';
 import { UniversitiesComponent } from './components/universities/universities.component';
 import { PathwaySingleComponent } from './components/pathway-single/pathway-single.component';
 import { UniversitySingleComponent } from './components/university-single/university-single.component';
 import { AboutFooterComponent } from './components/about-footer/about-footer.component';
-import { CourseSingleComponent } from './components/course-single/course-single.component';
+import { ProgramSingleComponent } from './components/program-single/program-single.component';
 import { LazyPresenterComponent } from './components/views/lazy-presenter/lazy-presenter.component';
 import { LoadingBarComponent } from './components/views/loading-bar/loading-bar.component';
 import { DisplayFourOFourComponent } from './components/views/display-four-o-four/display-four-o-four.component';
 import { UniversityCardViewComponent } from './components/views/university-card-view/university-card-view.component';
-import { CourseCardViewComponent } from './components/views/course-card-view/course-card-view.component';
+import { ProgramCardViewComponent } from './components/views/program-card-view/program-card-view.component';
 import { PathwayCardViewComponent } from './components/views/pathway-card-view/pathway-card-view.component';
 import { OverallSearchComponent } from './components/search/overall-search/overall-search.component';
 import { UniversitySearchComponent } from './components/search/university-search/university-search.component';
-import { CourseSearchComponent } from './components/search/course-search/course-search.component';
+import { ProgramSearchComponent } from './components/search/program-search/program-search.component';
 import { PathwaySearchComponent } from './components/search/pathway-search/pathway-search.component';
 import { CompareComponent } from './components/compare/compare.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'pathways', component: PathwaysComponent },
-  { path: 'programs', component: CoursesComponent },
+  { path: 'programs', component: ProgramsComponent },
   { path: 'universities', component: UniversitiesComponent },
   { path: 'pathways/:id', component: PathwaySingleComponent },
   { path: 'universities/:id', component: UniversitySingleComponent },
-  { path: 'programs/:id', component: CourseSingleComponent },
+  { path: 'programs/:id', component: ProgramSingleComponent },
   { path: 'search', component: OverallSearchComponent },
   { path: 'search/universities', component: UniversitySearchComponent },
-  { path: 'search/courses', component: CourseSearchComponent },
+  { path: 'search/programs', component: ProgramSearchComponent },
   { path: 'search/pathways', component: PathwaySearchComponent },
   { path: 'compare', component: CompareComponent },
 ]
@@ -51,21 +51,21 @@ const appRoutes: Routes = [
     HomeComponent,
     NavBarComponent,
     PathwaysComponent,
-    CoursesComponent,
+    ProgramsComponent,
     UniversitiesComponent,
     PathwaySingleComponent,
     UniversitySingleComponent,
     AboutFooterComponent,
-    CourseSingleComponent,
+    ProgramSingleComponent,
     LazyPresenterComponent,
     LoadingBarComponent,
     DisplayFourOFourComponent,
     UniversityCardViewComponent,
-    CourseCardViewComponent,
+    ProgramCardViewComponent,
     PathwayCardViewComponent,
     OverallSearchComponent,
     UniversitySearchComponent,
-    CourseSearchComponent,
+    ProgramSearchComponent,
     PathwaySearchComponent,
     CompareComponent,
   ],

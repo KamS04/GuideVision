@@ -30,13 +30,13 @@
         </div>
     </div>
 
-    <div *ngIf="courseResults && courseResults.length > 0" class="mt-3">
+    <div *ngIf="programResults && programResults.length > 0" class="mt-3">
         <hr>
-        <a (click)="moreCourses()"><h4>Courses<span class="fa fa-arrow-right float-right"></span></h4></a>
+        <a (click)="morePrograms()"><h4>Programs<span class="fa fa-arrow-right float-right"></span></h4></a>
 
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4">
-            <div *ngFor="let course of courseResults" class="col mb-3 px-md-3">
-                <app-course-card-view [course]="course"></app-course-card-view>
+            <div *ngFor="let program of programResults" class="col mb-3 px-md-3">
+                <app-program-card-view [program]="program"></app-program-card-view>
             </div>
         </div>
     </div>

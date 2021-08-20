@@ -1,7 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Category } from 'src/app/models/category';
-import { MiniCourse } from 'src/app/models/course';
+import { Pathway } from 'src/app/models/pathway';
+import { MiniProgram } from 'src/app/models/program';
 import { University } from 'src/app/models/university';
 import { RawDataService } from 'src/app/services/raw-data.service';
 import { LAST_OVERALL_SEARCH, SEARCH_CACHE } from 'src/app/utils/config';
@@ -22,8 +22,8 @@ export class OverallSearchComponent implements OnInit {
   resultLimit = 5;
 
   universityResults: University[];
-  categoryResults: Category[];
-  courseResults: MiniCourse[];
+  categoryResults: Pathway[];
+  programResults: MiniProgram[];
 
   constructor(
     private route: ActivatedRoute,
@@ -48,7 +48,7 @@ export class OverallSearchComponent implements OnInit {
 
     this.searchUniversities();
     this.searchCategories();
-    this.searchCourses();
+    this.searchPrograms();
 
     sessionStorage.setItem(LAST_OVERALL_SEARCH, query);
   }
@@ -117,22 +117,22 @@ export class OverallSearchComponent implements OnInit {
     );
   }
 
-  async searchCourses() {
+  async searchPrograms() {
     try {
-      let data = await contract( this._Database.searchCourse(this.currSearch, this.resultLimit, 0) );
-      this.courseResults = data.data;
+      let data = await contract( this._Database.searchProgram(this.currSearch, this.resultLimit, 0) );
+      this.programResults = data.data;
     } catch (err) {
       // TODO Error Handling
       console.error(err);
     }
   }
 
-  moreCourses() {
+  morePrograms() {
     localStorage.setItem(SEARCH_CACHE, JSON.stringify({
       limit: this.resultLimit,
       offset: this.resultLimit,
       query: this.currSearch,
-      results: this.courseResults
+      results: this.programResults
     }));
     
     this.router.navigate(

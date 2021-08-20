@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Category } from 'src/app/models/category';
+import { Pathway } from 'src/app/models/pathway';
 import { RawDataService } from 'src/app/services/raw-data.service';
 import { LAST_OVERALL_SEARCH, SEARCH_CACHE } from 'src/app/utils/config';
 import { contract } from 'src/app/utils/observable';
@@ -19,7 +19,7 @@ export class PathwaySearchComponent implements OnInit {
   searchQuery: string;
   currSearch: string;
 
-  categoryResults: Category[] = [];
+  categoryResults: Pathway[] = [];
   limit = 15;
   offset = 0;
   completedResultSet = false;
@@ -66,7 +66,7 @@ export class PathwaySearchComponent implements OnInit {
   }
 
   async loadCached() {
-    let cachedData = await validateSearchCache(SEARCH_CACHE, Category, this.currSearch);
+    let cachedData = await validateSearchCache(SEARCH_CACHE, Pathway, this.currSearch);
     
     if (cachedData !== undefined) {
       this.offset = cachedData.offset;

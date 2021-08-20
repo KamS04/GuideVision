@@ -8,18 +8,18 @@
     </div>
     <hr>
     
-    <app-loading-bar [isLoading]="!selectedCourse && !errorOccurred"></app-loading-bar>
+    <app-loading-bar [isLoading]="!selectedProgram && !errorOccurred"></app-loading-bar>
 
     <div class="row mb-4">
-        <div *ngIf="selectedCourse" class="col col-12" [ngClass]="{ 'col-xl-8': attachedUniversity !== undefined }">
+        <div *ngIf="selectedProgram" class="col col-12" [ngClass]="{ 'col-xl-8': attachedUniversity !== undefined }">
             <h1>
-                <a [href]="selectedCourse.courseUrl" target="_blank">{{ selectedCourse.title }}</a>
+                <a [href]="selectedProgram.courseUrl" target="_blank">{{ selectedProgram.title }}</a>
                 <span class="d-none d-sm-inline h-100 ml-1 k-center"><span class="k-open-icon"></span></span>
             </h1>
             <hr>
     
-            <div *ngIf="selectedCourse.prerequisites.length > 0">
-                <div *ngFor="let prerequisite of selectedCourse.prerequisites">
+            <div *ngIf="selectedProgram.prerequisites.length > 0">
+                <div *ngFor="let prerequisite of selectedProgram.prerequisites">
                     <h4>Prerequisite for {{ prerequisite.title }}</h4>
                     <ul>
                         <li *ngFor="let course of prerequisite.prerequisites">{{ course }}</li>
@@ -31,12 +31,12 @@
             <table class="w-100 table">
                 <tr class="table-active">
                     <td>Faculty</td>
-                    <td>{{ selectedCourse.faculty }}</td>
+                    <td>{{ selectedProgram.faculty }}</td>
                 </tr>
     
                 <tr class="table-primary">
                     <td>Minimum average preferred</td>
-                    <td>{{ selectedCourse.requiredAverage }}%</td>
+                    <td>{{ selectedProgram.requiredAverage }}%</td>
                 </tr>
             </table>
     
@@ -49,30 +49,30 @@
     
                 <tr class="table-active">
                     <td>Domestic</td>
-                    <td>${{ selectedCourse.domesticTuition }}</td>
-                    <td>${{ selectedCourse.domesticBooks }}</td>
+                    <td>${{ selectedProgram.domesticTuition }}</td>
+                    <td>${{ selectedProgram.domesticBooks }}</td>
                 </tr>
-                <tr class="table-active" *ngIf="selectedCourse.domesticNotes">
+                <tr class="table-active" *ngIf="selectedProgram.domesticNotes">
                     <td colspan="3">
-                        <p class="notes float-right">{{ selectedCourse.domesticNotes }}</p>
+                        <p class="notes float-right">{{ selectedProgram.domesticNotes }}</p>
                     </td>
                 </tr>
     
                 <tr class="table-primary">
                     <td>International</td>
-                    <td>${{ selectedCourse.internationalTuition }}</td>
-                    <td>${{ selectedCourse.internationalBooks }}</td>
+                    <td>${{ selectedProgram.internationalTuition }}</td>
+                    <td>${{ selectedProgram.internationalBooks }}</td>
                 </tr>
-                <tr class="table-primary" *ngIf="selectedCourse.internationalNotes">
+                <tr class="table-primary" *ngIf="selectedProgram.internationalNotes">
                     <td colspan="3">
-                        <p class="notes float-right">{{ selectedCourse.internationalNotes }}</p>
+                        <p class="notes float-right">{{ selectedProgram.internationalNotes }}</p>
                     </td>
                 </tr>
             </table>
     
-            <div *ngIf="selectedCourse.notes.length > 0">
+            <div *ngIf="selectedProgram.notes.length > 0">
                 <hr>
-                <div [innerHTML]="selectedCourse.notes | markdown"></div>
+                <div [innerHTML]="selectedProgram.notes | markdown"></div>
             </div>
     
         </div>

@@ -25,3 +25,7 @@ i:hover {
     --saturation: 60%;
     color: var(--gold);
 }
+
+img {
+	max-width: 120px;
+}

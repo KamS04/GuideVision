@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Category } from 'src/app/models/category';
-import { MiniCourse } from 'src/app/models/course';
+import { Pathway } from 'src/app/models/pathway';
+import { MiniProgram } from 'src/app/models/program';
 import { ResultError } from 'src/app/models/result';
 import { RawDataService } from 'src/app/services/raw-data.service';
 import { contract } from 'src/app/utils/observable';
@@ -14,10 +14,10 @@ import { AbstractError } from '../views/display-four-o-four/error.interface';
 })
 export class PathwaySingleComponent extends AbstractError implements OnInit {
   pathwayId: number;
-  selectedCategory: Category = null;
+  selectedCategory: Pathway = null;
 
-  attachedCourses: MiniCourse[] = [];
-  isLoadingCourses: boolean = false;
+  attachedPrograms: MiniProgram[] = [];
+  isLoadingPrograms: boolean = false;
   
   constructor(
     private route: ActivatedRoute,
@@ -52,20 +52,20 @@ export class PathwaySingleComponent extends AbstractError implements OnInit {
       }
     }
     if (this.selectedCategory != null) {
-      this.loadCourses();
+      this.loadPrograms();
     }
   }
 
-  async loadCourses() {
-    this.isLoadingCourses = true;
+  async loadPrograms() {
+    this.isLoadingPrograms = true;
     try {
-      let data = await contract( this._Database.getMinifiedCourseForCategory(this.pathwayId) );
-      this.attachedCourses = data.data;
+      let data = await contract( this._Database.getMinifiedProgramForCategory(this.pathwayId) );
+      this.attachedPrograms = data.data;
     } catch (err) {
       // TODO Error handling
       console.error(err);
     }
-    this.isLoadingCourses = false;
+    this.isLoadingPrograms = false;
   }
 
   back() {

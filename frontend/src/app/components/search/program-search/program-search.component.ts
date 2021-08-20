@@ -1,17 +1,17 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MiniCourse } from 'src/app/models/course';
+import { MiniProgram } from 'src/app/models/program';
 import { RawDataService } from 'src/app/services/raw-data.service';
 import { validateSearchCache, validate } from 'src/app/utils/search';
 import { LAST_OVERALL_SEARCH, SEARCH_CACHE } from 'src/app/utils/config';
 import { contract } from 'src/app/utils/observable';
 
 @Component({
-  selector: 'app-course-search',
-  templateUrl: './course-search.component.html',
-  styleUrls: ['./course-search.component.css']
+  selector: 'app-program-search',
+  templateUrl: './program-search.component.html',
+  styleUrls: ['./program-search.component.css']
 })
-export class CourseSearchComponent implements OnInit {
+export class ProgramSearchComponent implements OnInit {
   @ViewChild('searchButton') button;
 
   isLoading = false;
@@ -19,7 +19,7 @@ export class CourseSearchComponent implements OnInit {
   searchQuery: string;
   currSearch: string;
 
-  courseResults: MiniCourse[] = [];
+  programResults: MiniProgram[] = [];
   limit = 15;
   offset = 0;
   completedResultSet = false;
@@ -61,16 +61,16 @@ export class CourseSearchComponent implements OnInit {
 
   resetTrackers() {
     this.offset = 0;
-    this.courseResults = [];
+    this.programResults = [];
     this.completedResultSet = false;
   }
 
   async loadCached() {
-    let cachedData = await validateSearchCache(SEARCH_CACHE, MiniCourse, this.currSearch);
+    let cachedData = await validateSearchCache(SEARCH_CACHE, MiniProgram, this.currSearch);
     
     if (cachedData !== undefined) {
       this.offset = cachedData.offset;
-      this.courseResults.push(...cachedData.results)
+      this.programResults.push(...cachedData.results)
 
       if (cachedData.results.length < cachedData.limit) {
         this.completedResultSet = true;
@@ -107,8 +107,8 @@ export class CourseSearchComponent implements OnInit {
   async loadResults() {
     this.isLoading = true;
     try {
-      let data = await contract( this._Database.searchCourse(this.currSearch, this.limit, this.offset) );
-      this.courseResults.push(...data.data);
+      let data = await contract( this._Database.searchProgram(this.currSearch, this.limit, this.offset) );
+      this.programResults.push(...data.data);
       this.offset += this.limit;
       if (data.data.length < this.limit) {
         this.completedResultSet = true;

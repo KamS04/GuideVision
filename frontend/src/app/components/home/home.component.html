@@ -35,20 +35,20 @@
   </div>
   
   
-  <div *ngIf="coursesPreview">
+  <div *ngIf="programsPreview">
     <div class="container pb-4" id="containerpb4">
       <hr>
     
-      <div *ngFor="let course of coursesPreview" id="coursepreview">
+      <div *ngFor="let program of programsPreview" id="coursepreview">
     
         <div class="row" id="row">
           <div class="col-md-7">
-            <a [routerLink]="courseLink(course.courseId)"><h2>{{ course.courseTitle }}</h2></a>
-            <p class="lead">{{ course.universityName }}</p>
+            <a [routerLink]="programLink(program.courseId)"><h2>{{ program.courseTitle }}</h2></a>
+            <p class="lead">{{ program.universityName }}</p>
           </div>
-          <a class="col-md-5 card bg-dark" [routerLink]="courseLink(course.id)">
+          <a class="col-md-5 card bg-dark" [routerLink]="programLink(program.courseId)">
           <div class="col-md-12 card bg-transparent border-0">
-            <img class="img-fluid m-auto px-3 py-3" [src]="course.universityIconUrl" alt="Generic placeholder image">
+            <img class="img-fluid m-auto px-3 py-3" [src]="program.universityIconUrl" alt="Generic placeholder image">
           </div>
         </a>
         </div>

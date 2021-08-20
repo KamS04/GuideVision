@@ -1,12 +1,12 @@
 import { Component, Input } from '@angular/core';
-import { Category } from 'src/app/models/category';
+import { Pathway } from 'src/app/models/pathway';
 
 @Component({
   selector: 'app-pathway-card-view',
   templateUrl: './pathway-card-view.component.html',
 })
 export class PathwayCardViewComponent {
-  @Input() category: Category;
+  @Input() category: Pathway;
 
   constructor() { }
 }

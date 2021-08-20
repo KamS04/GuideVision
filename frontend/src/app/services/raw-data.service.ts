@@ -1,13 +1,12 @@
 import { Injectable } from '@angular/core';
 
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
-import { catchError, take } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
-import { Result, ResultSuccess } from '../models/result';
+import { ResultSuccess } from '../models/result';
 import { University } from '../models/university';
-import { Course, MiniCourse } from '../models/course';
-import { Category } from '../models/category';
+import { Program, MiniProgram } from '../models/program';
+import { Pathway } from '../models/pathway';
 
 @Injectable({
   providedIn: 'root'
@@ -15,8 +14,8 @@ import { Category } from '../models/category';
 export class RawDataService {
 
   universitiesUrl = '/api/universities/';
-  coursesUrl = '/api/programs/';
-  coursesMinifiedUrl = '/api/programs/minified/';
+  programsUrl = '/api/programs/';
+  programsMinifiedUrl = '/api/programs/minified/';
   categoryUrl = '/api/pathways/';
 
   httpOptions = {
@@ -56,65 +55,65 @@ export class RawDataService {
     return this.getObservable<ResultSuccess<University[]>>(this.universitiesUrl + 'random', this.limitOffsetParams(limit, offset));
   }
 
-  // Course Calls
-  getCourses(limit: number, offset: number): Observable<ResultSuccess<Course[]>> {
-    return this.getObservable<ResultSuccess<Course[]>>(this.coursesUrl, this.limitOffsetParams(limit, offset));
+  // Program Calls
+  getPrograms(limit: number, offset: number): Observable<ResultSuccess<Program[]>> {
+    return this.getObservable<ResultSuccess<Program[]>>(this.programsUrl, this.limitOffsetParams(limit, offset));
   }
 
-  getCourse(id: number): Observable<ResultSuccess<Course>> {
-    return this.getObservable<ResultSuccess<Course>>(this.coursesUrl + id);
+  getProgram(id: number): Observable<ResultSuccess<Program>> {
+    return this.getObservable<ResultSuccess<Program>>(this.programsUrl + id);
   }
 
-  getRandomCourses(limit: number, offset: number): Observable<ResultSuccess<Course[]>> {
-    return this.getObservable<ResultSuccess<Course[]>>(this.coursesUrl + 'random', this.limitOffsetParams(limit, offset));
+  getRandomPrograms(limit: number, offset: number): Observable<ResultSuccess<Program[]>> {
+    return this.getObservable<ResultSuccess<Program[]>>(this.programsUrl + 'random', this.limitOffsetParams(limit, offset));
   }
 
-  // Minified Courses
-  getMinifiedCourses(limit: number, offset: number): Observable<ResultSuccess<MiniCourse[]>> {
-    return this.getObservable<ResultSuccess<MiniCourse[]>>(this.coursesMinifiedUrl, this.limitOffsetParams(limit, offset));
+  // Minified Programs
+  getMinifiedPrograms(limit: number, offset: number): Observable<ResultSuccess<MiniProgram[]>> {
+    return this.getObservable<ResultSuccess<MiniProgram[]>>(this.programsMinifiedUrl, this.limitOffsetParams(limit, offset));
   }
   
-  getSpecificMinifiedCourses(...ids: number[]): Observable<ResultSuccess<MiniCourse[]>> {
+  getSpecificMinifiedPrograms(...ids: number[]): Observable<ResultSuccess<MiniProgram[]>> {
     let params = ids.reduce( (params, id) => params.append('ids', id), new HttpParams() );
-    return this.getObservable<ResultSuccess<MiniCourse[]>>(this.coursesMinifiedUrl + 'specific', params);
+    return this.getObservable<ResultSuccess<MiniProgram[]>>(this.programsMinifiedUrl + 'specific', params);
   }
 
-  getMinifiedCourseForCategory(categoryId: number): Observable<ResultSuccess<MiniCourse[]>> {
-    return this.getObservable<ResultSuccess<MiniCourse[]>>(this.coursesMinifiedUrl + 'pathway/' + categoryId);
+  getMinifiedProgramForCategory(categoryId: number): Observable<ResultSuccess<MiniProgram[]>> {
+    return this.getObservable<ResultSuccess<MiniProgram[]>>(this.programsMinifiedUrl + 'pathway/' + categoryId);
   }
 
-  getMinifiedCourseForUniversity(universityId: number): Observable<ResultSuccess<MiniCourse[]>> {
-    return this.getObservable<ResultSuccess<MiniCourse[]>>(this.coursesMinifiedUrl + 'university/' + universityId);
+  getMinifiedProgramForUniversity(universityId: number): Observable<ResultSuccess<MiniProgram[]>> {
+    return this.getObservable<ResultSuccess<MiniProgram[]>>(this.programsMinifiedUrl + 'university/' + universityId);
   }  
 
-  getRandomMinifiedCourses(limit: number, offset: number): Observable<ResultSuccess<MiniCourse[]>> {
-    return this.getObservable<ResultSuccess<MiniCourse[]>>(this.coursesMinifiedUrl + 'random', this.limitOffsetParams(limit, offset));
+  getRandomMinifiedPrograms(limit: number, offset: number): Observable<ResultSuccess<MiniProgram[]>> {
+    return this.getObservable<ResultSuccess<MiniProgram[]>>(this.programsMinifiedUrl + 'random', this.limitOffsetParams(limit, offset));
   }
 
-  searchCourse(query: string, limit: number, offset: number): Observable<ResultSuccess<MiniCourse[]>> {
+  searchProgram(query: string, limit: number, offset: number): Observable<ResultSuccess<MiniProgram[]>> {
     let params = this.limitOffsetParams(limit, offset)
       .set('title', query);
 
-      return this.getObservable<ResultSuccess<MiniCourse[]>>(this.coursesUrl + 'search', params);
+      return this.getObservable<ResultSuccess<MiniProgram[]>>(this.programsUrl + 'search', params);
   }
 
   // Category Calls
-  getCategories(limit: number, offset: number): Observable<ResultSuccess<Category[]>> {
-    return this.getObservable<ResultSuccess<Category[]>>(this.categoryUrl, this.limitOffsetParams(limit, offset));
+  getCategories(limit: number, offset: number): Observable<ResultSuccess<Pathway[]>> {
+    return this.getObservable<ResultSuccess<Pathway[]>>(this.categoryUrl, this.limitOffsetParams(limit, offset));
   }
 
-  getCategory(id: number): Observable<ResultSuccess<Category>> {
-    return this.getObservable<ResultSuccess<Category>>(this.categoryUrl + id);
+  getCategory(id: number): Observable<ResultSuccess<Pathway>> {
+    return this.getObservable<ResultSuccess<Pathway>>(this.categoryUrl + id);
   }
 
-  searchCategory(query: string, limit: number, offset: number): Observable<ResultSuccess<Category[]>> {
+  searchCategory(query: string, limit: number, offset: number): Observable<ResultSuccess<Pathway[]>> {
     let params = this.limitOffsetParams(limit, offset)
       .set('title', query);
 
-      return this.getObservable<ResultSuccess<Category[]>>(this.categoryUrl + 'search', params);
+      return this.getObservable<ResultSuccess<Pathway[]>>(this.categoryUrl + 'search', params);
   }
 
-  getRandomCategories(limit: number, offset: number): Observable<ResultSuccess<Category[]>> {
-    return this.getObservable<ResultSuccess<Category[]>>(this.categoryUrl + 'random', this.limitOffsetParams(limit, offset));
+  getRandomCategories(limit: number, offset: number): Observable<ResultSuccess<Pathway[]>> {
+    return this.getObservable<ResultSuccess<Pathway[]>>(this.categoryUrl + 'random', this.limitOffsetParams(limit, offset));
   }
 }

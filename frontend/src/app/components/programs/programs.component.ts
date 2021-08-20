@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { MiniCourse } from 'src/app/models/course';
+import { MiniProgram } from 'src/app/models/program';
 import { RawDataService } from 'src/app/services/raw-data.service';
 import { debugMode } from 'src/app/utils/config';
 import { contract } from 'src/app/utils/observable';
 
 @Component({
-  selector: 'app-courses',
-  templateUrl: './courses.component.html',
-  styleUrls: ['./courses.component.css']
+  selector: 'app-programs',
+  templateUrl: './programs.component.html',
+  styleUrls: ['./programs.component.css']
 })
-export class CoursesComponent implements OnInit {
-  courses: MiniCourse[] = [];
+export class ProgramsComponent implements OnInit {
+  programs: MiniProgram[] = [];
   offset = 0;
   limit = 16;
   isLoading = false;
@@ -30,19 +30,19 @@ export class CoursesComponent implements OnInit {
   async loadData() {
     this.isLoading = true;
     try {
-      let data = await contract(this._Database.getMinifiedCourses(this.limit, this.offset));
-      let newCourses = data.data;
+      let data = await contract(this._Database.getMinifiedPrograms(this.limit, this.offset));
+      let newPrograms = data.data;
       if (!debugMode) {
         this.offset += this.limit;
-        if (newCourses.length < this.limit) {
+        if (newPrograms.length < this.limit) {
           this.completedResultSet = true;
         }
       } else {
-        while (newCourses.length < this.limit) {
-          newCourses.push(...newCourses);
+        while (newPrograms.length < this.limit) {
+          newPrograms.push(...newPrograms);
         }
       }
-      this.courses.push(...newCourses);
+      this.programs.push(...newPrograms);
       this.isLoading = false
     } catch (err) {
       // TODO Error Handling
