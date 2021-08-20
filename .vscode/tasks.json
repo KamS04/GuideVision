@@ -35,20 +35,6 @@
             ],
         },
         {
-            "label": "Mock Server",
-            "dependsOn": [
-                "Mock DB Dev",
-                "Angular Dev",
-            ]
-        },
-        {
-            "label": "Mock Open Server",
-            "dependsOn": [
-                "Mock DB Dev",
-                "Angular Dev Open",
-            ]
-        },
-        {
             "label": "Angular Dev",
             "type": "shell",
             "options": {
@@ -96,17 +82,6 @@
                 "cwd": "${workspaceFolder}/api"
             },
             "command": "npm start"
-        },
-        {
-            "label": "Mock DB Dev",
-            "type": "shell",
-            "options": {
-                "cwd": "${workspaceFolder}/mock-db"
-            },
-            "command": "npm run dev",
-            "presentation": {
-                "focus": false,
-            }
         }
     ]
 }
