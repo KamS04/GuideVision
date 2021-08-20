@@ -14,10 +14,10 @@ import { Category } from '../models/category';
 })
 export class RawDataService {
 
-  universitiesUrl = '/api/university/';
-  coursesUrl = '/api/course/';
-  coursesMinifiedUrl = '/api/course/minified/';
-  categoryUrl = '/api/category/';
+  universitiesUrl = '/api/universities/';
+  coursesUrl = '/api/programs/';
+  coursesMinifiedUrl = '/api/programs/minified/';
+  categoryUrl = '/api/pathways/';
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json'})
@@ -80,7 +80,7 @@ export class RawDataService {
   }
 
   getMinifiedCourseForCategory(categoryId: number): Observable<ResultSuccess<MiniCourse[]>> {
-    return this.getObservable<ResultSuccess<MiniCourse[]>>(this.coursesMinifiedUrl + categoryId);
+    return this.getObservable<ResultSuccess<MiniCourse[]>>(this.coursesMinifiedUrl + 'pathway/' + categoryId);
   }
 
   getMinifiedCourseForUniversity(universityId: number): Observable<ResultSuccess<MiniCourse[]>> {
