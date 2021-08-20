@@ -1,113 +1,69 @@
-const database = require('../data/processing');
-const { resWriteSuccess, resWriteFail } = require('./response.js');
+const database = require('../data/processors/university');
+const { NOT_FOUND } = require('../data/utils');
+const { createController, IntegerArg, StringArg, QUERY } = require('../controllers/preprocessor/paramprocessor');
+const { resWriteSuccess, resWriteFail } = require('./response');
 
-const getUniversity = async (req, res) => {
-    const { id } = req.params;
-
-    const pId = parseInt(id);
-
-    if (id == null || isNaN(pId)) {
-        resWriteFail(res, 'Missing url parameter id of type integer');
-        return;
-    }
-
-    
-
+const getUniversity = createController( { name: 'id', type: IntegerArg }, async (req, res) => {
+    let { id } = req.parsedParams;
     try {
-        const university = await database.getUniversity(pId);
+        const university = await database.getUniversity(id);
         resWriteSuccess(res, university);
     } catch (err) {
-        if (err == database.NOT_FOUND) {
-            resWriteFail(res, `No University with id ${pId}`, 404);
+        if (err == NOT_FOUND) {
+            resWriteFail(res, `No University with id ${id}`, 404);
         } else {
-            resWriteFail(res, `Internal server error`, 500);
+            resWriteFail(res, 'Internal server error', 500);
             console.error(err);
         }
     }
-};
+});
 
-const getUniversities = async (req, res) => {
-    const { limit, offset } = req.query;
-
-    if (limit == null || offset == null) {
-        resWriteFail(res, 'Missing query parameters limit and offset');
-        return;
-    };
-
-    const [ pLimit, pOffset ] = [ parseInt(limit), parseInt(offset) ];
-
-    if ( isNaN(pLimit) || isNaN(pOffset) ) {
-        resWriteFail(res, 'Query parameters limit and offset must be of type integer');
-        return;
-    }
-
+const getUniversities = createController([
+    { name: 'limit', type: IntegerArg, group: QUERY },
+    { name: 'offset', type: IntegerArg, group: QUERY },
+], async (req, res) => {
     try {
-        const universities = await database.getAllUniversities(pLimit, pOffset);
+        let { limit, offset } = req.parsedQuery;
+        const universities = await database.getAllUniversities(limit, offset);
         resWriteSuccess(res, universities);
     } catch (err) {
-        res.resWriteFail(res, 'Internal server error', 500);
+        resWriteFail(res, 'Internal server error', 500);
         console.error(err);
     }
-};
+});
 
-const searchUniversities = async (req, res) => {
-    const { name, limit, offset } = req.query;
-
-    if (name == limit || limit == null || offset == null) {
-        resWriteFail(res, 'Missing query parameters name, limit, and offset');
-        return;
-    };
-
-    const [ pLimit, pOffset ] = [ parseInt(limit), parseInt(offset) ];
-
-    if ( isNaN(pLimit) || isNaN(pOffset) ) {
-        resWriteFail(res, 'Query parameters limit and offset must be of type integer');
-        return;
-    }
-
-    if (typeof(name) !== 'string') {
-        resWriteFail(res, 'Query parameter name must be of type string');
-        return;        
-    }
-
+const searchUniversities = createController([
+    { name: 'name', type: StringArg, group: QUERY },
+    { name: 'limit', type: IntegerArg, group: QUERY },
+    { name: 'offset', type: IntegerArg, group: QUERY },
+], async (req, res) => {
     try {
-        const universities = await database.searchUniversities(name, pLimit, pOffset);
+        let { name, limit, offset } = req.parsedQuery;
+        const universities = await database.searchUniversities(name, limit, offset);
         resWriteSuccess(res, universities);
     } catch (err) {
-        res.resWriteFail(res, 'Internal server error', 500);
+        resWriteFail(res, 'Internal server error', 500);
         console.error(err);
     }
-};
+});
 
-const getRandomUniversities = async (req, res) => {
-    const { limit, offset } = req.query;
-
-    if (limit == null || offset == null) {
-        resWriteFail(res, 'Missing query parameters limit and offset');
-        return;
-    };
-
-    const [ pLimit, pOffset ] = [ parseInt(limit), parseInt(offset) ];
-
-    if ( isNaN(pLimit) || isNaN(pOffset) ) {
-        resWriteFail(res, 'Query parameters limit and offset must be of type integer');
-        return;
-    }
-
+const getRandomUniversities = createController([
+    { name: 'limit', type: IntegerArg, group: QUERY },
+    { name: 'offset', type: IntegerArg, group: QUERY },
+], async (req, res) => {
     try {
-        const universities = await database.getRandomUniversities(pLimit, pOffset);
+        let { limit, offset } = req.parsedQuery;
+        const universities = await database.getRandomUniversities(limit, offset);
         resWriteSuccess(res, universities);
     } catch (err) {
-        res.resWriteFail(res, 'Internal server error', 500);
+        resWriteFail(res, 'Internal server error', 500);
         console.error(err);
     }
-};
-
+});
 
 module.exports = {
     getUniversity,
     getUniversities,
     searchUniversities,
-
     getRandomUniversities,
-}
+};
