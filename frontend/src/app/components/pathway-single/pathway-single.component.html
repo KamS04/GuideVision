@@ -3,15 +3,15 @@
     <button class="btn btn-outline-primary fa fa-arrow-left" (click)="back()"> Back</button>
     <hr>
 
-    <app-loading-bar [isLoading]="!selectedCategory && !errorOccurred"></app-loading-bar>
+    <app-loading-bar [isLoading]="!selectedPathway && !errorOccurred"></app-loading-bar>
     
-    <div *ngIf="selectedCategory" class="mt-2">
-        <h1>{{ selectedCategory.title }}</h1>
+    <div *ngIf="selectedPathway" class="mt-2">
+        <h1>{{ selectedPathway.title }}</h1>
         <hr>
-        <div *ngIf="selectedCategory.futureJobOpportunities.length > 0">
+        <div *ngIf="selectedPathway.futureJobOpportunities.length > 0">
             <h4>Future Prospects</h4>
             <ul>
-                <li *ngFor="let opportunity of selectedCategory.futureJobOpportunities">
+                <li *ngFor="let opportunity of selectedPathway.futureJobOpportunities">
                     {{ opportunity }}
                 </li>
             </ul>

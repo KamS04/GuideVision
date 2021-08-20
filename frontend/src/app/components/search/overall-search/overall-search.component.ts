@@ -22,7 +22,7 @@ export class OverallSearchComponent implements OnInit {
   resultLimit = 5;
 
   universityResults: University[];
-  categoryResults: Pathway[];
+  pathwayResults: Pathway[];
   programResults: MiniProgram[];
 
   constructor(
@@ -47,7 +47,7 @@ export class OverallSearchComponent implements OnInit {
     this.searchQuery = query;
 
     this.searchUniversities();
-    this.searchCategories();
+    this.searchPathways();
     this.searchPrograms();
 
     sessionStorage.setItem(LAST_OVERALL_SEARCH, query);
@@ -93,22 +93,22 @@ export class OverallSearchComponent implements OnInit {
     );
   }
 
-  async searchCategories() {
+  async searchPathways() {
     try {
-      let data = await contract( this._Database.searchCategory(this.currSearch, this.resultLimit, 0) );
-      this.categoryResults = data.data;
+      let data = await contract( this._Database.searchPathway(this.currSearch, this.resultLimit, 0) );
+      this.pathwayResults = data.data;
     } catch (err) {
       // TODO Error Handling
       console.error(err);
     }
   }
 
-  moreCategories() {
+  morePathways() {
     localStorage.setItem(SEARCH_CACHE, JSON.stringify({
       limit: this.resultLimit,
       offset: this.resultLimit,
       query: this.currSearch,
-      results: this.categoryResults
+      results: this.pathwayResults
     }));
     
     this.router.navigate(

@@ -21,13 +21,13 @@
     <hr>
   </div>
   
-  <div *ngIf="categoryPreview">
+  <div *ngIf="pathwaysPreview">
     <div class="row justify-content-evenly mt-5" id="rowjustifycontent">
-      <div class="col-sm-3 text-center form-group" id="colsm3textcenter" *ngFor="let category of categoryPreview; index as i">
-        <button [routerLink]="'/pathways/' + category.id" type="button" class="btn btn-outline-primary">{{ category.title }}</button>
+      <div class="col-sm-3 text-center form-group" id="colsm3textcenter" *ngFor="let pathway of pathwaysPreview; index as i">
+        <button [routerLink]="'/pathways/' + pathway.id" type="button" class="btn btn-outline-primary">{{ pathway.title }}</button>
       </div>
       <div class="col-sm-3 text-center form-group" id="colsm3textcenter">
-        <button [routerLink]="'/pathways'" type="button" class="btn btn-primary">See More
+        <button [routerLink]="'/pathways'" type="button" class="btn btn-primary">More Pathways
           <span class="k-next-icon"></span>
         </button>
       </div>

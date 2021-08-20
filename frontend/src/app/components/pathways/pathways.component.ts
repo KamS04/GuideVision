@@ -10,7 +10,7 @@ import { contract } from 'src/app/utils/observable';
   styleUrls: ['./pathways.component.css']
 })
 export class PathwaysComponent implements OnInit {
-  categories: Pathway[] = [];
+  pathways: Pathway[] = [];
   isLoading: boolean = false;
   completedResultSet: boolean = false;
   limit = 16;
@@ -30,19 +30,19 @@ export class PathwaysComponent implements OnInit {
   async loadMore() {
     this.isLoading = true;
     try {
-      let data = await contract(this._Database.getCategories(this.limit, this.offset));
-      let newCategories = data.data;
+      let data = await contract(this._Database.getPathways(this.limit, this.offset));
+      let newPathways = data.data;
       if (!debugMode) {
         this.offset += this.limit;
-        if (newCategories.length < this.limit) {
+        if (newPathways.length < this.limit) {
           this.completedResultSet = true;
         }
       } else {
-        while (newCategories.length < this.limit) {
-          newCategories.push(...newCategories);
+        while (newPathways.length < this.limit) {
+          newPathways.push(...newPathways);
         }        
       }
-      this.categories.push(...newCategories);
+      this.pathways.push(...newPathways);
       this.isLoading = false;
     } catch (err) {
       // TODO Error Handling

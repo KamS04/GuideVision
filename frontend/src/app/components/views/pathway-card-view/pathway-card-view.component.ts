@@ -6,7 +6,7 @@ import { Pathway } from 'src/app/models/pathway';
   templateUrl: './pathway-card-view.component.html',
 })
 export class PathwayCardViewComponent {
-  @Input() category: Pathway;
+  @Input() pathway: Pathway;
 
   constructor() { }
 }

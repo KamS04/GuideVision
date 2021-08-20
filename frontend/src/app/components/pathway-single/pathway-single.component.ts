@@ -14,7 +14,7 @@ import { AbstractError } from '../views/display-four-o-four/error.interface';
 })
 export class PathwaySingleComponent extends AbstractError implements OnInit {
   pathwayId: number;
-  selectedCategory: Pathway = null;
+  selectedPathway: Pathway = null;
 
   attachedPrograms: MiniProgram[] = [];
   isLoadingPrograms: boolean = false;
@@ -40,8 +40,8 @@ export class PathwaySingleComponent extends AbstractError implements OnInit {
 
   async getPathwayToDisplay() {
     try {
-      let data = await contract( this._Database.getCategory(this.pathwayId) );
-      this.selectedCategory = data.data;
+      let data = await contract( this._Database.getPathway(this.pathwayId) );
+      this.selectedPathway = data.data;
       this.hideError();
     } catch (err: any) {
       let resultErr = err as ResultError;
@@ -51,7 +51,7 @@ export class PathwaySingleComponent extends AbstractError implements OnInit {
         // TODO Error Handling
       }
     }
-    if (this.selectedCategory != null) {
+    if (this.selectedPathway != null) {
       this.loadPrograms();
     }
   }
@@ -59,7 +59,7 @@ export class PathwaySingleComponent extends AbstractError implements OnInit {
   async loadPrograms() {
     this.isLoadingPrograms = true;
     try {
-      let data = await contract( this._Database.getMinifiedProgramForCategory(this.pathwayId) );
+      let data = await contract( this._Database.getMinifiedProgramForPathway(this.pathwayId) );
       this.attachedPrograms = data.data;
     } catch (err) {
       // TODO Error handling

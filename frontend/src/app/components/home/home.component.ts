@@ -15,7 +15,7 @@ export class HomeComponent implements OnInit {
   
   universitiesPreview: Array<University>;
 
-  categoryPreview: Array<Pathway>;
+  pathwaysPreview: Array<Pathway>;
 
   programsPreview: Array<MiniProgram>;
 
@@ -24,7 +24,7 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.getUniversitiesPreview();
     this.getProgramsPreview();
-    this.getCategoriesPreview();
+    this.getPathwaysPreview();
   }
 
   async getUniversitiesPreview() {
@@ -45,10 +45,10 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  async getCategoriesPreview() {
+  async getPathwaysPreview() {
     try {
-      let categoriesData = await contract( this._Database.getRandomCategories(3, 0) );
-      this.categoryPreview = categoriesData.data;
+      let pathwaysData = await contract( this._Database.getRandomPathways(3, 0) );
+      this.pathwaysPreview = pathwaysData.data;
     } catch(err) {
       console.error(err); // Temporary
     }

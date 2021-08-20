@@ -1,8 +1,8 @@
 <app-lazy-presenter (scrolled)="onScroll()">
     <div>
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 mx-auto mt-3 w-100 px-md-2">
-            <div *ngFor="let category of categories" class="mb-3 px-md-3">
-                <app-pathway-card-view [category]="category"></app-pathway-card-view>
+            <div *ngFor="let pathway of pathways" class="mb-3 px-md-3">
+                <app-pathway-card-view [pathway]="pathway"></app-pathway-card-view>
             </div>
         </div>
     </div>

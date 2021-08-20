@@ -19,7 +19,7 @@ export class PathwaySearchComponent implements OnInit {
   searchQuery: string;
   currSearch: string;
 
-  categoryResults: Pathway[] = [];
+  pathwayResults: Pathway[] = [];
   limit = 15;
   offset = 0;
   completedResultSet = false;
@@ -61,7 +61,7 @@ export class PathwaySearchComponent implements OnInit {
 
   resetTrackers() {
     this.offset = 0;
-    this.categoryResults = [];
+    this.pathwayResults = [];
     this.completedResultSet = false;
   }
 
@@ -70,7 +70,7 @@ export class PathwaySearchComponent implements OnInit {
     
     if (cachedData !== undefined) {
       this.offset = cachedData.offset;
-      this.categoryResults.push(...cachedData.results);
+      this.pathwayResults.push(...cachedData.results);
 
       if (cachedData.results.length < cachedData.limit) {
         this.completedResultSet = true;
@@ -107,8 +107,8 @@ export class PathwaySearchComponent implements OnInit {
   async loadResults() {
     this.isLoading = true;
     try {
-      let data = await contract( this._Database.searchCategory(this.currSearch, this.limit, this.offset) );
-      this.categoryResults.push(...data.data);
+      let data = await contract( this._Database.searchPathway(this.currSearch, this.limit, this.offset) );
+      this.pathwayResults.push(...data.data);
       this.offset += this.limit;
       if (data.data.length < this.limit) {
         this.completedResultSet = true;

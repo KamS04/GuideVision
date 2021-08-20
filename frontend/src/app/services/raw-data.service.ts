@@ -16,7 +16,7 @@ export class RawDataService {
   universitiesUrl = '/api/universities/';
   programsUrl = '/api/programs/';
   programsMinifiedUrl = '/api/programs/minified/';
-  categoryUrl = '/api/pathways/';
+  pathwayUrl = '/api/pathways/';
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json'})
@@ -78,8 +78,8 @@ export class RawDataService {
     return this.getObservable<ResultSuccess<MiniProgram[]>>(this.programsMinifiedUrl + 'specific', params);
   }
 
-  getMinifiedProgramForCategory(categoryId: number): Observable<ResultSuccess<MiniProgram[]>> {
-    return this.getObservable<ResultSuccess<MiniProgram[]>>(this.programsMinifiedUrl + 'pathway/' + categoryId);
+  getMinifiedProgramForPathway(pathwayId: number): Observable<ResultSuccess<MiniProgram[]>> {
+    return this.getObservable<ResultSuccess<MiniProgram[]>>(this.programsMinifiedUrl + 'pathway/' + pathwayId);
   }
 
   getMinifiedProgramForUniversity(universityId: number): Observable<ResultSuccess<MiniProgram[]>> {
@@ -97,23 +97,23 @@ export class RawDataService {
       return this.getObservable<ResultSuccess<MiniProgram[]>>(this.programsUrl + 'search', params);
   }
 
-  // Category Calls
-  getCategories(limit: number, offset: number): Observable<ResultSuccess<Pathway[]>> {
-    return this.getObservable<ResultSuccess<Pathway[]>>(this.categoryUrl, this.limitOffsetParams(limit, offset));
+  // Pathway Calls
+  getPathways(limit: number, offset: number): Observable<ResultSuccess<Pathway[]>> {
+    return this.getObservable<ResultSuccess<Pathway[]>>(this.pathwayUrl, this.limitOffsetParams(limit, offset));
   }
 
-  getCategory(id: number): Observable<ResultSuccess<Pathway>> {
-    return this.getObservable<ResultSuccess<Pathway>>(this.categoryUrl + id);
+  getPathway(id: number): Observable<ResultSuccess<Pathway>> {
+    return this.getObservable<ResultSuccess<Pathway>>(this.pathwayUrl + id);
   }
 
-  searchCategory(query: string, limit: number, offset: number): Observable<ResultSuccess<Pathway[]>> {
+  searchPathway(query: string, limit: number, offset: number): Observable<ResultSuccess<Pathway[]>> {
     let params = this.limitOffsetParams(limit, offset)
       .set('title', query);
 
-      return this.getObservable<ResultSuccess<Pathway[]>>(this.categoryUrl + 'search', params);
+      return this.getObservable<ResultSuccess<Pathway[]>>(this.pathwayUrl + 'search', params);
   }
 
-  getRandomCategories(limit: number, offset: number): Observable<ResultSuccess<Pathway[]>> {
-    return this.getObservable<ResultSuccess<Pathway[]>>(this.categoryUrl + 'random', this.limitOffsetParams(limit, offset));
+  getRandomPathways(limit: number, offset: number): Observable<ResultSuccess<Pathway[]>> {
+    return this.getObservable<ResultSuccess<Pathway[]>>(this.pathwayUrl + 'random', this.limitOffsetParams(limit, offset));
   }
 }
