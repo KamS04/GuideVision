@@ -36,9 +36,8 @@ export class ProgramSingleComponent extends AbstractError implements OnInit {
   }
 
   ngOnInit(): void {
-    let urlId = this.route.snapshot.paramMap.get('id');
-    let programId = parseInt(urlId);
-    if (isNaN(programId)) {
+    let programId = parseInt( this.route.snapshot.paramMap.get('id'), 10 );
+    if (Number.isNaN(programId)) {
       this.showError();
     } else {
       this.getProgram(programId);

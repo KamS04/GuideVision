@@ -30,8 +30,8 @@ export class UniversitySingleComponent extends AbstractError implements OnInit {
   }
 
   ngOnInit(): void {
-    let urlId = parseInt( this.route.snapshot.paramMap.get('id') );
-    if (isNaN(urlId)) {
+    let urlId = parseInt( this.route.snapshot.paramMap.get('id'), 10 );
+    if (Number.isNaN(urlId)) {
       this.showError();
     } else {
       this.hideError();
