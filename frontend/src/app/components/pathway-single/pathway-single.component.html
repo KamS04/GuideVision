@@ -25,20 +25,7 @@
 
             <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 mx-auto mt-3 w-100 px-2">
                 <div *ngFor="let program of attachedPrograms" class="mb-3 px-3">
-                    <div class="card w-100 h-100">
-                        <div class="card-img-top bg-dark" style="height: 35%">
-                            <img [src]="program.universityIconUrl" [alt]="program.universityName + 'Icon Image'" class="m-auto d-block mw-100 mh-75">
-                        </div>
-                        <div class="card-body flex-fill">
-                            <h5 class="card-title">{{ program.courseTitle }}</h5>
-                            <p class="card-text">
-                                @{{ program.universityName }}
-                            </p>
-                        </div>
-                        <div class="container mb-2">
-                            <button type="button" class="btn btn-block btn-primary mt-auto mb-0" [routerLink]="'/programs/' + program.courseId">Details</button>
-                        </div>                    
-                    </div>
+                    <app-program-card-view [program]="program"></app-program-card-view>
                 </div>
             </div>
         </div>

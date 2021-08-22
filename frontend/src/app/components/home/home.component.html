@@ -6,7 +6,9 @@
             <div class="card text-white bg-dark mb-3" id="cardtextwhite">
               <div id="imgwrapper">
                 <a id="uni" [routerLink]="'/universities/' + university.id">
-                  <img id="uniimg"[src]="university.iconUrl" alt="{{ university.name }} Slide">
+                  <div id="uniimg">
+                    <img [src]="university.iconUrl" alt="{{ university.name }} Slide" style="max-width: 100%; max-height: 100%;" class="d-block mx-auto">
+                  </div>
                 </a>
                 </div>
               <div class="k-caption d-none d-sm-flex">

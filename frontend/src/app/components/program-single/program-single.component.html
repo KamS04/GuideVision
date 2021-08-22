@@ -80,9 +80,10 @@
         <div *ngIf="attachedUniversity" class="col col-12 col-xl-4 mt-3 mt-xl-0">
             
             <div class="card w-100">
-                <div class="card-img-top bg-dark py-4" style="height: 35%">
-                    <img [src]="attachedUniversity.iconUrl" [alt]="attachedUniversity.name + ' Icon Image'" class="d-block mx-auto mt-auto mw-100 mh-75 mb-2">
+                <div class="card-img-top bg-dark py-4 d-flex justify-content-center" style="height: 35%">
+                    <img [src]="attachedUniversity.iconUrl" [alt]="attachedUniversity.name + ' Icon Image'" class="image-in-card">
                 </div>
+
                 
                 <div class="card-body flex-fill">
                     <h1 class="card-title">
