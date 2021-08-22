@@ -28,7 +28,7 @@ class Program {
         faculty,
         prerequisites,
         requiredAverage,
-        domesticTution,
+        domesticTuition,
         domesticBooks,
         domesticNotes,
         internationalTuition,
@@ -45,7 +45,7 @@ class Program {
         this.faculty = faculty;
         this.prerequisites = prerequisites;
         this.requiredAverage = requiredAverage;
-        this.domesticTution = domesticTution;
+        this.domesticTuition = domesticTuition;
         this.domesticBooks = domesticBooks;
         this.domesticNotes = domesticNotes;
         this.internationalTuition = internationalTuition;
