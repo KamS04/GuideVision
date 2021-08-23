@@ -7,14 +7,14 @@ const pathwaysRouter = require('./routes/pathway');
 
 const config = require('./config');
 
-app.use(express.static('./public'));
-
 if (config.DEBUG) {
     app.use( (req, res, next) => {
         console.log(req.url, req.params, req.query);
         next();
     });
 }
+
+app.use(express.static('./public'));
 
 app.use('/api/programs', programsRouter);
 app.use('/api/universities', universitiesRouter);
