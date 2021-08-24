@@ -36,14 +36,6 @@ frontend/speed-measure-plugin*.json
 .settings/
 *.sublime-workspace
 
-# IDE - VSCode
-.vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
-.history/*
-
 # misc
 frontend/.sass-cache
 frontend/connect.lock
@@ -71,14 +63,6 @@ frontend/speed-measure-plugin*.json
 .settings/
 *.sublime-workspace
 
-# IDE - VSCode
-.vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
-.history/*
-
 # misc
 frontend/.sass-cache
 frontend/connect.lock
@@ -92,3 +76,7 @@ frontend/typings
 # System Files
 .DS_Store
 Thumbs.db
+
+# Build out
+api/public
+api/*.db
