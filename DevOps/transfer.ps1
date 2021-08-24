@@ -36,7 +36,7 @@ $tempCommandFile = "./temp_comms.sh"
 $appName="GuidingVision"
 
 # Replace the paths in the comms template
-Get-Content -Path "./commands.template.sh" -replace "PUT_DATABASE_PATH_HERE", $databaseOnServer -replace "PUT_OUTPUT_FILE_HERE", $outputFileOnServer -replace "PUT_APP_NAME_HERE", $appName | Set-Content -Path $tempCommandFile
+(Get-Content -Path "./commands.template.sh") -replace "PUT_DATABASE_PATH_HERE", $databaseOnServer -replace "PUT_OUTPUT_FILE_HERE", $outputFileOnServer -replace "PUT_APP_NAME_HERE", $appName | Set-Content -Path $tempCommandFile
 
 # run the commands on the server
 Get-Content -Path $tempCommandFile | ssh $server
