@@ -1,0 +1,108 @@
+.outline {
+    border: 2px dashed var(--primary);
+    height: 20vh;
+    min-height: 150px;
+    font-size: 1em;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+}
+
+.outline:hover, .outline.highlight {
+    font-size: 1.6em;
+    border-color: var(--success);
+}
+
+.outline p {
+    margin: auto auto;
+}
+
+#drop-zone {
+    --lightness: 97%;
+    background-color: hsl(217, 100%, var(--lightness));
+    border: 2px solid var(--primary);
+    border-radius: 4px;
+    padding: 8px;
+    cursor: pointer;
+}
+
+#drop-zone:hover, #dropz-zone.highlight {
+    --lightness: 99%;
+    border-color: var(--info);
+}
+
+a.nav-link {
+    cursor: pointer;
+}
+
+.form-control, .blue-bg {
+    background-color: #eaeaf0;
+}
+
+table {
+    table-layout: fixed;
+}
+
+#editUniversityForm {
+    display: block;
+}
+
+#editUniversityForm[data-uni='undefined'] {
+    display: none;
+}
+
+label {
+    font-size: 1.2rem;
+}
+
+strong {
+    font-weight: bold;
+    color: #000000;
+}
+
+#modalViewer {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    z-index: 3;
+    max-width: 600px;
+    width: 100vw;
+    background-color: var(--dark);
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border: 2px solid var(--primary);
+    display: none;
+}
+
+#modalViewer > #content {
+    background-color: var(--light);
+}
+
+.accordian-content-panel {
+    overflow: auto;
+}
+
+#editProgramForm {
+    display: block;
+}
+
+#editProgramForm[data-course='undefined'] {
+    display: none;
+}
+
+#editPathwayForm {
+    display: block;
+}
+
+#editPathwayForm[data-pathway='undefined'] {
+    display: none;
+}
+
+.dropdown-item {
+    cursor: pointer;
+}

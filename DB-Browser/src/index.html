@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="https://doc-08-9c-docs.googleusercontent.com/docs/securesc/0r1fvtgo29sd3hl9t7e2edtj4gkgbg1t/udo0rojl3u6bcl4a1nrvdaf5nepf45cm/1629394200000/18242617814748484298/18242617814748484298/1JTNDeFIQsb5aTMiNN3FhgDDW18gVQbv-?authuser=0&nonce=rseshgeplm33e&user=18242617814748484298&hash=bkclplbu4oh5u6h8cinll5cabgg1gesv" type="image/png" />
+    <link rel="shortcut icon" href="https://doc-08-9c-docs.googleusercontent.com/docs/securesc/0r1fvtgo29sd3hl9t7e2edtj4gkgbg1t/udo0rojl3u6bcl4a1nrvdaf5nepf45cm/1629394200000/18242617814748484298/18242617814748484298/1JTNDeFIQsb5aTMiNN3FhgDDW18gVQbv-?authuser=0&nonce=rseshgeplm33e&user=18242617814748484298&hash=bkclplbu4oh5u6h8cinll5cabgg1gesv" type="image/png" />
+    <!-- Vanilla Bootstrap -->
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous"> -->
+    <!-- Cyborg Theme (Pure Black) -->
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.6.0/dist/cyborg/bootstrap.css" /> -->
+    <!-- Lux Theme (Think Website White + Dark Accents) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.6.0/dist/lux/bootstrap.css" />
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="./styles.css" />
+    <title>DB Editor</title>
+</head>
+<body>
+    <!-- Templates -->
+    <template id="pathwayProgramTemplate">
+        <div class="col mb-2 px-sm-2">
+            <div class="card rounded border-info h-100 p-2">
+                <div class="card-body">
+                    <h4 id="program-name" class="card-title">Title</h4>
+
+                    <div id="uni-info">
+                        <strong>@</strong><span id="uni-name">Some University</span>
+                    </div>
+                    <div id="faculty-info">
+                        <strong>Faculty: </strong>
+                        <span id="faculty">Some Faculty</span>
+                    </div>
+
+                    <button class="btn btn-danger btn-block mt-2">
+                        <i class="fas fa-trash-alt"></i>
+                        Remove
+                    </button>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <template id="selectProgramTemplate">
+        <div class="mb-2 p-2">
+            <div class="d-flex justify-content-between">
+                <div class="w-75">
+                    <h5 id="course-title"></h5>
+                    <p>
+                        <strong>@</strong><span id="uni-name"></span>
+                        <strong>:</strong><span id="faculty"></span>
+                    </p>
+                </div>
+    
+                <button class="btn btn-success btn-block w-25 ml-1">
+                    <i class="fas fa-check pr-md-2"></i>
+                    <span class="d-none d-md-inline">Select</span>
+                </button>
+            </div>
+            <hr>
+        </div>
+    </template>
+
+    <template id="liInputDeleteTemplate">
+        <li>
+            <div>
+                <input type="text" class="form-control d-inline w-75" style="vertical-align: middle;">
+                <button class="btn btn-danger btn-inline h-100" style="margin-top: 2px; margin-bottom: 2px;">
+                    <i class="fas fa-times"></i>
+                    <span class="pl-2 d-none d-md-inline">Delete</span>
+                </button>
+            </div>
+        </li>
+    </template>
+
+    <template id="liSelectTemplate">
+        <div class="blue-bg d-flex mb-1">
+            <p id="itemHeading" class="d-inline my-auto w-75 px-4" style="font-size: 1rem;">Item Heading</p>
+            <button class="btn btn-success btn-inline h-100 w-25 ml-2">
+                <i class="fas fa-check"></i>
+            </button>
+        </div>
+    </template>
+
+    <template id="prereqItemTemplate">
+        <li>
+            <div>
+                <div class="form-group">
+                    <div class="d-flex my-2">
+                        <label class="w-75 my-auto" for="title">Requisite Title</label>
+                        <button id="removePrereq" class="btn btn-danger btn-block w-25">
+                            <i class="fas fa-times pr-lg-2"></i>
+                            <span class="d-none d-lg-inline">Delete Prereq</span>
+                        </button>
+                    </div>
+                    <input id="prereqTitle" type="text" class="form-control d-inline">
+                </div>
+                <ul id="prereqCourseList">
+                </ul>
+                <div class="d-flex justify-content-end mt-2">
+                    <button id="addCourseItem" class="btn btn-primary w-50">
+                        <i class="fas fa-plus pr-2"></i> Add Course
+                    </button>
+                </div>
+            </div>
+            <hr>
+        </li>
+    </template>
+
+
+    <template id="universityTemplate">
+        <div class="col mb-2 px-md-2">
+            <div class="card rounded border-info h-100">
+                <h4 id="uni-name" class="card-title text-center">Title</h4>
+                <div class="bg-dark w-100 py-2 rounded d-flex justify-content-center">
+                    <img id="uni-iconUrl" alt="University Icon Url" style="max-width: 80%; max-height: 120px">
+                </div>
+
+                <div class="card-body">
+    
+    
+                    <table class="table table-striped table-border table-sm">
+                        <tr>
+                            <th scope="row">Id</th>
+                            <td id="uni-id"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Phone</th>
+                            <td id="uni-phone"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Street Address</th>
+                            <td id="uni-streetAddress"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">City</th>
+                            <td id="uni-city"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Province/State</th>
+                            <td id="uni-provinceState"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Country</th>
+                            <td id="uni-country"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Postal Code</th>
+                            <td id="uni-postalCode"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Url</th>
+                            <td>
+                                <a target="_blank" id="uni-url"></a>
+                            </td>
+                        </tr>
+                    </table>
+    
+                    <hr>
+                    <div>
+                        <h5>Faculties</h5>
+                        <ul id="uni-faculties">
+    
+                        </ul>
+                    </div>
+                    
+                    <div id="buttons">
+                        <button id="uni-action" class="btn btn-info btn-block mt-2">Action</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <template id="prereqCardTemplate">
+        <div>
+            <h5 id="pre-title"></h5>
+            <ul id="pre-reqs">
+            </ul>
+            <hr>
+        </div>
+    </template>
+
+
+    <template id="programTemplate">
+        <div class="col mb-2 px-md-2">
+            <div class="card rounded border-info h-100">
+                <h4 id="course-title" class="card-title text-center">Title</h4>
+                
+                <div class="card-body">
+                    <table class="table table-striped table-border table-sm">
+                        <tr>
+                            <th scope="row">Id</th>
+                            <td id="course-id"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">University Id</th>
+                            <td id="course-universityId"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Url</th>
+                            <td id="course-courseUrl"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Faculty</th>
+                            <td id="course-faculty"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Average</th>
+                            <td id="course-requiredAverage"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="table-info" colspan="2">Domestic</th>
+                        </tr>
+                        <tr>
+                            <th scope="row">Tuition</th>
+                            <td id="course-domesticTuition"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Books</th>
+                            <td id="course-domesticBooks"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Notes</th>
+                            <td id="course-domesticNotes"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="table-info" colspan="2">International</th>
+                        </tr>
+                        <tr>
+                            <th scope="row">Tuition</th>
+                            <td id="course-internationalTuition"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Books</th>
+                            <td id="course-internationalBooks"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Notes</th>
+                            <td id="course-internationalNotes"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Course Notes</th>
+                            <td id="course-notes"></td>
+                        </tr>
+                    </table>
+
+                    <div id="course-prerequisites-div">
+                        <h4>Prerequisites</h4>
+                        <hr>
+                        <div id="course-prerequisites"></div>
+                    </div>
+
+                    <div id="buttons">
+                        <button id="course-action" class="btn btn-info btn-block mt-2">Action</button>
+                    </div>
+                </div>
+            
+            </div>
+        </div>
+
+    </template>
+
+    <template id="splitViewTemplate">
+        <div id="splitAccordian" class="accordian">
+            <div class="card">
+                <div class="card-header" id="newItemsCard">
+                    <h2 class="mb-0">
+                        <button id="newItemsCollapseButton" class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#newItemsCollapse" aria-expanded="false" aria-controls="newItemsCollapse">
+                            New
+                        </button>
+                    </h2>
+                </div>
+    
+                <div id="newItemsCollapse" class="collapse collapsed" aria-labelledby="newItemsCard" data-parent="#splitAccordian">
+                    <div id="newItemsPanel" class="card-body accordian-content-panel">
+                    </div>
+                </div>
+            </div>
+    
+            <div class="card">
+                <div class="card-header" id="oldItemsCard">
+                    <h2 class="mb-0">
+                        <button id="oldItemsCollapseButton" class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#oldItemsCollapse" aria-expanded="false" aria-controls="oldItemsCollapse">
+                            Old
+                        </button>
+                    </h2>
+                </div>
+    
+                <div class="collapse" id="oldItemsCollapse" aria-labelledby="oldItemsCard" data-parent="#splitAccordian">
+                    <div id="oldItemsPanel" class="card-body accordian-content-panel">
+                    </div>
+                </div>
+            </div>
+    
+            <div class="card">
+                <div class="card-header" id="deletedItemsCard">
+                    <h2 class="mb-0">
+                        <button id="deletedItemsCollapseButton" class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#deletedItemsCollapse" aria-expanded="false" aria-controls="deletedItemsCollapse">
+                            Deleted
+                        </button>
+                    </h2>
+                </div>
+    
+                <div class="collapse" id="deletedItemsCollapse" aria-labelledby="deletedItemsCard" data-parent="#splitAccordian">
+                    <div id="deletedItemsPanel" class="card-body accordian-content-panel">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <template id="pathwayCourseLiT">
+        <li>
+            <span id="course"></span>
+            <strong>@</strong><span id="university"></span>
+            <strong>:</strong><span id="faculty"></span>
+        </li>
+    </template>
+
+    <template id="pathwayCardTemplate">
+        <div class="col mb-2 px-md-2">
+            <div class="card rounded border-info h-100">
+                <h4 id="pathway-title" class="card-title text-center">Pathway Title</h4>
+
+                <div class="card-body">
+                    <table class="table table-sm">
+                        <tr>
+                            <th scope="row">Id:</th>
+                            <td id="pathway-id"></td>
+                        </tr>
+                    </table>
+
+                    <div>
+                        <h5>Future Opportunities</h5>
+                        <hr>
+                        <ul id="pathway-opps">
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h5>Attached Courses</h5>
+                        <hr>
+                        <ul id="pathway-courses">
+                        </ul>
+                    </div>
+
+                    <button id="pathway-action" class="btn btn-info btn-block">
+                        Action
+                    </button>
+                </div>
+            </div>
+        </div>
+    </template>
+
+
+
+    <div id="data-panel" class="container mt-5">
+        <h1>Guiding Vision Database Editor</h1>
+        
+        <div id="drop-zone" class="m-3">
+            <div class="outline">
+                <p>Drag data file to this Drop Zone...</p>
+                <input type="file" id="file-input" style="display: none">
+            </div>
+        </div>
+
+        <div id="loading-bar" style="display: none">
+            <div class="spinner-border" role="status"></div>
+            <span>Loading...</span>
+        </div>
+    </div>
+
+    <div id="modalViewer">
+        <div class="m-1 border d-flex justify-content-between bg-secondary">
+            <h3 id="modalTitle" class="w-auto px-2 m-auto"></h3>
+            <button onclick="closeModal()" class="btn btn-secondary" style="width: 48px; height: 48px">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div id="content" class="border m-1 h-100">
+
+        </div>
+    </div>
+
+    <div id="main-panel" style="display: none">
+        
+        <nav class="navbar navbar-expand-sm navbar-dark bg-primary">
+            
+            <div class="container-fluid">
+                <a class="navbar-brand">Guiding Vision DB Editor</a>
+                
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+
+                <div class="collapse navbar-collapse" id="navbarColor01">
+                    <ul class="ml-auto navbar-nav">
+                        <li id="addLink" class="nav-item">
+                            <a class="nav-link">Add</a>
+                        </li>
+                        <li id="editLink" class="nav-item">
+                            <a class="nav-link">Edit</a>
+                        </li>
+                        <li id="deleteLink" class="nav-item">
+                            <a class="nav-link">Delete</a>
+                        </li>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Dropdown
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" id="saveChanges">Save Changes</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" id="resetLink">Reset</a>
+                            </div>
+                        </li>
+
+                        <!-- <li id="resetLink" class="nav-item">
+                            <a class="nav-link">Reset</a>
+                        </li> -->
+                    </ul>
+                </div>
+
+            </div>
+
+        </nav>
+
+        <div class="mt-3 main-content">
+            <ul class="nav nav-tabs justify-content-center">
+                <li class="nav-item">
+                    <a id="universitiesTab" class="nav-link" data-bs-toggle="tab">Universities</a>
+                </li>
+                <li class="nav-item">
+                    <a id="programsTab" class="nav-link" data-bs-toggle="tab">Programs</a>
+                </li>
+                <li class="nav-item">
+                    <a id="pathwaysTab" class="nav-link" data-bs-toggle="tab">Pathways</a>
+                </li>
+            </ul>
+
+            <div class="my-5">
+                <div id="universitiesTabContent">
+                    
+                    <div id="addUniversities">
+
+                        <div class="container">
+                            
+                            <form id="addUniversityForm">
+                                <div class="form-group">
+                                    <label for="name">Name</label>
+                                    <input name="name" type="text" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="faculties">Faculties</label>
+                                    <div class="container">
+                                        <ul id="uniAddFacPanel">
+                                        </ul>
+                                    </div>
+                                    <button id="addUniversitiesFacAdd" type="button" class="btn btn-primary btn-block">
+                                        <i class="fas fa-plus pr-2"></i>Add
+                                    </button>
+                                </div>
+                                <div class="form-group">
+                                    <label for="phoneNumber">Phone Number</label>
+                                    <input name="phone" type="text" class="form-control">
+                                    <small class="form-text text-muted">I'm not checking this so don't format it weird.</small>
+                                </div>
+                                <div class="form-group">
+                                    <label for="streetAddress">Street Address</label>
+                                    <input name="streetAddress" type="text" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="city">City</label>
+                                    <input name="city" type="text" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="provinceState">Province/State</label>
+                                    <input name="provinceState" type="text" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="postalCode">Postal Code</label>
+                                    <input name="postalCode" type="text" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="country">Country</label>
+                                    <input name="country" type="text" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="urlToWebsite">URL To Their Site</label>
+                                    <input name="url" type="url" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="iconUrl">Icon Image</label>
+                                    <input name="iconUrl" type="url" class="form-control">
+                                </div>
+    
+                                <button type="submit" class="btn btn-success btn-block">
+                                    <i class="fas fa-check pr-2"></i> Save
+                                </button>
+                                
+                                <button type="reset" class="btn btn-danger btn-block mt-3">
+                                    <i class="fas fa-times pr-2"></i> Clear
+                                </button>
+                            </form>
+
+                        </div>
+
+                        <div class="mx-auto mt-5" style="width: 90%;">
+                            <h3>Added Universities</h3>
+
+                            <div id="addedUniversitiesDisplayPanel" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4">
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div id="editUniversities">
+
+                        <div class="container">
+
+                            <form id="editUniversityForm" data-uni='undefined'>
+                                <div class="form-group">
+                                    <label for="name">Name</label>
+                                    <input name="name" type="text" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="faculties">Faculties</label>
+                                    <div class="container">
+                                        <ul id="uniEditFacPanel">
+                                        </ul>
+                                    </div>
+                                    <button id="editUniversitiesFacAdd" type="button" class="btn btn-primary btn-block">
+                                        <i class="fas fa-plus pr-2"></i>Add
+                                    </button>
+                                </div>
+                                <div class="form-group">
+                                    <label for="phoneNumber">Phone Number</label>
+                                    <input name="phone" type="text" class="form-control">
+                                    <small class="form-text text-muted">I'm not checking this so don't format it weird.</small>
+                                </div>
+                                <div class="form-group">
+                                    <label for="streetAddress">Street Address</label>
+                                    <input name="streetAddress" type="text" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="city">City</label>
+                                    <input name="city" type="text" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="provinceState">Province/State</label>
+                                    <input name="provinceState" type="text" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="postalCode">Postal Code</label>
+                                    <input name="postalCode" type="text" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="country">Country</label>
+                                    <input name="country" type="text" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="urlToWebsite">URL To Their Site</label>
+                                    <input name="url" type="url" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="iconUrl">Icon Image</label>
+                                    <input name="iconUrl" type="url" class="form-control">
+                                </div>
+
+                                <button type="submit" class="btn btn-success btn-block">
+                                    <i class="fas fa-check pr-2"></i> Save
+                                </button>
+                                
+                                <button type="reset" class="btn btn-danger btn-block mt-3">
+                                    <i class="fas fa-times pr-2"></i> Clear
+                                </button>
+                            </form>
+                        
+                        </div>
+
+                        <div class="mx-auto mt-5" style="width: 90%;">
+                            <h3>All Universities</h3>
+
+                            <div id="editedUniversitiesDisplayPanel" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4">
+                            </div>
+
+                        </div>
+                        
+                    </div>
+
+                    <div id="deleteUniversities">
+                        <div class="mx-auto mt-5" style="width: 90%">
+                            <h3>All Universities</h3>
+
+                            <div id="deletedUniversitiesDisplayPanel" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div id="programsTabContent">
+                    
+                    <div id="addPrograms">
+                        <div class="container">
+                            <form id="addProgramForm">
+                                <div class="form-group">
+                                    <label for="title">Title</label>
+                                    <input name="title" type="text" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="prerequisites">Prerequisites</label>
+                                    <div class="container">
+                                        <ul id="courseAddPrePanel" style="list-style: none;"></ul>
+                                    </div>
+                                    <button type="button" id="addCoursePreAdd" class="btn btn-primary btn-block">
+                                        <i class="fas fa-plus pr-2"></i>Add
+                                    </button>
+                                </div>
+                                <div class="form-group">
+                                    <label for="courseUrl">URL</label>
+                                    <input name="courseUrl" type="text" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="requiredAverage">Required Average</label>
+                                    <input name="requiredAverage" type="number" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="universityId">Attached University</label>
+                                    <input type="text" name="universityId" id="addProgramUniversityId" class="d-none">
+                                    <div class="d-flex" style="height: 45px">
+                                        <div class="blue-bg w-75 justify-content-center d-flex">
+                                            <div class="mb-auto mx-auto" style="margin-top: .7rem;">
+                                                <h4 id="addProgramUniversityOutput" class="text-center"></h5>
+                                            </div>
+                                        </div>
+
+                                        <button type="button" id="selectUniversity" class="btn btn-success btn-block w-25 h-100">Select</button>
+                                    </div>
+                                </div>
+                                <div id="faculty" class="form-group d-none">
+                                    <label for="faculty">Faculty</label>
+                                    <input type="text" name="faculty" id="addProgramFaculty" class="d-none">
+                                    <div class="d-flex" style="height: 45px">
+                                        <div class="blue-bg w-75 justify-content-center d-flex">
+                                            <div class="mb-auto mx-auto" style="margin-top: .7rem;">
+                                                <h4 id="addProgramFacultyOutput" class="text-center"></h5>
+                                            </div>
+                                        </div>
+
+                                        <button type="button" id="selectFaculty" class="btn btn-success btn-block w-25 h-100">Select</button>
+                                    </div>
+                                </div>
+                                <hr>
+                                <h3>Domestic</h4>
+                                <div class="form-group">
+                                    <label for="domesticTuition">Tuition</label>
+                                    <input name="domesticTuition" type="number" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="domesticBooks">Books</label>
+                                    <input name="domesticBooks" type="number" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="domesticNotes">Notes</label>
+                                    <input name="domesticNotes" type="text" class="form-control">
+                                </div>
+                                <hr>
+                                <h3>International</h3>
+                                <div class="form-group">
+                                    <label for="internationalTuition">Tuition</label>
+                                    <input name="internationalTuition" type="number" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="internationalBooks">Books</label>
+                                    <input name="internationalBooks" type="number" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="internationalNotes">Notes</label>
+                                    <input name="internationalNotes" type="text" class="form-control">
+                                </div>
+                                <hr>
+                                <div class="form-group">
+                                    <label for="notes">Overall Notes</label>
+                                    <div class="d-flex w-100">
+                                        <textarea class="form-control w-100" name="notes" rows="10"></textarea>
+                                        <div id="addMarkupOutput" class="w-100 h-100 p-2"></div>
+                                    </div>
+                                </div>
+
+                                <button type="submit" class="btn btn-success btn-block">
+                                    <i class="fas fa-check pr-2"></i> Save
+                                </button>
+                                
+                                <button type="reset" class="btn btn-danger btn-block mt-3">
+                                    <i class="fas fa-times pr-2"></i> Clear
+                                </button>
+                            </form>
+                        </div>
+
+                        <div class="mx-auto mt-5" style="width: 90%;">
+                            <h3>Added Programs</h3>
+                            <hr>
+
+                            <div id="addedProgramsDisplayPanel" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="editPrograms">
+
+                        <div class="container">
+                            <form id="editProgramForm" data-course='undefined'>
+                                <div class="form-group">
+                                    <label for="title">Title</label>
+                                    <input name="title" type="text" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="prerequisites">Prerequisites</label>
+                                    <div class="container">
+                                        <ul id="courseAddPrePanel" style="list-style: none;"></ul>
+                                    </div>
+                                    <button type="button" id="addCoursePreAdd" class="btn btn-primary btn-block">
+                                        <i class="fas fa-plus pr-2"></i>Add
+                                    </button>
+                                </div>
+                                <div class="form-group">
+                                    <label for="courseUrl">URL</label>
+                                    <input name="courseUrl" type="text" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="requiredAverage">Required Average</label>
+                                    <input name="requiredAverage" type="number" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="universityId">Attached University</label>
+                                    <input type="text" name="universityId" id="addProgramUniversityId" class="d-none">
+                                    <div class="d-flex" style="height: 45px">
+                                        <div class="blue-bg w-75 justify-content-center d-flex">
+                                            <div class="mb-auto mx-auto" style="margin-top: .7rem;">
+                                                <h4 id="addProgramUniversityOutput" class="text-center"></h5>
+                                            </div>
+                                        </div>
+
+                                        <button type="button" id="selectUniversity" class="btn btn-success btn-block w-25 h-100">Select</button>
+                                    </div>
+                                </div>
+                                <div id="faculty" class="form-group d-none">
+                                    <label for="faculty">Faculty</label>
+                                    <input type="text" name="faculty" id="addProgramFaculty" class="d-none">
+                                    <div class="d-flex" style="height: 45px">
+                                        <div class="blue-bg w-75 justify-content-center d-flex">
+                                            <div class="mb-auto mx-auto" style="margin-top: .7rem;">
+                                                <h4 id="addProgramFacultyOutput" class="text-center"></h5>
+                                            </div>
+                                        </div>
+
+                                        <button type="button" id="selectFaculty" class="btn btn-success btn-block w-25 h-100">Select</button>
+                                    </div>
+                                </div>
+                                <hr>
+                                <h3>Domestic</h4>
+                                <div class="form-group">
+                                    <label for="domesticTuition">Tuition</label>
+                                    <input name="domesticTuition" type="number" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="domesticBooks">Books</label>
+                                    <input name="domesticBooks" type="number" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="domesticNotes">Notes</label>
+                                    <input name="domesticNotes" type="text" class="form-control">
+                                </div>
+                                <hr>
+                                <h3>International</h3>
+                                <div class="form-group">
+                                    <label for="internationalTuition">Tuition</label>
+                                    <input name="internationalTuition" type="number" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="internationalBooks">Books</label>
+                                    <input name="internationalBooks" type="number" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="internationalNotes">Notes</label>
+                                    <input name="internationalNotes" type="text" class="form-control">
+                                </div>
+                                <hr>
+                                <div class="form-group">
+                                    <label for="notes">Overall Notes</label>
+                                    <div class="d-flex w-100">
+                                        <textarea class="form-control w-100" name="notes" rows="10"></textarea>
+                                        <div id="addMarkupOutput" class="w-100 h-100 p-2"></div>
+                                    </div>
+                                </div>
+
+                                <button type="submit" class="btn btn-success btn-block">
+                                    <i class="fas fa-check pr-2"></i> Save
+                                </button>
+                                
+                                <button type="reset" class="btn btn-danger btn-block mt-3">
+                                    <i class="fas fa-times pr-2"></i> Clear
+                                </button>
+                            </form>
+                        </div>
+                        
+                        <div class="mx-auto mt-5" style="width: 90%">
+                            <h3>All Programs</h3>
+
+                            <div id="editedProgramsDisplayPanel" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4">
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div id="deletePrograms">
+                        <div class="mx-auto mt-5" style="width: 90%">
+                            <h3>All Programs</h3>
+
+                            <div id="deletedCoursesDisplayPanel" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                
+                <div id="pathwaysTabContent">
+                    
+                    <div id="addPathways">
+                        <div class="container">
+
+                            <form id="addPathwayForm">
+                                <div class="d-flex justify-content-between mb-3">
+                                    <button type="submit" class="btn btn-success">
+                                        <i class="fas fa-check pr-sm-2"></i>
+                                        <span class="d-none d-sm-inline">Save</span>
+                                    </button>
+                                    <button type="reset" class="btn btn-danger">
+                                        <i class="fas fa-times pr-sm-2"></i>
+                                        <span class="d-none d-sm-inline">Clear</span>
+                                    </button>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="title">Title</label>
+                                    <input name="title" type="text" class="form-control">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="futureOpportunities">Future Opportunities</label>
+                                    <div class="container">
+                                        <ul id="pathwayAddFutureOppPanel">
+                                        </ul>
+                                    </div>
+                                    <button type="button" id="addPathwaysFutureOpp" class="btn btn-primary btn-block">
+                                        <i class="fas fa-plus pr-2"></i>Add
+                                    </button>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="attachedPrograms">Attached Programs</label>
+                                    <div id="addPathwayCourses" class="my-3 row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4">
+                                    </div>
+                                    <button id="addPathwayAttachProgram" class="btn btn-primary btn-block">
+                                        <i class="fas fa-plus pr-2"></i>Add Program
+                                    </button>
+                                </div>
+
+                            </form>
+                        </div>
+
+                        <div class="mx-auto mt-5" style="width: 90%;">
+                            <h3>Added Pathways</h3>
+
+                            <div id="addedPathwaysDisplayPanel" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4">
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="editPathways">
+                        <div class="container">
+
+                            <form id="editPathwayForm" data-pathway="undefined">
+                                <div class="d-flex justify-content-between mb-3">
+                                    <button type="submit" class="btn btn-success">
+                                        <i class="fas fa-check pr-sm-2"></i>
+                                        <span class="d-none d-sm-inline">Save</span>
+                                    </button>
+                                    <button type="reset" class="btn btn-danger">
+                                        <i class="fas fa-times pr-sm-2"></i>
+                                        <span class="d-none d-sm-inline">Clear</span>
+                                    </button>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="title">Title</label>
+                                    <input name="title" type="text" class="form-control">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="futureOpportunities">Future Opportunities</label>
+                                    <div class="container">
+                                        <ul id="pathwayAddFutureOppPanel">
+                                        </ul>
+                                    </div>
+                                    <button type="button" id="addPathwaysFutureOpp" class="btn btn-primary btn-block">
+                                        <i class="fas fa-plus pr-2"></i>Add
+                                    </button>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="attachedPrograms">Attached Programs</label>
+                                    <div id="addPathwayCourses" class="my-3 row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4">
+                                    </div>
+                                    <button id="addPathwayAttachProgram" class="btn btn-primary btn-block">
+                                        <i class="fas fa-plus pr-2"></i>Add Program
+                                    </button>
+                                </div>
+
+                            </form>
+                        </div>
+
+                        <div class="mx-auto mt-5" style="width: 90%;">
+                            <h3>All Pathways</h3>
+
+                            <div id="editedPathwaysDisplayPanel" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4">
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="deletePathways">
+                        <div class="mx-auto mt-5" style="width: 90%;">
+                            <h3>All Pathways</h3>
+
+                            <div id="deletedPathwaysDisplayPanel" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4">
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                
+            </div>
+        
+        </div>
+
+    </div>
+
+    <footer>
+        <div id="errorDiv" class="mt-5 alert alert-danger" style="display: none; position: fixed; bottom: 0px; left: 2%; width: 96%">
+            <button type="button" class="btn mr-2" data-bs-dismiss="alert">
+                <i class="fas fa-times"></i>
+            </button>
+            <strong></strong>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.9.1/showdown.min.js"></script>
+    <script src="./app.js"></script>
+</body>
+</html>
