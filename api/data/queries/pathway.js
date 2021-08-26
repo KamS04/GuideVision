@@ -12,14 +12,12 @@ const selectPathwayById = `SELECT * FROM ${sqlNames.PATHWAYS} WHERE ${sqlNames.P
 
 const selectRandomPathways = `SELECT * FROM ${sqlNames.PATHWAYS} ORDER BY RANDOM() LIMIT ? OFFSET ?;`;
 
-const searchPathway = (pathwayQuery) => {
-    return `SELECT *
+const searchPathway = `SELECT *
         FROM
             ${sqlNames.PATHWAYS}
         WHERE
-            ${sqlNames.PATHWAY_TITLE} LIKE "%${pathwayQuery}%"
+            ${sqlNames.PATHWAY_TITLE} LIKE ?
         LIMIT ? OFFSET ?;`;
-};
 
 module.exports = {
     pathwayTableQuery,

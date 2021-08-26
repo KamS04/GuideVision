@@ -97,8 +97,7 @@ ON
 WHERE
     university.${uniNames.UNI_ID} = ?;`;
 
-const searchMinifiedPrograms = (programQuery) => {
-    return `SELECT
+const searchMinifiedPrograms = `SELECT
         program.${sqlNames.PROGRAM_ID},
         program.${sqlNames.PROGRAM_TITLE},
         university.${uniNames.UNI_NAME},
@@ -108,9 +107,8 @@ const searchMinifiedPrograms = (programQuery) => {
     INNER JOIN ${uniNames.UNIVERSITIES} university
     ON
         program.${sqlNames.PROGRAM_UNI} = university.${uniNames.UNI_ID}
-    WHERE program.${sqlNames.PROGRAM_TITLE} LIKE "%${programQuery}%"
+    WHERE program.${sqlNames.PROGRAM_TITLE} LIKE ?
     LIMIT ? OFFSET ?;`;
-};
 
 module.exports = {
     programTableQuery,

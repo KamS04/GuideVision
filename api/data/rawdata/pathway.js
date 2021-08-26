@@ -25,9 +25,9 @@ const getPathwayById = (pathwayId) => {
     });
 };
 
-const searchPathway = (pathwayId, limit, offset) => {
+const searchPathway = (pathwayQuery, limit, offset) => {
     return new Promise( (resolve, reject) => {
-        db.all(queries.searchPathway(pathwayId), [limit, offset], (err, rows) => {
+        db.all(queries.searchPathway, [`%${pathwayQuery}%`, limit, offset], (err, rows) => {
             if (err) {
                 reject(err);
                 return;

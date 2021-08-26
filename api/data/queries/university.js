@@ -14,14 +14,12 @@ const universityTableQuery = `CREATE TABLE IF NOT EXISTS ${sqlNames.UNIVERSITIES
     ${sqlNames.UNI_ICON_URL} TEXT
 );`;
 
-const searchUniversity = (uniQuery) =>{
-    return `SELECT * 
+const searchUniversity = `SELECT * 
     FROM
         ${sqlNames.UNIVERSITIES} 
     WHERE
-        ${sqlNames.UNI_NAME} LIKE "%${uniQuery}%" 
+        ${sqlNames.UNI_NAME} LIKE ? 
     LIMIT ? OFFSET ?;`;
-};
 
 const selectUniversityById = `SELECT * FROM ${sqlNames.UNIVERSITIES} WHERE ${sqlNames.UNI_ID} = ?;`;
 

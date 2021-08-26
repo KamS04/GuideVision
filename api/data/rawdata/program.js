@@ -88,7 +88,7 @@ const getMinifiedProgramsByUniversity = (universityId) => {
 
 const searchMinifiedPrograms = (programQuery, limit, offset) => {
     return new Promise( (resolve, reject) => {
-        db.all(queries.searchMinifiedPrograms(programQuery), [limit, offset], (err, rows) => {
+        db.all(queries.searchMinifiedPrograms, [`%${programQuery}%`, limit, offset], (err, rows) => {
             if (err) {
                 reject(err);
                 return;

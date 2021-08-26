@@ -27,7 +27,7 @@ const getUniversity = (id) => {
 
 const searchUniversity = (universityQuery, limit, offset) => {
     return new Promise( (resolve, reject) => {
-        db.all(queries.searchUniversity(universityQuery), [limit, offset], (err, rows) => {
+        db.all(queries.searchUniversity, [`%${universityQuery}%`, limit, offset], (err, rows) => {
             if (err) {
                 reject(err);
                 return;
