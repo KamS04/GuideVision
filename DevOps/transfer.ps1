@@ -1,3 +1,5 @@
+$ErrorActionPreference = "Stop"
+
 $server = 'homeserver' # The Server to ssh into
 
 # Where the temporary dump file will be created on the local machine
@@ -6,7 +8,7 @@ $outputFile = 'D:\Code\web\Projects\CAS\GuideVision\output.sql'
 $database = 'D:\Code\web\Projects\CAS\GuideVision\DB-Browser\database.db' 
 
 # Dump the database contents into a dump file
-".output $outputFile`n.dump" | sqlite3 $database
+".output $($outputFile.Replace("\", "\\"))`n.dump" | sqlite3 $database
 
 # Replace some stuff in the dump file
 $createOriginal = "CREATE TABLE"
@@ -25,7 +27,7 @@ $baseDir = ssh $server "realpath $baseDirOnServer"
 $outputFileOnServer = "$baseDir/output.sql"
 
 # Send the dump file to the server
-scp $outputFile $server:$outputFileOnServer
+scp $outputFile $server`:$outputFileOnServer
 
 Remove-Item -Path $outputFile
 
@@ -36,9 +38,9 @@ $tempCommandFile = "./temp_comms.sh"
 $appName="GuidingVision"
 
 # Replace the paths in the comms template
-(Get-Content -Path "./commands.template.sh") -replace "PUT_DATABASE_PATH_HERE", $databaseOnServer -replace "PUT_OUTPUT_FILE_HERE", $outputFileOnServer -replace "PUT_APP_NAME_HERE", $appName | Set-Content -Path $tempCommandFile
+(Get-Content -Path "./commands.template.sh" -Raw) -replace "PUT_DATABASE_PATH_HERE", $databaseOnServer -replace "PUT_OUTPUT_FILE_HERE", $outputFileOnServer -replace "PUT_APP_NAME_HERE", $appName | Set-Content -Path $tempCommandFile
 
 # run the commands on the server
-Get-Content -Path $tempCommandFile | ssh $server
+Get-Content -Path $tempCommandFile -Raw | ssh $server
 
 Remove-Item -Path $tempCommandFile

@@ -38,10 +38,8 @@ tempCommandFile='./temp_comms.sh'
 
 appName='GuidingVision'
 
-cp "./commands.template.sh" $tempCommandFile
-
 # Replace the paths in the comms template
-sed -i -e "s/PUT_DATABASE_PATH_HERE/$databaseOnServer/" -e "s/PUT_OUTPUT_FILE_HERE/$outputFileOnServer/" -e "s/PUT_APP_NAME_HERE/$appName/" $tempCommandFile
+sed -e "s+PUT_DATABASE_PATH_HERE+$databaseOnServer+" -e "s+PUT_OUTPUT_FILE_HERE+$outputFileOnServer+" -e "s+PUT_APP_NAME_HERE+$appName+" "./commands.template.sh" > $tempCommandFile
 
 # Run the commands on the server
 cat $tempCommandFile | ssh $server
