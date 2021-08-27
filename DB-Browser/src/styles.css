@@ -77,14 +77,12 @@ strong {
     margin-bottom: 10px;
     border: 2px solid var(--primary);
     display: none;
+    height: 95vh;
+    overflow: auto;
 }
 
 #modalViewer > #content {
     background-color: var(--light);
-}
-
-.accordian-content-panel {
-    overflow: auto;
 }
 
 #editProgramForm {
