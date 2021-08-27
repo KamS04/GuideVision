@@ -6,7 +6,7 @@ $outputFile = 'D:\Code\web\Projects\CAS\GuideVision\output.sql'
 $database = 'D:\Code\web\Projects\CAS\GuideVision\DB-Browser\database.db' 
 
 # Dump the database contents into a dump file
-sqlite3 $database .dump | Set-Content -Path $outputFile
+".output $outputFile`n.dump" | sqlite3 $database
 
 # Replace some stuff in the dump file
 $createOriginal = "CREATE TABLE"
