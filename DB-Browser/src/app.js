@@ -1823,7 +1823,7 @@ selectEditProgramFaculty.addEventListener('click', (ev) => {
     let panel = document.createElement('div');
     panel.classList.add('p-2');
 
-    getUniversityFromIdValueed(editProgramUniversityInput.value).faculties.forEach( (faculty) => {
+    getUniversityFromIdValue(editProgramUniversityInput.value).faculties.forEach( (faculty) => {
         let elem = getSelectElement(faculty, (ev) => {
             ev.preventDefault();
             setValue(editProgramFacultyInput, faculty);

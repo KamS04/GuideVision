@@ -508,7 +508,11 @@ def process_changes(db_file, config: Config, change_file, super_safe_mode=False)
                 exit(1)
         elif config.COURSE_UNI in sql_dict.keys():
             uni = get_university(sql_dict[config.COURSE_UNI])
-            if sql_dict[config.COURSE_FACULTY] not in uni.faculties:
+            if config.COURSE_FACULTY in sql_dict.keys():
+                faculty = sql_dict[config.COURSE_FACULTY]
+            else:
+                faculty = get_course(sql_dict[config.COURSE_ID]).faculty
+            if faculty not in uni.faculties:
                 print(f"Courses {default.id} has faculty that it's university {sql_dict[config.COURSE_UNI]} does not have")
                 exit(1)
 
@@ -561,7 +565,7 @@ def process_changes(db_file, config: Config, change_file, super_safe_mode=False)
     
     for university_id in changes['deletions']['universities']:
         if super_safe_mode:
-            df = read_sql(f'SELECT * FROM {config.COURSES} WHERE {config.UNI_ID} = ?;', db, (university_id,) )
+            df = read_sql(f'SELECT * FROM {config.COURSES} WHERE {config.COURSE_UNI} = ?;', db, params=(university_id,) )
             if not df.empty:
                 print(f'WOAH There, tried to delete university {university_id} without changing all the courses connected to it')
                 exit(1)
