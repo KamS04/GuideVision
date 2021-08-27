@@ -80,3 +80,6 @@ Thumbs.db
 # Build out
 api/public
 api/*.db
+
+# temp database
+DB-Browser/database.db
