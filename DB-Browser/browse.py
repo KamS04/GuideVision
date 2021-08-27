@@ -623,10 +623,11 @@ def processchanges(db_path, data_file, config, change_file, force, safe, debug):
 @click.argument('db-path', type=click.Path(exists=True, dir_okay=False, readable=True, writable=True, resolve_path=True), required=True)
 @click.argument('data-file', type=click.Path(exists=True, dir_okay=False, readable=True, writable=True, resolve_path=True), required=True)
 @click.option('-c', '--config', type=click.Path(exists=True, dir_okay=False, resolve_path=True, readable=True), required=False)
-def verify(db_path, data_file, config):
+@click.option('-d', '--debug', is_flag=True, required=False)
+def verify(db_path, data_file, config, debug):
     config = Config( **json.loads( open(config, 'rb').read() ) ) if config else Config()
 
-    file_verified = verify_integrity(db_path, config, data_file)
+    file_verified = verify_integrity(db_path, config, data_file, debug_mode=debug)
 
     if file_verified:
         print('Data file is up-to-date')
