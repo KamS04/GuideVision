@@ -83,3 +83,5 @@ api/*.db
 
 # temp database
 DB-Browser/database.db
+
+__pycache__
