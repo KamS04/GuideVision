@@ -1692,7 +1692,7 @@ function addProgramToDisplayPanel(program) {
 
 function removeAddedProgramFromDisplayPanel(programId) {
     addedProgramsDisplayPanel.removeChild(
-        addedProgramsDisplayPanel.querySelector(`div[data-program='${programId}']`)
+        addedProgramsDisplayPanel.querySelector(`div[data-course='${programId}']`)
     );
 }
 
