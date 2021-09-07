@@ -7,10 +7,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AboutFooterComponent implements OnInit {
 
-  members = ['Kam', 'Ayaan', 'Arshnur', 'Parneet', 'Harsh'];
+  members = ['Kamalpreet', 'Ayaan', 'Arshnur', 'Parneet', 'Harsh'];
   
   linkToInstagram = 'https://www.instagram.com/guiding.vision/';
-  email = 'kaaphcas@gmail.com';
+  email = 'guidingvision.help@gmail.com';
 
   constructor() { }
 
