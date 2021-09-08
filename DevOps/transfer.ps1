@@ -1,46 +1,49 @@
+param (
+    [Parameter(Mandatory=$true)][string]$Server, # Server to ssh into 
+    [string]$OutputFile = "$(Get-Location)\\output.sql", # Where the temporary dump file will be created, locally
+    [Parameter(Mandatory=$true)][string]$LocalDatabase, # Local database to be transferred
+    [Parameter(Mandatory=$true)][string]$BaseDirOnServer, # The root repository directory on the server
+    [Parameter(Mandatory=$true)][string]$AppName, # App name listed in pm2
+    [string]$CommandsTemplate = "./commands.template.sh" # File to create commands from
+)
+
 $ErrorActionPreference = "Stop"
 
-$server = 'homeserver' # The Server to ssh into
-
-# Where the temporary dump file will be created on the local machine
-$outputFile = 'D:\Code\web\Projects\CAS\GuideVision\output.sql'
-# The location of the local database from which the dump will be created
-$database = 'D:\Code\web\Projects\CAS\GuideVision\DB-Browser\database.db' 
-
 # Dump the database contents into a dump file
-".output $($outputFile.Replace("\", "\\"))`n.dump" | sqlite3 $database
+".output $($OutputFile.Replace("\", "\\"))`n.dump" | sqlite3 $LocalDatabase
 
-# Replace some stuff in the dump file
-$createOriginal = "CREATE TABLE"
-$createNew = "CREATE TABLE IF NOT EXISTS"
+# Replace some stuff in the dump file to prevent warnings
+$CreateOriginal = "CREATE TABLE"
+$CreateNew = "CREATE TABLE IF NOT EXISTS"
 
-$insertOriginal = "INSERT INTO"
-$insertNew = "INSERT OR REPLACE INTO"
+$InsertOriginal = "INSERT INTO"
+$InsertNew = "INSERT OR REPLACE INTO"
 
-(Get-Content -Path $outputFile ) -replace $createOriginal, $createNew -replace $insertOriginal, $insertNew | Set-Content -Path $outputFile
+(Get-Content -Path $OutputFile) `
+    -replace $CreateOriginal, $CreateNew `
+    -replace $InsertOriginal, $InsertNew |
+Set-Content -Path $OutputFile
 
-# Where the overall GuideVision directory is located
-$baseDirOnServer = "~/Documents/GuideVision"
+$BaseDir = ssh $Server "realpath $BaseDirOnServer"
 
-$baseDir = ssh $server "realpath $baseDirOnServer"
-
-$outputFileOnServer = "$baseDir/output.sql"
+$OutputFileOnServer = "$BaseDir/output.sql"
 
 # Send the dump file to the server
-scp $outputFile $server`:$outputFileOnServer
+scp $OutputFile $Server`:$OutputFileOnServer
 
-Remove-Item -Path $outputFile
+Remove-Item -Path $OutputFile
 
-$databaseOnServer = "$baseDir/api/guidingvision.db"
+$DatabaseOnServer = "$BaseDir/api/guidingvision.db"
 
-$tempCommandFile = "./temp_comms.sh"
+$TemporaryCommandsFile = "./temp_comms.sh"
 
-$appName="GuidingVision"
+(Get-Content -Path $CommandsTemplate -Raw) `
+    -replace "PUT_DATABASE_PATH_HERE", $DatabaseOnServer `
+    -replace "PUT_OUTPUT_FILE_HERE", $OutputFileOnServer `
+    -replace "PUT_APP_NAME_HERE", $AppName |
+Set-Content -Path $TemporaryCommandsFile -NoNewLine
 
-# Replace the paths in the comms template
-(Get-Content -Path "./commands.template.sh" -Raw) -replace "PUT_DATABASE_PATH_HERE", $databaseOnServer -replace "PUT_OUTPUT_FILE_HERE", $outputFileOnServer -replace "PUT_APP_NAME_HERE", $appName | Set-Content -Path $tempCommandFile
+# Run the commands on the server
+Get-Content -Path $TemporaryCommandsFile -Raw | ssh $Server
 
-# run the commands on the server
-Get-Content -Path $tempCommandFile -Raw | ssh $server
-
-Remove-Item -Path $tempCommandFile
+Remove-Item $TemporaryCommandsFile
