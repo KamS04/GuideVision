@@ -39,7 +39,7 @@ server {
         #
         # include snippets/snakeoil.conf;
 
-        root /home/kam/Documents/GuideVision/api/public;
+        root %publicfolder%; # put the actual public folder here
 
         # Add index.php to the list if you are using PHP
         index index.html index.htm index.nginx-debian.html;
