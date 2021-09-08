@@ -7,7 +7,8 @@ const { pathwayTableQuery } = require('../queries/pathway');
 
 const db = new sqlite.Database(config.DB_FILE, (err) => {
     if (err) {
-        throw err;
+        console.error(err);
+        process.exit(1);
     }
     console.log(`Connected to ${config.DB_FILE}`);
 });
