@@ -5,7 +5,10 @@ const { programTableQuery, categoryCourseJunctionTableQuery } = require('../quer
 const { universityTableQuery } = require('../queries/university');
 const { pathwayTableQuery } = require('../queries/pathway');
 
-const db = new sqlite.Database(config.DB_FILE, () => {
+const db = new sqlite.Database(config.DB_FILE, (err) => {
+    if (err) {
+        throw err;
+    }
     console.log(`Connected to ${config.DB_FILE}`);
 });
 
