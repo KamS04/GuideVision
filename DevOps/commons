@@ -7,7 +7,7 @@
 ./transfer.sh -s homeserver -l "D:\Code\web\Projects\CAS\GuideVision\DB-Browser\database.db" -b "~/Documents/GuideVision" -a "GuidingVision"
 
 # DigitalOcean
-./update -Server guidingvision -BaseDirOnServer "~/GuideVision" -AppName "GuidingVision"
+./update -Server guidingvision -BaseDirOnServer "~/GuidingVision" -AppName "GuidingVision"
 ./transfer -Server guidingvision -LocalDatabase "D:\Code\web\Projects\CAS\GuideVision\DB-Browser\database.db" -BaseDirOnServer "~/GuidingVision" -AppName "GuidingVision"
 
 # Digital Ocean via bash
