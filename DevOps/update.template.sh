@@ -53,7 +53,7 @@ else
 
     printf "${GREEN}Rebuilding Frontend${NOCOLOR}\n"
     cd $frontend
-    npm run build
+    npm run build -- --configuration production
 fi
 
 pm2 start $appName
