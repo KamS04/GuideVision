@@ -13,3 +13,7 @@
 # Digital Ocean via bash
 ./update.sh -s guidingvision -b "~/GuideVision" -a "GuidingVision"
 ./transfer.sh -s guidingvision -l "D:\Code\web\Projects\CAS\GuideVision\DB-Browser\database.db" -b "~/GuidingVision" -a "GuidingVision"
+
+
+# Get # of Visits
+sudo cat /var/log/nginx/access.log | grep "guidingvision.org/\(programs\|universities\|pathways\|compare\|search\)\?\"" -o | wc -1
