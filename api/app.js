@@ -1,6 +1,8 @@
 const express = require('express');
 const app = express();
 
+const { resWriteFail } = require('./controllers/response');
+
 const programsRouter = require('./routes/program');
 const universitiesRouter = require('./routes/university');
 const pathwaysRouter = require('./routes/pathway');
@@ -19,6 +21,10 @@ app.use(express.static('./public'));
 app.use('/api/programs', programsRouter);
 app.use('/api/universities', universitiesRouter);
 app.use('/api/pathways', pathwaysRouter);
+
+app.all('/api/*', (req, res) => {
+    resWriteFail(res, `Unknown api endpoint '${req.path.substring(4)}'`, 404)
+});
 
 app.all('*', (req, res) => {
     res.sendFile('public/index.html', { root: __dirname });
