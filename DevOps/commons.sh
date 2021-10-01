@@ -16,4 +16,4 @@
 
 
 # Get # of Visits
-sudo cat /var/log/nginx/access.log | grep "guidingvision.org/\(programs\|universities\|pathways\|compare\|search\)\?\"" -o | wc -1
+sudo cat /var/log/nginx/access.log | grep "guidingvision.org/\(programs\|universities\|pathways\|compare\|search\)\?\"" -o | wc -l
