@@ -44,7 +44,7 @@ server {
         # Add index.php to the list if you are using PHP
         index index.html index.htm index.nginx-debian.html;
 
-        server_name guidingvision.xyz www.guidingvision.xyz;
+        server_name guidingvision.org www.guidingvision.org;
 
         location /api {
                 proxy_pass http://localhost:8080;

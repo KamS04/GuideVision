@@ -1,0 +1,37 @@
+server {
+	listen 80 default_server;
+	listen [::]:80 default_server;
+
+	if ($host = www.guidingvision.org) {
+		return 301 http://guidingvision.org$request_uri;	
+	}
+
+	root /home/gv/GuidingVision/api/public;
+
+	index index.html index.htm index.nginx-debian.html;
+	
+	server_name guidingvision.org www.guidingvision.org;
+
+	gzip on;
+	gzip_types
+		application/javascript
+		application/json
+		text/css
+		text/javascript
+		text/plain
+		image/svg+xml
+		image/png
+		image/jpg;
+
+	location /api {
+		gzip off;
+		proxy_pass http://localhost:8080;
+		proxy_http_version 1.1;
+	}
+
+	location / {
+		try_files $uri $uri/ /index.html$args;
+	}
+
+	error_page 404 /index.html;
+}

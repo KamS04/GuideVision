@@ -90,3 +90,27 @@ pm2 save
 
 # Then transfer the database and its all good
 # Add the server to the namecheap dns
+
+# SSL Encryption
+sudo apt install python3-certbot-nginx
+sudo certbot --nginx -d guidingvision.org -d www.guidingvision.org
+# using the official kaaphcas@gmail.com email
+# Accept user agreement
+# Do not sign up for promotions
+# HTTP traffic redirected to HTTPS i.e. option 2 selected
+
+# Certificate and chain saved at
+/etc/letsencrypt/live/guidingvision.org/fullchain.pem
+# Key file saved at
+/etc/letsencrypt/live/guidingvision.org/privkey.pem
+
+sudo nginx -t
+# Confirm config is good
+sudo service nginx restart
+# could also just allow 443 or https, but like this works too
+sudo ufw allow 'NGINX Full'
+
+# Encryption is set up
+
+# Test renewal of certificates
+sudo certbot renew --dry-run
