@@ -40,36 +40,38 @@
                 </tr>
             </table>
     
-            <table class="w-100 table">
-                <tr class="thead-dark">
-                    <th></th>
-                    <th>Tuition</th>
-                    <th>Books</th>
-                </tr>
-    
-                <tr class="table-active">
-                    <td>Domestic</td>
-                    <td>${{ selectedProgram.domesticTuition }}</td>
-                    <td>${{ selectedProgram.domesticBooks }}</td>
-                </tr>
-                <tr class="table-active" *ngIf="selectedProgram.domesticNotes">
-                    <td colspan="3">
-                        <p class="notes float-right">{{ selectedProgram.domesticNotes }}</p>
-                    </td>
-                </tr>
-    
-                <tr class="table-primary">
-                    <td>International</td>
-                    <td>${{ selectedProgram.internationalTuition }}</td>
-                    <td>${{ selectedProgram.internationalBooks }}</td>
-                </tr>
-                <tr class="table-primary" *ngIf="selectedProgram.internationalNotes">
-                    <td colspan="3">
-                        <p class="notes float-right">{{ selectedProgram.internationalNotes }}</p>
-                    </td>
-                </tr>
-            </table>
-    
+            <div style="overflow-x: auto">
+                <table class="w-100 table">
+                    <tr class="thead-dark">
+                        <th></th>
+                        <th>Tuition</th>
+                        <th>Books</th>
+                    </tr>
+        
+                    <tr class="table-active">
+                        <td>Domestic</td>
+                        <td>${{ selectedProgram.domesticTuition }}</td>
+                        <td>${{ selectedProgram.domesticBooks }}</td>
+                    </tr>
+                    <tr class="table-active" *ngIf="selectedProgram.domesticNotes">
+                        <td colspan="3">
+                            <p class="notes float-right">{{ selectedProgram.domesticNotes }}</p>
+                        </td>
+                    </tr>
+        
+                    <tr class="table-primary">
+                        <td>International</td>
+                        <td>${{ selectedProgram.internationalTuition }}</td>
+                        <td>${{ selectedProgram.internationalBooks }}</td>
+                    </tr>
+                    <tr class="table-primary" *ngIf="selectedProgram.internationalNotes">
+                        <td colspan="3">
+                            <p class="notes float-right">{{ selectedProgram.internationalNotes }}</p>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            
             <div *ngIf="selectedProgram.notes.length > 0">
                 <hr>
                 <div [innerHTML]="selectedProgram.notes | markdown"></div>
