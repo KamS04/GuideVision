@@ -8,14 +8,13 @@ th {
 }
 
 .icon-image {
-    height: 100%;
-    box-sizing: border-box;
-    max-height: 100%;
     max-width: 180px;
-    margin-bottom: 2px
+    max-height: 110px;
+    width: auto;
+    height: auto;
 }
 
 .img-wrapper {
-    max-height: 55%;
-    max-width: 180px;
+    width: 100%;
+    height: 80%;
 }

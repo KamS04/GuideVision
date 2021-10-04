@@ -2,7 +2,7 @@
     <h2>Selected Programs {{ numberOfPrograms > 0 ? '(' + numberOfPrograms + ')' : '' }}</h2>
     <div class="w-100 m-2 border border-dark rounded p-2" *ngFor="let program of selectedPrograms">
         <div class="d-flex justify-content-between">
-            <h3 class="my-auto"><span class="badge badge-info">{{ program.title }}</span></h3>
+            <h3 class="my-auto"><span class="badge badge-info">{{ program.title + '@' + getUniMap(program) }}</span></h3>
 
             <button class="btn btn-danger rounded fas fa-times" (click)="remove(program, $event)"></button>
         </div>
@@ -21,7 +21,7 @@
                     <th></th>
                     <th class="mx-auto" *ngFor="let program of selectedPrograms">
                         <div class="bg-dark img-wrapper">
-                            <img class="icon-image" [src]="getIcon(program)" [alt]="getUniMap(program) + ' icon image' " />
+                            <img class="d-block m-auto icon-image" [src]="getIcon(program)" [alt]="getUniMap(program)">
                         </div>
                         {{ program.title }}
                     </th>                        
