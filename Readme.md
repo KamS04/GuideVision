@@ -30,7 +30,7 @@
 - [Frontend Build + Static Integration with Express](#frontend-build--static-integration-with-express)
 - [Nginx + Pm2](#nginx--pm2)
 - [Database](#database)
-- [Final Thougts](#final-thougts)
+- [Final Thoughts](#final-thoughts)
 
 
 # Models & Naming Overview
@@ -312,7 +312,7 @@ Otherwise edits to a specific item would be ignored, because the sqlite system w
 By using ```INSERT OR REPLACE``` it will replace all items if they already exist.
 The ```CREATE TABLE IF NOT EXISTS``` statements make sure that no warnings or errors are thrown.
 
-# Final Thougts
+# Final Thoughts
 And that is how the Guiding Vision site was created.
 Realistically speaking, it is a huge dumpster fire of bad ideas, horrible decisions, and amateur programming.
 This entire documentation-ish file is largely just to appease the ego of the lead developer.
